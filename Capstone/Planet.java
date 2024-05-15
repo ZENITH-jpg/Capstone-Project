@@ -1,11 +1,13 @@
 import java.util.ArrayList;
+// change addBlock() to add the right kind of block
 public class Planet {
    private ArrayList<Block> blocks;
-   private int score;
+   private int score; // no setter only adder
+   private int temp; // no setter only adder
    public Planet () {
       this.score = 0;
       this.blocks = new ArrayList<Block>();
-      this.blocks.add(new Block("Rock", 1000));
+      this.blocks.add(new RockBlock("Rock", 1000, 0));
    }
    public int findBlock(String type) {
       for (int i = 0; i < this.blocks.size(); i++) {
@@ -14,9 +16,10 @@ public class Planet {
       }
       return -1;
    }
-   public void addBlock(String type, int volume) {
+   public void addBlock(String type, int volume, int cleanliness) {
       if (findBlock(type) == -1) { // if planet didn't have block of that type, make a new block
-         this.blocks.add(new Block(type, volume));
+         // this.blocks.add(new Block(type, volume, cleanliness));
+         this.blocks.add(new RockBlock(type, volume, cleanliness));
       } else { // otherwise add volume to the block of same type
          this.blocks.get(findBlock(type)).addVolume(volume);
       }
@@ -37,5 +40,14 @@ public class Planet {
    }
    public int getScore() {
       return this.score;
+   }
+   public void addScore(int s) {
+      this.score += s;
+   }
+   public int getTemp() {
+      return this.temp;
+   }
+   public void addTemp(int t) {
+      this.temp += t;
    }
 }
