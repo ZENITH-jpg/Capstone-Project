@@ -21,6 +21,13 @@ public class Planet {
          this.blocks.get(findBlock(type)).addVolume(volume);
       }
    }
+   public int getTotalVolume() {
+      int volume = 0;
+      for (int i = 0; i < this.blocks.size(); i++) {
+         volume += this.blocks.get(i).getVolume();
+      }
+      return volume;
+   }
    public int getScore() {
       return this.score;
    }
