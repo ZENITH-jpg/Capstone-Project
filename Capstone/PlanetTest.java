@@ -16,7 +16,7 @@ public class PlanetTest {
    @Test public void defaultTest() {
       Planet p = new Planet();
       p.displayConstitution();
-      p.addBlock("Clean air", 300);
+      p.addBlock("Clean air", 300, 0);
       p.displayConstitution();
    }
 }

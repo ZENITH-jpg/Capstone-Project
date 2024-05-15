@@ -19,6 +19,7 @@ public class Planet {
    public void addBlock(String type, int volume, int cleanliness) {
       if (findBlock(type) == -1) { // if planet didn't have block of that type, make a new block
          // this.blocks.add(new Block(type, volume, cleanliness));
+         this.blocks.add(new RockBlock(type, volume, cleanliness));
       } else { // otherwise add volume to the block of same type
          this.blocks.get(findBlock(type)).addVolume(volume);
       }
