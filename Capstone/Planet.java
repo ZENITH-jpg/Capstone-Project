@@ -31,7 +31,8 @@ public class Planet {
       int volume = getTotalVolume();
       System.out.println("total volume: "+volume);
       for (Block block : this.blocks) {
-         System.out.println(block.getType()+": "+block.getVolume()+" ("+(double)(block.getVolume())/volume+")");
+         double percentOfPlanet = (double)(block.getVolume())/volume;
+         System.out.println((int)(percentOfPlanet*100)+"% "+block.getType());
       }
    }
    public int getScore() {
