@@ -3,6 +3,6 @@ public class RockBlock extends Block {
       super(t, v, c);
       this.property = "Randomly turns into lava or soil.";
    }
-   public void doProperty() {
+   public void doProperty(Planet p) {
    }
 }

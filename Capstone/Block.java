@@ -8,7 +8,7 @@ public abstract class Block {
       this.volume = v;
       this.cleanliness = c;
    }
-   public abstract void doProperty(); // gets overriden
+   public abstract void doProperty(Planet p); // gets overriden
    public String getType() {
       return this.type;
    }
