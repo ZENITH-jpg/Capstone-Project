@@ -2,8 +2,8 @@ import java.util.ArrayList;
 // change addBlock() to add the right kind of block
 public class Planet {
    private ArrayList<Block> blocks;
-   private int score;
-   private int temp;
+   private int score; // no setter only adder
+   private int temp; // no setter only adder
    public Planet () {
       this.score = 0;
       this.blocks = new ArrayList<Block>();
@@ -40,6 +40,9 @@ public class Planet {
    }
    public int getScore() {
       return this.score;
+   }
+   public void addScore(int s) {
+      this.score += s;
    }
    public int getTemp() {
       return this.temp;
