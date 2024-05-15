@@ -2,6 +2,7 @@ import java.util.ArrayList;
 public class Planet {
    private ArrayList<Block> blocks;
    private int score;
+   private int temp;
    public Planet () {
       this.score = 0;
       this.blocks = new ArrayList<Block>();
@@ -37,5 +38,11 @@ public class Planet {
    }
    public int getScore() {
       return this.score;
+   }
+   public int getTemp() {
+      return this.temp;
+   }
+   public void addTemp(int t) {
+      this.temp += t;
    }
 }
