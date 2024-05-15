@@ -23,10 +23,16 @@ public class Planet {
    }
    public int getTotalVolume() {
       int volume = 0;
-      for (int i = 0; i < this.blocks.size(); i++) {
-         volume += this.blocks.get(i).getVolume();
-      }
+      for (Block block : this.blocks)
+         volume += block.getVolume();
       return volume;
+   }
+   public void displayConstitution() {
+      int volume = getTotalVolume();
+      System.out.println("total volume: "+volume);
+      for (Block block : this.blocks) {
+         System.out.println(block.getType()+": "+block.getVolume()+" ("+(double)(block.getVolume())/volume+")");
+      }
    }
    public int getScore() {
       return this.score;
