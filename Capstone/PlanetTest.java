@@ -20,5 +20,7 @@ public class PlanetTest {
       p.displayConstitution();
       p.addBlock(new RockBlock("Rock", 600));
       p.displayConstitution();
+      p.addBlock(new AirBlock("Clean air", 300));
+      p.displayConstitution();
    }
 }
