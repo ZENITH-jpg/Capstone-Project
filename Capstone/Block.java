@@ -3,10 +3,10 @@ public abstract class Block {
    protected int volume; // there are no setters for volume and cleanliness, only getters and ADDERS
    protected int cleanliness; // <0 means dirty, >0 means clean
    protected String property;
-   public Block(String t, int v, int c) {
+   public Block(String t, int v) {
       this.type = t;
       this.volume = v;
-      this.cleanliness = c;
+      this.cleanliness = 0;
    }
    public abstract void doProperty(Planet p); // gets overriden
    public String getType() {

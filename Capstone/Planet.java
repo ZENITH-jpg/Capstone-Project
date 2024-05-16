@@ -7,7 +7,7 @@ public class Planet {
    public Planet () {
       this.score = 0;
       this.blocks = new ArrayList<Block>();
-      this.blocks.add(new RockBlock("Rock", 1000, 0));
+      this.blocks.add(new RockBlock("Rock", 1000));
    }
    public int findBlock(String type) {
       for (int i = 0; i < this.blocks.size(); i++) {

@@ -16,7 +16,9 @@ public class PlanetTest {
    @Test public void defaultTest() {
       Planet p = new Planet();
       p.displayConstitution();
-      p.addBlock("Clean air", 300, 0);
+      p.addBlock(new RockBlock("musty rock", 300));
+      p.displayConstitution();
+      p.addBlock(new RockBlock("Rock", 600));
       p.displayConstitution();
    }
 }
