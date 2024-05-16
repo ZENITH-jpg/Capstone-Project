@@ -1,14 +1,16 @@
 public abstract class Block {
-   protected String type;
-   protected int volume; // there are no setters for volume and cleanliness, only getters and ADDERS
-   protected int cleanliness; // <0 means dirty, >0 means clean
+   protected String name;
+   protected int volume; // no setter only getter and adder
+   protected String type; // rock, soil, water, air, etc
    protected String property;
-   public Block(String t, int v, int c) {
-      this.type = t;
+   public Block(String n, int v) {
+      this.name = n;
       this.volume = v;
-      this.cleanliness = c;
    }
    public abstract void doProperty(Planet p); // gets overriden
+   public String getName() {
+      return this.name;
+   }
    public String getType() {
       return this.type;
    }
@@ -17,12 +19,6 @@ public abstract class Block {
    }
    public int getVolume() {
       return this.volume;
-   }
-   public int getCleanliness() {
-      return this.cleanliness;
-   }
-   public void addCleanliness(int c) {
-      this.cleanliness += c;
    }
    public void setType(String t) {
       this.type = t;
