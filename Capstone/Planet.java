@@ -16,12 +16,11 @@ public class Planet {
       }
       return -1;
    }
-   public void addBlock(String type, int volume, int cleanliness) {
-      if (findBlock(type) == -1) { // if planet didn't have block of that type, make a new block
-         // this.blocks.add(new Block(type, volume, cleanliness));
-         this.blocks.add(new RockBlock(type, volume, cleanliness));
+   public void addBlock(Block block) {
+      if (findBlock(block.getType()) == -1) { // if planet didn't have block of that type, make a new block
+         this.blocks.add(block);
       } else { // otherwise add volume to the block of same type
-         this.blocks.get(findBlock(type)).addVolume(volume);
+         this.blocks.get(findBlock(block.getType())).addVolume(block.getVolume());
       }
    }
    public int getTotalVolume() {
