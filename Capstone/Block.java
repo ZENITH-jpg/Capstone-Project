@@ -8,7 +8,7 @@ public abstract class Block {
       this.name = n;
       this.volume = v;
    }
-   public abstract void doProperty(); // gets overriden
+   public abstract void doProperty(); // gets overriden, uses static planet variable
    public static void setPlanet(Planet p) { // sets static planet variable
       planet = p;
    }
