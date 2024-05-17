@@ -12,19 +12,21 @@ s#i0
 s#k0
 s#j0
 s#l0
-!93;g
+!110;g
 %\011Block.java
 %\011Planet.java
 %\011WaterBlock.java
 %\011AirBlock.java
 %\011RockBlock.java
-!93;f
+%\011Window.java
+!110;f
 %\011Block.java
 %\011Planet.java
 %\011WaterBlock.java
 %\011AirBlock.java
 %\011RockBlock.java
+%\011Window.java
 !21;l
 %\011PlanetTest.java
 !119;t
-jgrJUnit0xr	%\011PlanetTest.java	1715865543232:P%\011Planet.java	%\011Planet.java	1715865543232:P%\011PlanetTest.java	
+jgrJUnit0xr	%\011PlanetTest.java	1715953037036:P%\011Planet.java	%\011Planet.java	1715953037036:P%\011PlanetTest.java	
