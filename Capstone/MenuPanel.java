@@ -2,14 +2,17 @@ import javax.swing.*;
 import java.awt.*;
 
 public class MenuPanel extends JPanel {
-    public void paint(Graphics g){
-        Graphics2D rect = (Graphics2D) g;
-        menu(rect);
+    Image background;
+    Image logo;
+    MenuPanel(){
+        this.setBounds(0,0,800,600);
+        logo = new ImageIcon("assets/logo-modified.png").getImage();
+        background = new ImageIcon("assets/background.png").getImage(); // get image for background
     }
-    public void menu(Graphics2D g){
-        Rectangle rect = new Rectangle();
-        rect.setBounds(300,200,200,50);
-        g.setColor(Color.white);
-        g.fill(rect);
+    @Override
+    public void paint(Graphics g){
+        g.drawImage(background,0,0, null); // set background to image
+        g.drawImage(logo,180,40,null);
+        g.drawRect(300,200,200,50);
     }
 }

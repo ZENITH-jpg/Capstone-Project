@@ -15,8 +15,7 @@ public class Window extends JFrame {
 		window = new JFrame();
 		window.setSize(800,600);
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		window.getContentPane().setBackground(Color.BLACK);
-		window.setLayout(null);
+		window.getContentPane().setBackground(Color.white);
 
 		/*message = new JTextArea("HAHAHAHAHAHHAHAHA");
 		message.setBounds(50,410,700,150);
@@ -28,6 +27,7 @@ public class Window extends JFrame {
 		message.setFont(new Font("Book Antiqua", Font.PLAIN, 26));
 		window.add(message);
 		 */
+
 		createBackground();
 		window.setVisible(true);
 	}
@@ -44,6 +44,7 @@ public class Window extends JFrame {
 		bgPanel[1].add(bgLabel[1]); // set background to image
 
 		 */
+		window.add(new MenuPanel());
 	}
    public static void main (String[] args) {
       Window w = new Window();
