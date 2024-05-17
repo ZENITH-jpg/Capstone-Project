@@ -46,7 +46,7 @@ public class GameWindow extends JFrame {
 		JPanel planetDisplay = new JPanel();
 		contentPane.add(planetDisplay);
 		
-		JLabel lblNewLabel = new JLabel("New label");
+		JLabel lblNewLabel = new JLabel();
 		BufferedImage image;
 		try {                
 	          image = ImageIO.read(new File("planet.jpg"));
