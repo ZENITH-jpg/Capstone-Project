@@ -50,28 +50,28 @@ public class Window extends JFrame {
 		contentPane.add(panel);
 		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 		
-		JLabel lblNewLabel = new JLabel("Menu");
-		lblNewLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		panel.add(lblNewLabel);
+		JLabel menuLabel = new JLabel("Menu");
+		menuLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+		menuLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		panel.add(menuLabel);
 		
-		JButton btnNewButton = new JButton("Instructions");
-		btnNewButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-		panel.add(btnNewButton);
+		JButton instructButton = new JButton("Instructions");
+		instructButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+		panel.add(instructButton);
 		
-		JButton btnLeaderboard = new JButton("Leaderboard");
-		btnLeaderboard.setAlignmentX(Component.CENTER_ALIGNMENT);
-		panel.add(btnLeaderboard);
+		JButton leaderButton = new JButton("Leaderboard");
+		leaderButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+		panel.add(leaderButton);
 		
-		JButton btnNewButton_1_1 = new JButton("Start Game");
-		btnNewButton_1_1.addActionListener(new ActionListener() {
+		JButton startButton = new JButton("Start Game");
+		startButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				lblNewLabel.setText("HAHAHAHHHAHAHHHAAH");;
+				menuLabel.setText("Press A and D to switch planets.");
 			}
 		});
-		btnNewButton_1_1.setForeground(new Color(0, 255, 0));
-		btnNewButton_1_1.setAlignmentX(Component.CENTER_ALIGNMENT);
-		panel.add(btnNewButton_1_1);
+		startButton.setForeground(new Color(0, 255, 0));
+		startButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+		panel.add(startButton);
 	}
 
 }
