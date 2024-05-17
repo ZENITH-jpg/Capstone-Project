@@ -5,6 +5,7 @@ public class Planet {
    private int temp; // no setter only adder
    public Planet () {
       this.score = 0;
+      Block.setPlanet(this);
       this.blocks = new ArrayList<Block>();
       this.blocks.add(new RockBlock("Rock", 1000));
    }

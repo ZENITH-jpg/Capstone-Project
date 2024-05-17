@@ -4,6 +4,6 @@ public class AirBlock extends Block {
       this.type = "air";
       this.property = "Causes clouds and storms to form.";
    }
-   public void doProperty(Planet p) {
+   public void doProperty() {
    }
 }

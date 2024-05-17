@@ -4,6 +4,6 @@ public class WaterBlock extends Block {
       this.type = "water";
       this.property = "Regulates heat and turns into ice.";
    }
-   public void doProperty(Planet p) {
+   public void doProperty() {
    }
 }
