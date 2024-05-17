@@ -48,4 +48,7 @@ public class Planet {
    public void addTemp(int t) {
       this.temp += t;
    }
+   public Block getBlockAtIndex(int index) {
+      return this.blocks.get(index);
+   }
 }
