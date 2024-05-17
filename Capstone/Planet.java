@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-// change addBlock() to add the right kind of block
 public class Planet {
    private ArrayList<Block> blocks;
    private int score; // no setter only adder
