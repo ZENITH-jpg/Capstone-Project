@@ -67,6 +67,9 @@ public class Window extends JFrame {
 		startButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				menuLabel.setText("Press A and D to switch planets.");
+				instructButton.setVisible(false);
+				leaderButton.setVisible(false);
+				startButton.setText("Create planet");
 			}
 		});
 		startButton.setForeground(new Color(0, 255, 0));
