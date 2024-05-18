@@ -13,13 +13,13 @@ public class Window extends JFrame {
 	public JLabel bgLabel[] = new JLabel[10];
 	
 	Window(){
-		MenuPanel m = new MenuPanel();
-		icon = new ImageIcon("assets/icon.png").getImage();
-		window = new JFrame("PlanetSim");
+		MenuPanel m = new MenuPanel(); //new menu item
+		icon = new ImageIcon("assets/icon.png").getImage(); //app icon
+		window = new JFrame("PlanetSim"); // title
 		window.setIconImage(icon);
-		window.setSize(800,600);
+		window.setSize(800,600); //size (not resizable)
 		window.setResizable(false);
-		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //standard init
 		window.getContentPane().setBackground(Color.black);
 		window.setLayout(null);
 
@@ -33,25 +33,11 @@ public class Window extends JFrame {
 		message.setFont(new Font("Book Antiqua", Font.PLAIN, 26));
 		window.add(message);
 		 */
-		window.addKeyListener(m);
-		window.add(m);
-		window.setVisible(true);
-	}
-	public void createBackground(){
-		/*
-		bgPanel[1] = new JPanel();// add a background (jpanel)
-		bgPanel[1].setBounds(0,0,800,600);
-		bgPanel[1].setLayout(null);
-		window.add(bgPanel[1]); // add background to window
-		bgLabel[1] = new JLabel();
-		bgLabel[1].setBounds(0,0,800,600);
-		ImageIcon bgIcon = new ImageIcon(getClass().getClassLoader().getResource("assets/background.png")); // get image for background
-		bgLabel[1].setIcon(bgIcon);
-		bgPanel[1].add(bgLabel[1]); // set background to image
-		 */
-
+		window.addKeyListener(m); // set keylistener
+		window.add(m); // add menu to window
+		window.setVisible(true); // display
 	}
    public static void main (String[] args) {
-      Window w = new Window();
+      Window w = new Window(); // run window
    }
 }
