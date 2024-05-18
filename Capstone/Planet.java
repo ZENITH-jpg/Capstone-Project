@@ -9,7 +9,11 @@ public class Planet {
       this.score = 0;
       Block.setPlanet(this);
       this.blocks = new ArrayList<Block>();
-      this.blocks.add(new RockBlock("Rock", 1000));
+      addBlock(new RockBlock("Rock", 1000));
+      addBlock(new AirBlock("Clean air", 1000));
+      addBlock(new AirBlock("Musty air", 800));
+      addBlock(new WaterBlock("Clean water", 500));
+      addBlock(new WaterBlock("Musty water", 500));
    }
 
    public void sortBlocks() {
@@ -50,11 +54,17 @@ public class Planet {
    }
 
    public void addBlock(Block block) {
-      if (findBlock(block.getName()) == -1) { // if planet didn't have block with that name, make a new block
+      int blockIndex = findBlock(block.getName());
+      if (blockIndex == -1) { // if planet didn't have block with that name, make a new block
          this.blocks.add(block);
       } else { // otherwise add volume to the block of same name
-         this.blocks.get(findBlock(block.getName())).addVolume(block.getVolume());
+         this.blocks.get(blockIndex).addVolume(block.getVolume());
+         if (this.blocks.get(blockIndex).getVolume() <= 0) {
+            // if block has no more volume, remove that block
+            this.blocks.remove(blockIndex);
+         }
       }
+      this.sortBlocks();
    }
 
    public int getTotalVolume() {
@@ -89,20 +99,19 @@ public class Planet {
       this.temp += t;
    }
 
-   public Block getBlockAtIndex(int index) {
-      return this.blocks.get(index);
+   public ArrayList<Block> getBlocks() {
+      return this.blocks;
    }
 
    public static void main(String[] args) {
-      Planet p = new Planet();
-      p.addBlock(new RockBlock("Brock", 0));
-      p.addBlock(new RockBlock("Chalk", 1000));
-      p.addBlock(new RockBlock("Chalk", 1000));
-      p.addBlock(new AirBlock("Clean air", 1000));
-      p.addBlock(new AirBlock("Musty air", 300));
-      p.addBlock(new WaterBlock("Clean water", 500));
-      p.addBlock(new WaterBlock("Musty water", 500));
-      p.sortBlocks();
-      p.displayConstitution();
+   Planet p = new Planet();
+   p.addBlock(new RockBlock("Brock", 0));
+   p.addBlock(new RockBlock("Chalk", 1000));
+   p.addBlock(new RockBlock("Chalk", 1000));
+   p.addBlock(new AirBlock("Clean air", 1000));
+   p.addBlock(new AirBlock("Musty air", 300));
+   p.addBlock(new WaterBlock("Clean water", 500));
+   p.addBlock(new WaterBlock("Musty water", 500));
+   p.displayConstitution();
    }
 }

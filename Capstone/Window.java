@@ -1,8 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
 //Window for the game
-   // IntelliJ has a GUI maker
 public class Window extends JFrame {
 
    //window components
