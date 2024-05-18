@@ -5,14 +5,16 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class MenuPanel extends JPanel implements KeyListener {
-    Image background; // assets
+    Window window;
+    Image background;
     Image logo;
-    int index; //menu selection
-    final String[] options = {"start", "instructions", "leaderboard"}; // menu choices
-    Image[][] menuItems = new Image[3][2]; //image array for menu items [item choice][is item active]
-    MenuPanel(){
-        index = 0; // set menu index to start
-        this.setLayout(null); //standard init
+    int index;
+    final String[] options = {"start", "instructions", "leaderboard"};
+    Image[][] menuItems = new Image[3][2];
+    MenuPanel(Window w){
+        window = w;
+        index = 0;
+        this.setLayout(null);
         this.setBounds(0,0,800,600);
         logo = new ImageIcon("assets/logo-modified.png").getImage(); // text logo for game
         background = new ImageIcon("assets/background.png").getImage(); // get image for background
@@ -44,8 +46,10 @@ public class MenuPanel extends JPanel implements KeyListener {
         if(e.getKeyCode() == 83 || e.getKeyCode() == 40){
             index=(index+1)%3;
         }
-        else if(e.getKeyCode() == 87 || e.getKeyCode() == 38){ // if up or w key is pressed, go up
-            index=(index+2)%3; // +2 because -1+3 = +2 (congruent for modulo)
+        else if(e.getKeyCode() == 87 || e.getKeyCode() == 38){
+            index=(index+2)%3;
+        } else if (e.getKeyCode() == KeyEvent.VK_SPACE || e.getKeyCode() == KeyEvent.VK_ENTER) {
+            window.startGame();
         }
         this.repaint(); // repaint changes
     }
