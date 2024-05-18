@@ -36,14 +36,13 @@ public class Window extends JFrame {
 		message.setFont(new Font("Book Antiqua", Font.PLAIN, 26));
 		window.add(message);
 		 */
-		window.addKeyListener(m);
+
 		window.add(m);
 		window.setVisible(true);
 	}
 	public void startGame() {
 		m.setVisible(false);
 		window.add(g);
-		window.removeKeyListener(m);
 		//window.addKeyListener(g);
 	}
 	public void createBackground(){
@@ -59,6 +58,10 @@ public class Window extends JFrame {
 		bgPanel[1].add(bgLabel[1]); // set background to image
 		 */
 
+	}
+	public void close(){
+		window.setVisible(false);
+		window.dispose();
 	}
    public static void main (String[] args) {
       Window w = new Window(); // run window

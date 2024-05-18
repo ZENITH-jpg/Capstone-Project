@@ -3,6 +3,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.font.TextLayout;
 
 public class MenuPanel extends JPanel implements KeyListener {
     Window window;
@@ -11,28 +12,35 @@ public class MenuPanel extends JPanel implements KeyListener {
     int index;
     final String[] options = {"start", "instructions", "leaderboard"};
     Image[][] menuItems = new Image[3][2];
+    final String guide = "Use arrow keys or WASD to navigate\nSPACE or ENTER to select, ESC to exit game at any time.";
+
     MenuPanel(Window w){
-        window = w;
+        window = w; // default init
         index = 0;
         this.setLayout(null);
+        this.setFocusable(true);
         this.setBounds(0,0,800,600);
+        this.addKeyListener(this);
         logo = new ImageIcon("assets/logo-modified.png").getImage(); // text logo for game
         background = new ImageIcon("assets/background.png").getImage(); // get image for background
         for (int i = 0; i < 3; i++) {
             menuItems[i][0] = new ImageIcon("assets/"+options[i]+".png").getImage(); //load menu images
             menuItems[i][1] = new ImageIcon("assets/"+options[i]+"active.png").getImage();
         }
+        JTextArea message = Utils.messagePanel(guide,50,490,700,70);
+        this.add(message);
     }
     @Override
     public void paintComponent(Graphics g){
-        super.paintComponents(g);
-        g.drawImage(background,0,0, null); // set background to image
-        g.drawImage(logo,125,40,null); // draw logo
+        Graphics2D g2d = (Graphics2D)g;
+        super.paintComponents(g2d);
+        g2d.drawImage(background,0,0, null); // set background to image
+        g2d.drawImage(logo,125,40,null); // draw logo
         for (int i = 0; i < 3; i++) {
             if(index == i){
-                g.drawImage(menuItems[i][1],50, 200+80*i,null); // draw selected option
+                g2d.drawImage(menuItems[i][1],50, 200+80*i,null); // draw selected option
             }else{
-                g.drawImage(menuItems[i][0],50, 200+80*i,null); // draw unselected option
+                g2d.drawImage(menuItems[i][0],50, 200+80*i,null); // draw unselected option
             }
         }
     }
@@ -46,10 +54,13 @@ public class MenuPanel extends JPanel implements KeyListener {
         if(e.getKeyCode() == 83 || e.getKeyCode() == 40){
             index=(index+1)%3;
         }
-        else if(e.getKeyCode() == 87 || e.getKeyCode() == 38){
-            index=(index+2)%3;
+        else if(e.getKeyCode() == 87 || e.getKeyCode() == 38){ // if up or w key is pressed, go up
+            index=(index+2)%3; // +2 because -1+3 = +2 (congruent for modulo)
         } else if (e.getKeyCode() == KeyEvent.VK_SPACE || e.getKeyCode() == KeyEvent.VK_ENTER) {
             window.startGame();
+        }
+        else if(e.getKeyCode() == KeyEvent.VK_ESCAPE){
+            window.close();
         }
         this.repaint(); // repaint changes
     }
