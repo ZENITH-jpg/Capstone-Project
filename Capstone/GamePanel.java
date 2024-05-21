@@ -10,7 +10,8 @@ public class GamePanel extends JPanel implements MouseListener {
     Window window;
     JLabel label;
     Planet planet;
-    JLabel[][] blockLabels = new JLabel[0][0];
+    JLabel[] blockRectLabels = new JLabel[0];
+    JTextArea[] blockTextLabels = new JTextArea[0];
     JTextField[][] addBlockFields;
 
     GamePanel(Window w) {
@@ -30,36 +31,44 @@ public class GamePanel extends JPanel implements MouseListener {
     // precondition: there are no blocks with volumes <= 0
     public void displayBlockLabels() {
         // Remove previous ones
-        for (JLabel[] labels : blockLabels) {
-            for (JLabel label : labels) {
-                this.remove(label);
-                label.removeMouseListener(this);
-            }
+        for (JLabel label : blockRectLabels) {
+               this.remove(label);
+               label.removeMouseListener(this);
         }
-        blockLabels = new JLabel[planet.getBlocks().size()][2];
+        for (JTextArea label : blockTextLabels) {
+               this.remove(label);
+        }
+        blockRectLabels = new JLabel[planet.getBlocks().size()];
+        blockTextLabels = new JTextArea[planet.getBlocks().size()];
         int panelX = 50;
         int panelY = 50;
         int totalWidth = 200;
         int totalHeight = 300;
         int currentHeight = 0;
-        for (int i = 0; i < blockLabels.length; i++) {
+        for (int i = 0; i < blockTextLabels.length; i++) {
             Block currentBlock = planet.getBlocks().get(i);
             int percentOfPlanet = (int) (100 * (double) currentBlock.getVolume() / planet.getTotalVolume());
             JLabel blockLabel1 = new JLabel(); // coloured rectangle
-            JLabel blockLabel2 = new JLabel(); // text with block's information
+            JTextArea blockLabel2 = new JTextArea(); // text with block's information
             blockLabel1.setBounds(panelX, panelY + currentHeight, totalWidth, percentOfPlanet * totalHeight / 100);
             blockLabel1.setOpaque(true);
             blockLabel1.setBackground(Utils.colorOfBlockType(currentBlock.getType(), currentBlock.getName()));
             blockLabel1.setForeground(Utils.colorOfBlockType(currentBlock.getType(), currentBlock.getName()));
             blockLabel1.setText("i=" + i); // an invisible text
 
-            blockLabel2.setBounds(panelX + totalWidth, panelY + currentHeight, totalWidth, 20);
-            blockLabel2.setText(percentOfPlanet + "% " + currentBlock.getName());
+            blockLabel2 = Utils.blockTextPanel(percentOfPlanet + "% " + currentBlock.getName(), panelX + totalWidth, panelY + currentHeight, totalWidth, 20);
+            //blockLabel2.setBounds();
+            //blockLabel2.setText();
             currentHeight += percentOfPlanet * totalHeight / 100;
-            blockLabels[i][0] = blockLabel1;
-            blockLabels[i][1] = blockLabel2;
-            this.add(blockLabels[i][0]);
-            this.add(blockLabels[i][1]);
+            blockRectLabels[i] = blockLabel1;
+            blockTextLabels[i] = blockLabel2;
+            
+            blockTextLabels[i].setEditable(false);
+            blockTextLabels[i].setLineWrap(true);
+
+            this.add(blockRectLabels[i]);
+            this.add(blockTextLabels[i]);
+            blockRectLabels[i].addMouseListener(this);
         }
 
     }
@@ -69,6 +78,10 @@ public class GamePanel extends JPanel implements MouseListener {
         // Set a border when the mouse enters the label
         JLabel source = (JLabel) e.getSource();
         source.setBorder(new LineBorder(Color.RED, 2));
+        // rectangles have a hidden string "i=?"
+        int i = Integer.parseInt(source.getText().substring(2)); 
+        // APPENDS the block property to the visible text beside the rectangle
+        blockTextLabels[i].setText(blockTextLabels[i].getText()+"\n"+planet.getBlocks().get(i).getProperty());
     }
 
     @Override
@@ -76,6 +89,11 @@ public class GamePanel extends JPanel implements MouseListener {
         JLabel source = (JLabel) e.getSource();
         // Remove the border when the mouse exits the label
         source.setBorder(null);
+        // rectangles have a hidden string "i=?"
+        int i = Integer.parseInt(source.getText().substring(2)); 
+        // REMOVES the block property to the visible text beside the rectangle
+        int propertyLength = planet.getBlocks().get(i).getProperty().length();
+        blockTextLabels[i].setText(blockTextLabels[i].getText().substring(0, blockTextLabels[i].getText().length() - propertyLength).replace("\n",""));
     }
 
     @Override
