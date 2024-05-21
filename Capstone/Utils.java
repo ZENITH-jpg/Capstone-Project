@@ -24,7 +24,8 @@ public class Utils { // for fonts, custom colors, and other objects that are to 
         message.setBorder(null);
         //message.setHighlighter(null);
         message.setBounds(x, y, w, h);
-        message.setBackground(null);
+        message.setOpaque(false);
+        message.setBackground(new Color(0,0,0,0)); // makes transparent
         message.setForeground(Color.black);
         message.setEditable(false);
         message.setLineWrap(true);
