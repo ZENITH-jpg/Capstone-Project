@@ -22,7 +22,6 @@ public class Utils { // for fonts, custom colors, and other objects that are to 
     public static JTextArea blockTextPanel(String s, int x, int y, int w, int h) {
         JTextArea message = new JTextArea(s);
         message.setBorder(null);
-        //message.setHighlighter(null);
         message.setBounds(x, y, w, h);
         message.setOpaque(false);
         message.setBackground(new Color(0,0,0,0)); // makes transparent
