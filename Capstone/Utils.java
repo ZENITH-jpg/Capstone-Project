@@ -6,14 +6,14 @@ import java.io.IOException;
 public class Utils { // for fonts, custom colors, and other objects that are to be reused
     final static Font MESSAGE_FONT = new Font("Helvetica", Font.PLAIN, 20);
     final static Font BLOCKTEXT_FONT = new Font("Helvetica", Font.PLAIN, 12);
-
+    static Font PIXEL;
     public static void init(){
         try {
-            GraphicsEnvironment ge =
-                    GraphicsEnvironment.getLocalGraphicsEnvironment();
-            ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("pixel.ttf")));
+            PIXEL = Font.createFont(Font.TRUETYPE_FONT, new File("assets/pixel.ttf")).deriveFont(20f);
+            GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+            ge.registerFont(PIXEL);
         } catch (IOException | FontFormatException e) {
-            //Handle exception
+            System.out.println("fuck");
         }
     }
     public static JTextArea messagePanel(String s, int x, int y, int w, int h) {
