@@ -1,3 +1,4 @@
+
 public abstract class Block {
    protected static Planet planet; // Whenever a planet is made, sets to that planet
    protected String name;
