@@ -1,9 +1,20 @@
 import javax.swing.*;
 import java.awt.*;
+import java.io.File;
+import java.io.IOException;
 
 public class Utils { // for fonts, custom colors, and other objects that are to be reused
     final static Font MESSAGE_FONT = new Font("Helvetica", Font.PLAIN, 20);
 
+    public static void init(){
+        try {
+            GraphicsEnvironment ge =
+                    GraphicsEnvironment.getLocalGraphicsEnvironment();
+            ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("pixel.ttf")));
+        } catch (IOException | FontFormatException e) {
+            //Handle exception
+        }
+    }
     public static JTextArea messagePanel(String s, int x, int y, int w, int h) {
         JTextArea message = new JTextArea(s);
         message.setBorder(BorderFactory.createLineBorder(Color.white, 2));

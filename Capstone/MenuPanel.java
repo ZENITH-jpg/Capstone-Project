@@ -3,16 +3,15 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.awt.font.TextLayout;
 
 public class MenuPanel extends JPanel implements KeyListener {
     Window window;
-    Image background;
+    Image background;  // assets
     Image logo;
     int index;
-    final String[] options = {"start", "instructions", "leaderboard"};
-    Image[][] menuItems = new Image[3][2];
-    final String guide = "Use arrow keys or WASD to navigate\nSPACE or ENTER to select, ESC to exit game at any time.";
+    final String[] options = {"start", "instructions", "leaderboard"}; //menu selection
+    Image[][] menuItems = new Image[3][2]; // menu choices
+    final String guide = "Use arrow keys or WASD to navigate\nSPACE or ENTER to select, ESC to exit game at any time.";  //image array for menu items [item choice][is item active]
 
     MenuPanel(Window w){
         window = w; // default init
