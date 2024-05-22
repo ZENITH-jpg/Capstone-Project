@@ -9,7 +9,7 @@ public class Utils { // for fonts, custom colors, and other objects that are to 
     static Font PIXEL;
     public static void init(){
         try {
-            PIXEL = Font.createFont(Font.TRUETYPE_FONT, new File("assets/pixel.ttf")).deriveFont(20f);
+            PIXEL = Font.createFont(Font.TRUETYPE_FONT, new File("assets/pixel.ttf")).deriveFont(40f);
             GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
             ge.registerFont(PIXEL);
         } catch (IOException | FontFormatException e) {
@@ -60,6 +60,16 @@ public class Utils { // for fonts, custom colors, and other objects that are to 
                 return Color.GRAY;
             default:
                 return Color.BLACK;
+        }
+    }
+
+    public static void drawGrid(Graphics g2d){
+        g2d.setColor(Color.black);
+        for (int i = 0; i<=800; i+=50){
+            g2d.drawLine(i,0,i,600);
+        }
+        for (int i = 0; i<=600; i+=50){
+            g2d.drawLine(0,i,800,i);
         }
     }
 }

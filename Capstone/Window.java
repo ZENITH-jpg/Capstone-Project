@@ -8,6 +8,7 @@ public class Window extends JFrame {
 	private Image icon;
 	private MenuPanel m; // panels that can be switched to
 	private GamePanel g;
+	private LeaderboardPanel l;
 	public JTextArea message;
 	public JPanel bgPanel[] = new JPanel[10];
 	public JLabel bgLabel[] = new JLabel[10];
@@ -15,6 +16,7 @@ public class Window extends JFrame {
 	Window(){
 		m = new MenuPanel(this); //create window panels
 		g = new GamePanel(this);
+		l = new LeaderboardPanel(this);
 		icon = new ImageIcon("assets/icon.png").getImage(); // set window data
 		window = new JFrame("PlanetSim");
 		window.setIconImage(icon);
@@ -34,13 +36,22 @@ public class Window extends JFrame {
 		message.setFont(new Font("Book Antiqua", Font.PLAIN, 26));
 		window.add(message);
 		 */
-
+		window.add(l);
+		window.add(g);
 		window.add(m);
+		l.setVisible(false);
+		g.setVisible(false);
 		window.setVisible(true);
 	}
 	public void startGame() {
 		m.setVisible(false);
-		window.add(g);
+		g.setVisible(true);
+		//window.addKeyListener(g);
+	}
+	public void showLeaderboard() {
+		m.setVisible(false);
+		l.setVisible(true);
+		window.repaint();
 		//window.addKeyListener(g);
 	}
 	public void createBackground(){

@@ -10,8 +10,8 @@ public class MenuPanel extends JPanel implements KeyListener {
     Image logo;
     int index;
     final String[] options = {"start", "instructions", "leaderboard"}; //menu selection
-    Image[][] menuItems = new Image[3][2]; // menu choices
-    final String guide = "Use arrow keys or WASD to navigate\nSPACE or ENTER to select, ESC to exit game at any time.";  //image array for menu items [item choice][is item active]
+    Image[][] menuItems = new Image[3][2]; //image array for menu items [item choice][is item active]
+    final String guide = "Use arrow keys or WASD to navigate\nSPACE or ENTER to select, ESC to exit game at any time.";
 
     MenuPanel(Window w){
         window = w; // default init
@@ -56,7 +56,15 @@ public class MenuPanel extends JPanel implements KeyListener {
         else if(e.getKeyCode() == 87 || e.getKeyCode() == 38){ // if up or w key is pressed, go up
             index=(index+2)%3; // +2 because -1+3 = +2 (congruent for modulo)
         } else if (e.getKeyCode() == KeyEvent.VK_SPACE || e.getKeyCode() == KeyEvent.VK_ENTER) {
-            window.startGame();
+            switch (index){
+                case 0:
+                    window.startGame();
+                    break;
+                case 1:
+                    break;
+                default:
+                    window.showLeaderboard();
+            }
         }
         else if(e.getKeyCode() == KeyEvent.VK_ESCAPE){
             window.close();
