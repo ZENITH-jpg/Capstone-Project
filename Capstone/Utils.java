@@ -23,7 +23,7 @@ public class Utils { // for fonts, custom colors, and other objects that are to 
         JTextArea message = new JTextArea(s);
         message.setBorder(null);
         message.setBounds(x, y, w, h);
-        message.setOpaque(false);
+        message.setOpaque(false); // makes transparent
         message.setBackground(new Color(0,0,0,0)); // makes transparent
         message.setForeground(Color.black);
         message.setEditable(false);
