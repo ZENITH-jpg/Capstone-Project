@@ -6,16 +6,18 @@ public class Window extends JFrame {
    //window components
 	private JFrame window;
 	private Image icon;
-	private MenuPanel m;
+	private MenuPanel m; // panels that can be switched to
 	private GamePanel g;
+	private LeaderboardPanel l;
 	public JTextArea message;
 	public JPanel bgPanel[] = new JPanel[10];
 	public JLabel bgLabel[] = new JLabel[10];
 	
 	Window(){
-		m = new MenuPanel(this);
+		m = new MenuPanel(this); //create window panels
 		g = new GamePanel(this);
-		icon = new ImageIcon("assets/icon.png").getImage();
+		l = new LeaderboardPanel(this);
+		icon = new ImageIcon("assets/icon.png").getImage(); // set window data
 		window = new JFrame("PlanetSim");
 		window.setIconImage(icon);
 		window.setSize(800,600); //size (not resizable)
@@ -34,13 +36,22 @@ public class Window extends JFrame {
 		message.setFont(new Font("Book Antiqua", Font.PLAIN, 26));
 		window.add(message);
 		 */
-
+		window.add(l);
+		window.add(g);
 		window.add(m);
+		l.setVisible(false);
+		g.setVisible(false);
 		window.setVisible(true);
 	}
 	public void startGame() {
 		m.setVisible(false);
-		window.add(g);
+		g.setVisible(true);
+		//window.addKeyListener(g);
+	}
+	public void showLeaderboard() {
+		m.setVisible(false);
+		l.setVisible(true);
+		window.repaint();
 		//window.addKeyListener(g);
 	}
 	public void createBackground(){
@@ -58,10 +69,11 @@ public class Window extends JFrame {
 
 	}
 	public void close(){
-		window.setVisible(false);
+		window.setVisible(false); //set visibility to false, then clean up panel
 		window.dispose();
 	}
    public static void main (String[] args) {
+      Utils.init();
       Window w = new Window(); // run window
    }
 }
