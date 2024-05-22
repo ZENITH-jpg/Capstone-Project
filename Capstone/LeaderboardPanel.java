@@ -33,15 +33,16 @@ public class LeaderboardPanel extends JPanel implements KeyListener {
         window = w;
         logo = new ImageIcon("assets/leaderboard.png").getImage();
         background = new ImageIcon("assets/lBackground.png").getImage();
-        this.isFocusable();
+        this.setFocusable(true);
         this.setBackground(Color.black);
         this.addKeyListener(this);
         this.setBounds(0,0,800,600);
         this.setLayout(null);
         players = new ArrayList<>();
         fillPlayers();
-        //JTextArea message = Utils.messagePanel("guide",50,490,700,70);
-        //this.add(message);
+        sort(players);
+        JTextArea message = Utils.messagePanel("Press 'B' to return to menu",50,490,700,70);
+        this.add(message);
     }
     private void fillPlayers(){
         try {
@@ -55,6 +56,48 @@ public class LeaderboardPanel extends JPanel implements KeyListener {
             }
         } catch (FileNotFoundException e){
             System.out.print(e);
+        }
+    }
+    private void sort(ArrayList<Player> arr){
+        int x = arr.size()/2;
+        if(x == 0){
+            return;
+        }
+        ArrayList<Player> left = new ArrayList<>();
+        ArrayList<Player> right = new ArrayList<>();
+        for (int i = 0; i < x; i++) {
+            left.add(arr.get(i));
+        }
+        for (int i = x; i < arr.size(); i++) {
+            right.add(arr.get(i));
+        }
+        sort(left);
+        sort(right);
+        merge(right,left,arr);
+    }
+    private void merge(ArrayList<Player> r, ArrayList<Player> l, ArrayList<Player> a){
+        int i = 0;
+        int j = 0;
+        int k = 0;
+        while(i<r.size() && j<l.size()){
+            if(r.get(i).getScore() < l.get(j).getScore()){
+                a.set(k,l.get(j));
+                j++;
+            }else{
+                a.set(k,r.get(i));
+                i++;
+            }
+            k++;
+        }
+        while(i<r.size()){
+            a.set(k,r.get(i));
+            i++;
+            k++;
+        }
+        while(j<l.size()){
+            a.set(k,l.get(j));
+            j++;
+            k++;
         }
     }
     @Override
@@ -86,7 +129,7 @@ public class LeaderboardPanel extends JPanel implements KeyListener {
                 g2d.drawString("NA",515,237+50*i);
             }
         }
-        Utils.drawGrid(g2d);
+        //Utils.drawGrid(g2d);
     }
     @Override
     public void keyTyped(KeyEvent e) {
@@ -95,7 +138,9 @@ public class LeaderboardPanel extends JPanel implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-
+        if(e.getKeyCode() == KeyEvent.VK_B){
+            window.returnMenu();
+        }
     }
 
     @Override

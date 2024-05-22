@@ -46,13 +46,24 @@ public class Window extends JFrame {
 	public void startGame() {
 		m.setVisible(false);
 		g.setVisible(true);
+		g.requestFocus();
+		window.repaint();
 		//window.addKeyListener(g);
 	}
 	public void showLeaderboard() {
 		m.setVisible(false);
 		l.setVisible(true);
+		l.requestFocus();
 		window.repaint();
 		//window.addKeyListener(g);
+	}
+	public void returnMenu(){
+		l.setVisible(false);
+		g.setVisible(false);
+		//i.setVisible(false);
+		m.setVisible(true);
+		m.requestFocus();
+		window.repaint();
 	}
 	public void createBackground(){
 		/*

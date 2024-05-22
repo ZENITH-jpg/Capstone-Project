@@ -1,2 +1,6 @@
-wordle 5
-hahaha 4
+a 10
+b 30
+c 5
+d 90
+e 80
+f 40
