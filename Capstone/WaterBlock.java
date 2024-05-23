@@ -11,12 +11,10 @@ public class WaterBlock extends Block {
          planet.addBlock(new WaterBlock(this.getName(),random.nextInt(300)));
       } else {
          int num = random.nextInt(200);
-         planet.addBlock(new WaterBlock(this.getName(), num));
-         // planet.addBlock(new IceBlock("Ice", random.nextInt(200)));
-         // planet.addBlock(new WaterBlock(this.getName(), -num));
+         planet.addBlock(new IceBlock("Ice", random.nextInt(200)));
+         planet.addBlock(new WaterBlock(this.getName(), -num));
       }
    }
    public void doFailedQTE() {
-         planet.addBlock(new LavaBlock("Lava", random.nextInt(200)));
    }
 }

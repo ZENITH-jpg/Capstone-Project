@@ -25,6 +25,7 @@ public class GamePanel extends JPanel implements MouseListener {
     JTextField[][] addBlockFields;
     ArrayList<JLabel> qteLabels = new ArrayList<JLabel>();
     JTextArea scoreLabel;
+    JTextArea tempLabel;
 
     // Score handling
     ArrayList<Timer> timers = new ArrayList<Timer>();
@@ -48,7 +49,9 @@ public class GamePanel extends JPanel implements MouseListener {
             this.add(label);
         }
         scoreLabel = Utils.gameHeadingPanel("SCORE:", 320, 20, 150, 20);
+        tempLabel = Utils.gameHeadingPanel("Temperature:", 320, 45, 150, 20);
         this.add(scoreLabel);
+        this.add(tempLabel);
         this.setLayout(null);
         this.setBounds(0, 0, 800, 600);
         if (windowBuildingMode)
@@ -57,20 +60,10 @@ public class GamePanel extends JPanel implements MouseListener {
         displayBlockLabels();
     }
 
-    // @Override
-    // public void paintComponent(Graphics g){
-    // Graphics2D g2d = (Graphics2D)g;
-    // super.paintComponents(g2d);
-    // g2d.setColor(Color.BLACK);
-    // g2d.fillRect(0,0, 800, 600);
-    // g2d.drawImage(planetIcon,0,0, null); // draw planet
-    // }
-
-    // creates coloured rectangles with sizes depending on the proportion of block
-    // volumes
+    // creates coloured rectangles with sizes depending on the block volumes
     // precondition: there are no blocks with volumes <= 0
     public void displayBlockLabels() {
-        // Remove previous ones
+        // Remove previous block labels
         for (JLabel label : blockRectLabels) {
             label.setVisible(false);
             this.remove(label);
@@ -111,6 +104,11 @@ public class GamePanel extends JPanel implements MouseListener {
             this.add(blockTextLabels[i]);
             blockRectLabels[i].addMouseListener(this);
         }
+    }
+    
+    public void updateLabels() {
+      scoreLabel.setText(formatScore(planet.getScore()));
+      tempLabel.setText("Temperature: "+planet.getTemp() +" C");
     }
 
     @Override
@@ -178,7 +176,6 @@ public class GamePanel extends JPanel implements MouseListener {
                GamePanel.this.repaint();
             }
         }
-
     }
 
     private void initTimers() {
@@ -187,17 +184,15 @@ public class GamePanel extends JPanel implements MouseListener {
             public void actionPerformed(ActionEvent e) {
                 if (timerOn) {
                     planet.addScore(scorePerTwoSeconds);
-                    scoreLabel.setText(formatScore(planet.getScore()));
+                    updateLabels();
                 }
             }
         }));
-        timers.add(new Timer(3000, new ActionListener() {
+        timers.add(new Timer(4000, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (timerOn && random.nextInt(3) < 2) {
-                     // 66% chance to make a QTE of random block every 3 sec
-                     //int index = random.nextInt(planet.getBlocks().size());
-                     //Block block = planet.getBlocks().get(index);
+               // Make a QTE of a random block every 4 sec
+                if (timerOn) {
                      // Randomness is skewed by block volume
                      Block block = planet.randomWeightedBlock();
                      Image qteImg = new ImageIcon("assets/"+block.getType()+".png").getImage().getScaledInstance(qteSize, qteSize, Image.SCALE_DEFAULT);

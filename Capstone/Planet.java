@@ -11,6 +11,7 @@ public class Planet {
    public Planet(GamePanel g) {
       game = g;
       this.score = 0;
+      this.temp = 100;
       Block.setPlanet(this);
       this.blocks = new ArrayList<Block>();
       this.blocks.add(new WaterBlock("Clean water", 200));
@@ -111,6 +112,7 @@ public class Planet {
 
    public void addTemp(int t) {
       this.temp += t;
+      game.updateLabels();
    }
 
    public ArrayList<Block> getBlocks() {

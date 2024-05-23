@@ -2,7 +2,7 @@ public class RockBlock extends Block {
    public RockBlock(String n, int v) {
       super(n, v);
       this.type = "rock";
-      this.property = "Randomly turns into lava or soil.";
+      this.property = "Clicking Rock QTEs produces more rock or soil. Missing QTEs produces lava.";
    }
    public void doProperty() {
    }
@@ -11,14 +11,13 @@ public class RockBlock extends Block {
          planet.addBlock(new RockBlock(this.getName(), random.nextInt(200)));
       } else {
          int num = random.nextInt(200);
-         // planet.addBlock(new SoilBlock("Soil", num));
-         planet.addBlock(new RockBlock("Soil", num));
+         planet.addBlock(new SoilBlock("Soil", num));
          planet.addBlock(new RockBlock(this.getName(), -num));
       }
    }
    public void doFailedQTE() {
-         int num = random.nextInt(200);
-         planet.addBlock(new LavaBlock("Lava", random.nextInt(200)));
+         int num = random.nextInt(100);
+         planet.addBlock(new LavaBlock("Lava", num));
          planet.addBlock(new RockBlock(this.getName(), -num));
    }
 }
