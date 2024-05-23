@@ -6,4 +6,6 @@ public class WaterBlock extends Block {
    }
    public void doProperty() {
    }
+   public void doQTE() {
+   }
 }

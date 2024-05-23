@@ -6,4 +6,6 @@ public class AirBlock extends Block {
    }
    public void doProperty() {
    }
+   public void doQTE() {
+   }
 }
