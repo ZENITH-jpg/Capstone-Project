@@ -15,15 +15,14 @@ public class GamePanel extends JPanel implements MouseListener {
     static Random random = new Random();
     Window window;
     Planet planet;
+    QTEPanel qtePanel;
 
     // GUI handling
     JLabel planetLabel;
     int planetLabelSize = 300;
-    int qteSize = 50;
     JLabel[] blockRectLabels = new JLabel[0];
     JTextArea[] blockTextLabels = new JTextArea[0];
     JTextField[][] addBlockFields;
-    ArrayList<JLabel> qteLabels = new ArrayList<JLabel>();
     JTextArea scoreLabel;
     JTextArea tempLabel;
 
@@ -35,6 +34,11 @@ public class GamePanel extends JPanel implements MouseListener {
     GamePanel(Window w) {
         window = w;
         planet = new Planet(this);
+        qtePanel = new QTEPanel(this, planet);
+        qtePanel.setBounds(0, 0, planetLabelSize+100, planetLabelSize+100);
+        qtePanel.setOpaque(false); // makes transparent
+        qtePanel.setBackground(new Color(0,0,0,0)); // makes transparent
+        this.add(qtePanel);
         Image planetImg = new ImageIcon("assets/rocky_planet.png").getImage().getScaledInstance(planetLabelSize,
                 planetLabelSize, Image.SCALE_DEFAULT);
         ImageIcon planetIcon = new ImageIcon(planetImg);
@@ -162,20 +166,6 @@ public class GamePanel extends JPanel implements MouseListener {
            int y = e.getY();
            System.out.println(x + ", " + y);
         }
-        if (e.getSource() instanceof JLabel) {
-            JLabel source = (JLabel) e.getSource();
-            // qtes have a name "block_name=?"
-            if (source.getName().startsWith("block_name=")) {
-               source.removeMouseListener(this);
-               qteLabels.remove(source);
-               this.remove(source);
-               source.setVisible(false);
-               String blockName = source.getName().substring(11);
-               planet.getBlocks().get(planet.findBlock(blockName)).doQTE();
-               GamePanel.this.revalidate();
-               GamePanel.this.repaint();
-            }
-        }
     }
 
     private void initTimers() {
@@ -186,39 +176,6 @@ public class GamePanel extends JPanel implements MouseListener {
                     planet.addScore(scorePerTwoSeconds);
                     updateLabels();
                 }
-            }
-        }));
-        timers.add(new Timer(4000, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-               // Make a QTE of a random block every 4 sec
-                if (timerOn) {
-                     // Randomness is skewed by block volume
-                     Block block = planet.randomWeightedBlock();
-                     Image qteImg = new ImageIcon("assets/"+block.getType()+".png").getImage().getScaledInstance(qteSize, qteSize, Image.SCALE_DEFAULT);
-                     ImageIcon qteIcon = new ImageIcon(qteImg);
-                     JLabel qteLabel = new JLabel(qteIcon);
-                     qteLabel.setBounds(50+random.nextInt(280),50+random.nextInt(280),qteSize,qteSize);
-                     qteLabel.setName("block_name="+block.getName());
-                     qteLabels.add(qteLabel);
-                     GamePanel.this.add(qteLabel);
-                     qteLabel.addMouseListener(GamePanel.this);
-                     GamePanel.this.setComponentZOrder(qteLabel, 0); // move qte above planet label
-                     GamePanel.this.revalidate();
-                     GamePanel.this.repaint();
-                }
-               if (qteLabels.size() > 2) {
-                  // removes a QTE when at least 1 other QTE shows up
-                  JLabel qteLabel = qteLabels.get(0);
-                  qteLabel.removeMouseListener(GamePanel.this);
-                  GamePanel.this.remove(qteLabel);
-                  qteLabels.remove(0); 
-                  GamePanel.this.revalidate();
-                  GamePanel.this.repaint();
-                  // triggers fail QTE of corresponding block
-                  String blockName = qteLabel.getName().substring(11);
-                  planet.getBlocks().get(planet.findBlock(blockName)).doFailedQTE();
-               }
             }
         }));
         for (Timer t : timers) {
