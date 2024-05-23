@@ -48,8 +48,8 @@ public class GamePanel extends JPanel implements MouseListener {
         for (JTextArea label : permanentLabels) {
             this.add(label);
         }
-        scoreLabel = Utils.gameHeadingPanel("SCORE:", 320, 20, 150, 20);
-        tempLabel = Utils.gameHeadingPanel("Temperature:", 320, 45, 150, 20);
+        scoreLabel = Utils.gameHeadingPanel("", 320, 20, 150, 20);
+        tempLabel = Utils.gameHeadingPanel("", 320, 45, 150, 20);
         this.add(scoreLabel);
         this.add(tempLabel);
         this.setLayout(null);
@@ -108,7 +108,7 @@ public class GamePanel extends JPanel implements MouseListener {
     
     public void updateLabels() {
       scoreLabel.setText(formatScore(planet.getScore()));
-      tempLabel.setText("Temperature: "+planet.getTemp() +" C");
+      tempLabel.setText(planet.getTemp() +" Celsius");
     }
 
     @Override
