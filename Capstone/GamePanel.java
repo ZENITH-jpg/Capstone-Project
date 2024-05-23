@@ -18,6 +18,7 @@ public class GamePanel extends JPanel implements MouseListener {
     QTEPanel qtePanel;
 
     // GUI handling
+//     JLabel backgroundLabel;
     JLabel planetLabel;
     int planetLabelSize = 300;
     JLabel[] blockRectLabels = new JLabel[0];
@@ -34,11 +35,15 @@ public class GamePanel extends JPanel implements MouseListener {
     GamePanel(Window w) {
         window = w;
         planet = new Planet(this);
+        this.setLayout(null);
+        this.setBounds(0, 0, 800, 600);
+        // Add QTEPanel to this panel
         qtePanel = new QTEPanel(this, planet);
         qtePanel.setBounds(0, 0, planetLabelSize+100, planetLabelSize+100);
         qtePanel.setOpaque(false); // makes transparent
         qtePanel.setBackground(new Color(0,0,0,0)); // makes transparent
         this.add(qtePanel);
+         // Add JLabels
         Image planetImg = new ImageIcon("assets/rocky_planet.png").getImage().getScaledInstance(planetLabelSize,
                 planetLabelSize, Image.SCALE_DEFAULT);
         ImageIcon planetIcon = new ImageIcon(planetImg);
@@ -56,8 +61,6 @@ public class GamePanel extends JPanel implements MouseListener {
         tempLabel = Utils.gameHeadingPanel("", 320, 45, 150, 20);
         this.add(scoreLabel);
         this.add(tempLabel);
-        this.setLayout(null);
-        this.setBounds(0, 0, 800, 600);
         if (windowBuildingMode)
             this.addMouseListener(this);
         initTimers();
@@ -114,22 +117,26 @@ public class GamePanel extends JPanel implements MouseListener {
       scoreLabel.setText(formatScore(planet.getScore()));
       tempLabel.setText(planet.getTemp() +" Celsius");
     }
+      @Override
+        protected void paintComponent(Graphics g) {
+             super.paintComponent(g);
+             Image bgImage = new ImageIcon("assets/space_bg.jpg").getImage();//.getScaledInstance(800, 600, Image.SCALE_DEFAULT);
+              g.drawImage(bgImage, 0, 0, null);
+      }
 
     @Override
     public void mouseEntered(MouseEvent e) {
         if (e.getSource() instanceof JLabel) {
             JLabel source = (JLabel) e.getSource();
             // rectangles have a name "i=?"
-            if (source.getName().startsWith("i=")) {
-                int i = Integer.parseInt(source.getName().substring(2));
-                // Set a border when the mouse enters the label
-                source.setBorder(new LineBorder(Color.RED, 2));
-                // APPENDS the block property to the visible text beside the rectangle
-                blockTextLabels[i]
-                        .setText(blockTextLabels[i].getText() + "\n" + planet.getBlocks().get(i).getProperty());
-                blockTextLabels[i].setOpaque(true);
-                blockTextLabels[i].setBackground(Color.WHITE);
-            }
+             int i = Integer.parseInt(source.getName().substring(2));
+             // Set a border when the mouse enters the label
+             source.setBorder(new LineBorder(Color.RED, 2));
+             // APPENDS the block property to the visible text beside the rectangle
+             blockTextLabels[i]
+                     .setText(blockTextLabels[i].getText() + "\n" + planet.getBlocks().get(i).getProperty());
+             blockTextLabels[i].setOpaque(true);
+             blockTextLabels[i].setBackground(Color.WHITE);
         }
     }
 
@@ -138,16 +145,14 @@ public class GamePanel extends JPanel implements MouseListener {
         if (e.getSource() instanceof JLabel) {
             JLabel source = (JLabel) e.getSource();
             // rectangles have a name "i=?"
-            if (source.getName().startsWith("i=")) {
-                int i = Integer.parseInt(source.getName().substring(2));
-                // Remove the border when the mouse exits the label
-                source.setBorder(null);
-                // REMOVES the block property to the visible text beside the rectangle
-                int propertyLength = planet.getBlocks().get(i).getProperty().length();
-                blockTextLabels[i].setText(blockTextLabels[i].getText()
-                        .substring(0, blockTextLabels[i].getText().length() - propertyLength).replace("\n", ""));
-                blockTextLabels[i].setOpaque(false);
-            }
+             int i = Integer.parseInt(source.getName().substring(2));
+             // Remove the border when the mouse exits the label
+             source.setBorder(null);
+             // REMOVES the block property to the visible text beside the rectangle
+             int propertyLength = planet.getBlocks().get(i).getProperty().length();
+             blockTextLabels[i].setText(blockTextLabels[i].getText()
+                     .substring(0, blockTextLabels[i].getText().length() - propertyLength).replace("\n", ""));
+             blockTextLabels[i].setOpaque(false);
         }
     }
 
