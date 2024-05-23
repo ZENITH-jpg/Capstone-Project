@@ -10,7 +10,7 @@ public abstract class Block {
       this.volume = v;
    }
    public abstract void doProperty();
-   public abstract void makeQTE();
+   public abstract void doQTE();
    public static void setPlanet(Planet p) { // sets static planet variable
       planet = p;
    }

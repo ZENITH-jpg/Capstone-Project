@@ -1,4 +1,7 @@
+import java.util.Random;
+
 public class RockBlock extends Block {
+   static Random random  = new Random();
    public RockBlock(String n, int v) {
       super(n, v);
       this.type = "rock";
@@ -6,7 +9,11 @@ public class RockBlock extends Block {
    }
    public void doProperty() {
    }
-   public void makeQTE() {
-      if (planet.
+   public void doQTE() {
+      if (this.volume < 1000 + random.nextInt(501)) {
+         this.addVolume(random.nextInt(200));
+      } else {
+         planet.addBlock(new LavaBlock("Lava", random.nextInt(200)));
+      }
    }
 }

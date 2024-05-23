@@ -1,16 +1,18 @@
 import java.util.ArrayList;
 
 public class Planet {
+   static GamePanel game;
    private ArrayList<Block> blocks;
    private int score; // no setter only adder
    private int temp; // no setter only adder
 
-   public Planet() {
+   public Planet(GamePanel g) {
+      game = g;
       this.score = 0;
       Block.setPlanet(this);
       this.blocks = new ArrayList<Block>();
-      addBlock(new RockBlock("Rock", 1000));
-      addBlock(new WaterBlock("Clean water", 200));
+      this.blocks.add(new RockBlock("Rock", 1000));
+      this.blocks.add(new WaterBlock("Clean water", 200));
    }
 
    public void sortBlocks() {
@@ -62,6 +64,7 @@ public class Planet {
          }
       }
       this.sortBlocks();
+      game.displayBlockLabels();
    }
 
    public int getTotalVolume() {
@@ -98,17 +101,5 @@ public class Planet {
 
    public ArrayList<Block> getBlocks() {
       return this.blocks;
-   }
-
-   public static void main(String[] args) {
-   Planet p = new Planet();
-   p.addBlock(new RockBlock("Brock", 0));
-   p.addBlock(new RockBlock("Chalk", 1000));
-   p.addBlock(new RockBlock("Chalk", 1000));
-   p.addBlock(new AirBlock("Clean air", 1000));
-   p.addBlock(new AirBlock("Musty air", 300));
-   p.addBlock(new WaterBlock("Clean water", 500));
-   p.addBlock(new WaterBlock("Musty water", 500));
-   p.displayConstitution();
    }
 }

@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Random;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
@@ -11,17 +12,20 @@ import java.awt.event.ActionListener;
 
 public class GamePanel extends JPanel implements MouseListener {
     static boolean windowBuildingMode = true;
+    static Random random = new Random();
     Window window;
     Planet planet;
-    
+
     // GUI handling
     JLabel planetLabel;
     int planetLabelSize = 300;
+    int qteSize = 50;
     JLabel[] blockRectLabels = new JLabel[0];
     JTextArea[] blockTextLabels = new JTextArea[0];
     JTextField[][] addBlockFields;
+    ArrayList<JLabel> qteLabels = new ArrayList<JLabel>();
     JTextArea scoreLabel;
-    
+
     // Score handling
     ArrayList<Timer> timers = new ArrayList<Timer>();
     boolean timerOn = true;
@@ -29,8 +33,9 @@ public class GamePanel extends JPanel implements MouseListener {
 
     GamePanel(Window w) {
         window = w;
-        planet = new Planet();
-        Image planetImg = new ImageIcon("assets/rocky_planet.png").getImage().getScaledInstance(planetLabelSize, planetLabelSize, Image.SCALE_DEFAULT);
+        planet = new Planet(this);
+        Image planetImg = new ImageIcon("assets/rocky_planet.png").getImage().getScaledInstance(planetLabelSize,
+                planetLabelSize, Image.SCALE_DEFAULT);
         ImageIcon planetIcon = new ImageIcon(planetImg);
         planetLabel = new JLabel(planetIcon);
         planetLabel.setBounds(40, 40, planetLabelSize, planetLabelSize);
@@ -46,31 +51,32 @@ public class GamePanel extends JPanel implements MouseListener {
         this.add(scoreLabel);
         this.setLayout(null);
         this.setBounds(0, 0, 800, 600);
-        if (windowBuildingMode) this.addMouseListener(this);
+        if (windowBuildingMode)
+            this.addMouseListener(this);
         initTimers();
         displayBlockLabels();
     }
-    
-    // @Override
-//     public void paintComponent(Graphics g){
-//         Graphics2D g2d = (Graphics2D)g;
-//         super.paintComponents(g2d);
-//         g2d.setColor(Color.BLACK);
-//         g2d.fillRect(0,0, 800, 600);
-//         g2d.drawImage(planetIcon,0,0, null); // draw planet
-//     }
 
-   
-    // creates coloured rectangles with sizes depending on the proportion of block volumes
+    // @Override
+    // public void paintComponent(Graphics g){
+    // Graphics2D g2d = (Graphics2D)g;
+    // super.paintComponents(g2d);
+    // g2d.setColor(Color.BLACK);
+    // g2d.fillRect(0,0, 800, 600);
+    // g2d.drawImage(planetIcon,0,0, null); // draw planet
+    // }
+
+    // creates coloured rectangles with sizes depending on the proportion of block
+    // volumes
     // precondition: there are no blocks with volumes <= 0
     public void displayBlockLabels() {
         // Remove previous ones
         for (JLabel label : blockRectLabels) {
-               this.remove(label);
-               label.removeMouseListener(this);
+            this.remove(label);
+            label.removeMouseListener(this);
         }
         for (JTextArea label : blockTextLabels) {
-               this.remove(label);
+            this.remove(label);
         }
         blockRectLabels = new JLabel[planet.getBlocks().size()];
         blockTextLabels = new JTextArea[planet.getBlocks().size()];
@@ -88,13 +94,14 @@ public class GamePanel extends JPanel implements MouseListener {
             blockLabel1.setOpaque(true);
             blockLabel1.setBackground(Utils.colorOfBlockType(currentBlock.getType(), currentBlock.getName()));
             blockLabel1.setForeground(Utils.colorOfBlockType(currentBlock.getType(), currentBlock.getName()));
-            blockLabel1.setText("i=" + i);
+            blockLabel1.setName("i=" + i);
 
-            blockLabel2 = Utils.blockTextPanel(percentOfPlanet + "% " + currentBlock.getName(), panelX + totalWidth + 5, panelY + currentHeight, 120, 70);
+            blockLabel2 = Utils.blockTextPanel(percentOfPlanet + "% " + currentBlock.getName(), panelX + totalWidth + 5,
+                    panelY + currentHeight, 120, 70);
             currentHeight += percentOfPlanet * totalHeight / 100;
             blockRectLabels[i] = blockLabel1;
             blockTextLabels[i] = blockLabel2;
-            
+
             blockTextLabels[i].setEditable(false);
             blockTextLabels[i].setLineWrap(true);
 
@@ -108,33 +115,35 @@ public class GamePanel extends JPanel implements MouseListener {
     public void mouseEntered(MouseEvent e) {
         if (e.getSource() instanceof JLabel) {
             JLabel source = (JLabel) e.getSource();
-           // rectangles have a hidden string "i=?"
-           if (source.getText().startsWith("i=")) {
-              int i = Integer.parseInt(source.getText().substring(2));
-              // Set a border when the mouse enters the label
-              source.setBorder(new LineBorder(Color.RED, 2)); 
-              // APPENDS the block property to the visible text beside the rectangle
-              blockTextLabels[i].setText(blockTextLabels[i].getText()+"\n"+planet.getBlocks().get(i).getProperty());
-              blockTextLabels[i].setOpaque(true);
-              blockTextLabels[i].setBackground(Color.WHITE);
-           }
+            // rectangles have a name "i=?"
+            if (source.getName().startsWith("i=")) {
+                int i = Integer.parseInt(source.getName().substring(2));
+                // Set a border when the mouse enters the label
+                source.setBorder(new LineBorder(Color.RED, 2));
+                // APPENDS the block property to the visible text beside the rectangle
+                blockTextLabels[i]
+                        .setText(blockTextLabels[i].getText() + "\n" + planet.getBlocks().get(i).getProperty());
+                blockTextLabels[i].setOpaque(true);
+                blockTextLabels[i].setBackground(Color.WHITE);
+            }
         }
     }
 
     @Override
     public void mouseExited(MouseEvent e) {
-      if (e.getSource() instanceof JLabel) {
-           JLabel source = (JLabel) e.getSource();
-           // rectangles have a hidden string "i=?"
-           if (source.getText().startsWith("i=")) {
-              int i = Integer.parseInt(source.getText().substring(2));
-              // Remove the border when the mouse exits the label
-              source.setBorder(null); 
-              // REMOVES the block property to the visible text beside the rectangle
-              int propertyLength = planet.getBlocks().get(i).getProperty().length();
-              blockTextLabels[i].setText(blockTextLabels[i].getText().substring(0, blockTextLabels[i].getText().length() - propertyLength).replace("\n",""));
-              blockTextLabels[i].setOpaque(false);
-           }
+        if (e.getSource() instanceof JLabel) {
+            JLabel source = (JLabel) e.getSource();
+            // rectangles have a name "i=?"
+            if (source.getName().startsWith("i=")) {
+                int i = Integer.parseInt(source.getName().substring(2));
+                // Remove the border when the mouse exits the label
+                source.setBorder(null);
+                // REMOVES the block property to the visible text beside the rectangle
+                int propertyLength = planet.getBlocks().get(i).getProperty().length();
+                blockTextLabels[i].setText(blockTextLabels[i].getText()
+                        .substring(0, blockTextLabels[i].getText().length() - propertyLength).replace("\n", ""));
+                blockTextLabels[i].setOpaque(false);
+            }
         }
     }
 
@@ -148,14 +157,24 @@ public class GamePanel extends JPanel implements MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-         int x = e.getX();
-         int y = e.getY();
-         System.out.println(x + ", " + y);    
-         
+      if (windowBuildingMode) {
+           int x = e.getX();
+           int y = e.getY();
+           System.out.println(x + ", " + y);
+        }
+        if (e.getSource() instanceof JLabel) {
+            JLabel source = (JLabel) e.getSource();
+            // qtes have a name "block_name=?"
+            if (source.getName().startsWith("block_name=")) {
+               // temporarily
+               planet.getBlocks().get(0).doQTE();
+            }
+        }
+
     }
-    
+
     private void initTimers() {
-      timers.add(new Timer(2000, new ActionListener() {
+        timers.add(new Timer(2000, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (timerOn) {
@@ -164,14 +183,42 @@ public class GamePanel extends JPanel implements MouseListener {
                 }
             }
         }));
+        timers.add(new Timer(3000, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+               if (qteLabels.size() > 1) {
+                  // removes a QTE when at least 1 other QTE shows up
+                  JLabel qteLabel = qteLabels.get(0);
+                  qteLabel.removeMouseListener(GamePanel.this);
+                  GamePanel.this.remove(qteLabel);
+                  qteLabels.remove(0); 
+               }
+                if (timerOn && random.nextInt(2) == 1) {
+                  // random chance to make a QTE of random block
+                     int index = random.nextInt(planet.getBlocks().size());
+                     Block block = planet.getBlocks().get(index);
+                     Image qteImg = new ImageIcon("assets/"+block.getType()+".png").getImage().getScaledInstance(qteSize, qteSize, Image.SCALE_DEFAULT);
+                     ImageIcon qteIcon = new ImageIcon(qteImg);
+                     JLabel qteLabel = new JLabel(qteIcon);
+                     qteLabel.setBounds(40+random.nextInt(300),40+random.nextInt(300),50,50);
+                     qteLabel.setName("block_name="+block.getName());
+                     qteLabels.add(qteLabel);
+                     planet.getBlocks().get(index).doQTE();
+                     GamePanel.this.add(qteLabel);
+                     qteLabel.addMouseListener(GamePanel.this);
+                }
+            }
+        }));
         for (Timer t : timers) {
             t.start();
         }
-      }
-   private static String formatScore(int score) {
+    }
+
+    private static String formatScore(int score) {
         return String.format("SCORE: %09d", score);
     }
+
     public static void main(String[] args) {
-      new Window().startGame();
-   }
+        new Window().startGame();
+    }
 }
