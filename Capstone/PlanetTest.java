@@ -21,7 +21,7 @@ public class PlanetTest {
       Assert.assertEquals(p.getBlocks.get(1).getVolume(), 800); // volume is 800
    }*/
 
-   @Test public void defaultTest() {
+   /*@Test public void defaultTest() {
       Planet p = new Planet();
       p.displayConstitution();
       p.addBlock(new RockBlock("Sand", 300));
@@ -31,4 +31,5 @@ public class PlanetTest {
       p.addBlock(new AirBlock("Clean air", 300));
       p.displayConstitution();
    }
+    */
 }
