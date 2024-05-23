@@ -72,10 +72,12 @@ public class GamePanel extends JPanel implements MouseListener {
     public void displayBlockLabels() {
         // Remove previous ones
         for (JLabel label : blockRectLabels) {
+            label.setVisible(false);
             this.remove(label);
             label.removeMouseListener(this);
         }
         for (JTextArea label : blockTextLabels) {
+            label.setVisible(false);
             this.remove(label);
         }
         blockRectLabels = new JLabel[planet.getBlocks().size()];
@@ -166,8 +168,14 @@ public class GamePanel extends JPanel implements MouseListener {
             JLabel source = (JLabel) e.getSource();
             // qtes have a name "block_name=?"
             if (source.getName().startsWith("block_name=")) {
-               // temporarily
-               planet.getBlocks().get(0).doQTE();
+               source.removeMouseListener(this);
+               qteLabels.remove(source);
+               this.remove(source);
+               source.setVisible(false);
+               String blockName = source.getName().substring(11);
+               planet.getBlocks().get(planet.findBlock(blockName)).doQTE();
+               GamePanel.this.revalidate();
+               GamePanel.this.repaint();
             }
         }
 
@@ -186,27 +194,34 @@ public class GamePanel extends JPanel implements MouseListener {
         timers.add(new Timer(3000, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-               if (qteLabels.size() > 1) {
-                  // removes a QTE when at least 1 other QTE shows up
-                  JLabel qteLabel = qteLabels.get(0);
-                  qteLabel.removeMouseListener(GamePanel.this);
-                  GamePanel.this.remove(qteLabel);
-                  qteLabels.remove(0); 
-               }
-                if (timerOn && random.nextInt(2) == 1) {
-                  // random chance to make a QTE of random block
+                if (timerOn && random.nextInt(3) < 2) {
+                     // 66% chance to make a QTE of random block every 3 sec
                      int index = random.nextInt(planet.getBlocks().size());
                      Block block = planet.getBlocks().get(index);
                      Image qteImg = new ImageIcon("assets/"+block.getType()+".png").getImage().getScaledInstance(qteSize, qteSize, Image.SCALE_DEFAULT);
                      ImageIcon qteIcon = new ImageIcon(qteImg);
                      JLabel qteLabel = new JLabel(qteIcon);
-                     qteLabel.setBounds(40+random.nextInt(300),40+random.nextInt(300),50,50);
+                     qteLabel.setBounds(50+random.nextInt(280),50+random.nextInt(280),qteSize,qteSize);
                      qteLabel.setName("block_name="+block.getName());
                      qteLabels.add(qteLabel);
-                     planet.getBlocks().get(index).doQTE();
                      GamePanel.this.add(qteLabel);
                      qteLabel.addMouseListener(GamePanel.this);
+                     GamePanel.this.setComponentZOrder(qteLabel, 0); // move qte above planet label
+                     GamePanel.this.revalidate();
+                     GamePanel.this.repaint();
                 }
+               if (qteLabels.size() > 2) {
+                  // removes a QTE when at least 1 other QTE shows up
+                  JLabel qteLabel = qteLabels.get(0);
+                  qteLabel.removeMouseListener(GamePanel.this);
+                  GamePanel.this.remove(qteLabel);
+                  qteLabels.remove(0); 
+                  GamePanel.this.revalidate();
+                  GamePanel.this.repaint();
+                  // triggers fail QTE of corresponding block
+                  String blockName = qteLabel.getName().substring(11);
+                  planet.getBlocks().get(planet.findBlock(blockName)).doFailedQTE();
+               }
             }
         }));
         for (Timer t : timers) {

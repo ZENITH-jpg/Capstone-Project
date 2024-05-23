@@ -8,4 +8,6 @@ public class LavaBlock extends Block {
    }
    public void doQTE() {
    }
+   public void doFailedQTE() {
+   }
 }

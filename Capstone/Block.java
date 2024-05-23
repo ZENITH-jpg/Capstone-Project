@@ -11,6 +11,7 @@ public abstract class Block {
    }
    public abstract void doProperty();
    public abstract void doQTE();
+   public abstract void doFailedQTE();
    public static void setPlanet(Planet p) { // sets static planet variable
       planet = p;
    }

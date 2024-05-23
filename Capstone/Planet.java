@@ -11,8 +11,8 @@ public class Planet {
       this.score = 0;
       Block.setPlanet(this);
       this.blocks = new ArrayList<Block>();
-      this.blocks.add(new RockBlock("Rock", 1000));
       this.blocks.add(new WaterBlock("Clean water", 200));
+      this.blocks.add(new RockBlock("Rock", 1000));
    }
 
    public void sortBlocks() {

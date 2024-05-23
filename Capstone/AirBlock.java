@@ -8,4 +8,6 @@ public class AirBlock extends Block {
    }
    public void doQTE() {
    }
+   public void doFailedQTE() {
+   }
 }

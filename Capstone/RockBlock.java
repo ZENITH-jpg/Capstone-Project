@@ -11,9 +11,12 @@ public class RockBlock extends Block {
    }
    public void doQTE() {
       if (this.volume < 1000 + random.nextInt(501)) {
-         this.addVolume(random.nextInt(200));
+         planet.addBlock(new RockBlock(this.getName(),random.nextInt(200)));
       } else {
-         planet.addBlock(new LavaBlock("Lava", random.nextInt(200)));
+         planet.addBlock(new LavaBlock("Soil", random.nextInt(200)));
       }
+   }
+   public void doFailedQTE() {
+         planet.addBlock(new LavaBlock("Lava", random.nextInt(200)));
    }
 }
