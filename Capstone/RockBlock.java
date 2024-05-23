@@ -6,4 +6,7 @@ public class RockBlock extends Block {
    }
    public void doProperty() {
    }
+   public void makeQTE() {
+      if (planet.
+   }
 }

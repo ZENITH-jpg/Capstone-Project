@@ -10,10 +10,7 @@ public class Planet {
       Block.setPlanet(this);
       this.blocks = new ArrayList<Block>();
       addBlock(new RockBlock("Rock", 1000));
-      addBlock(new AirBlock("Clean air", 1000));
-      addBlock(new AirBlock("Musty air", 800));
-      addBlock(new WaterBlock("Clean water", 500));
-      addBlock(new WaterBlock("Musty water", 500));
+      addBlock(new WaterBlock("Clean water", 200));
    }
 
    public void sortBlocks() {
