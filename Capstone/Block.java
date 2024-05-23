@@ -1,5 +1,7 @@
 
+import java.util.Random;
 public abstract class Block {
+   protected static Random random = new Random();
    protected static Planet planet; // Whenever a planet is made, sets to that planet
    protected String name;
    protected int volume; // no setter only getter and adder

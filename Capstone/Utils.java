@@ -75,6 +75,8 @@ public class Utils { // for fonts, custom colors, and other objects that are to 
                 return Color.GRAY;
             case "lava":
                return Color.ORANGE;
+            case "soil":
+               return Color.GREEN;
             default:
                 return Color.BLACK;
         }

@@ -7,11 +7,13 @@ public class WaterBlock extends Block {
    public void doProperty() {
    }
    public void doQTE() {
-      if (this.volume < 1000 + random.nextInt(501)) {
-         planet.addBlock(new WaterBlock(this.getName(),random.nextInt(200)));
+      if (this.volume < 2000 + random.nextInt(501)) {
+         planet.addBlock(new WaterBlock(this.getName(),random.nextInt(300)));
       } else {
-         planet.addBlock(new WaterBlock(this.getName(),random.nextInt(200)));
+         int num = random.nextInt(200);
+         planet.addBlock(new WaterBlock(this.getName(), num));
          // planet.addBlock(new IceBlock("Ice", random.nextInt(200)));
+         // planet.addBlock(new WaterBlock(this.getName(), -num));
       }
    }
    public void doFailedQTE() {

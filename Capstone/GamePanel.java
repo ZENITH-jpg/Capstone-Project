@@ -11,7 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class GamePanel extends JPanel implements MouseListener {
-    static boolean windowBuildingMode = true;
+    static boolean windowBuildingMode = false;
     static Random random = new Random();
     Window window;
     Planet planet;
@@ -196,8 +196,10 @@ public class GamePanel extends JPanel implements MouseListener {
             public void actionPerformed(ActionEvent e) {
                 if (timerOn && random.nextInt(3) < 2) {
                      // 66% chance to make a QTE of random block every 3 sec
-                     int index = random.nextInt(planet.getBlocks().size());
-                     Block block = planet.getBlocks().get(index);
+                     //int index = random.nextInt(planet.getBlocks().size());
+                     //Block block = planet.getBlocks().get(index);
+                     // Randomness is skewed by block volume
+                     Block block = planet.randomWeightedBlock();
                      Image qteImg = new ImageIcon("assets/"+block.getType()+".png").getImage().getScaledInstance(qteSize, qteSize, Image.SCALE_DEFAULT);
                      ImageIcon qteIcon = new ImageIcon(qteImg);
                      JLabel qteLabel = new JLabel(qteIcon);

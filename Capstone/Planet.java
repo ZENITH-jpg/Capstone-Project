@@ -1,6 +1,8 @@
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Planet {
+   static Random random = new Random();
    static GamePanel game;
    private ArrayList<Block> blocks;
    private int score; // no setter only adder
@@ -13,6 +15,18 @@ public class Planet {
       this.blocks = new ArrayList<Block>();
       this.blocks.add(new WaterBlock("Clean water", 200));
       this.blocks.add(new RockBlock("Rock", 1000));
+   }
+   
+   // Used in GamePanel, chooses a random block that is skewed by every block's volume
+   public Block randomWeightedBlock() {
+      int volume = random.nextInt(getTotalVolume());
+      for (int i = 0; i < this.blocks.size(); i++) {
+         if (this.blocks.get(i).getVolume() >= volume)
+            return this.blocks.get(i);
+         else 
+            volume -= this.blocks.get(i).getVolume();
+      }
+      return null;
    }
 
    public void sortBlocks() {
