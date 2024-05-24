@@ -1,3 +1,9 @@
+/*
+Tristan C
+2024-05-24
+Mr Guglielmi
+Loads scores from leaderboard.txt and creates a leaderboard panel
+*/
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;

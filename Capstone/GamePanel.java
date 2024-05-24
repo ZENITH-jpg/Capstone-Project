@@ -1,5 +1,5 @@
 /*
-Van Nguyen
+Van N
 2024-05-24
 Mr Guglielmi
 Manage the window when the game has started.
@@ -34,7 +34,6 @@ public class GamePanel extends JPanel implements MouseListener{
     JTextArea tempLabel;
 
     // Score handling
-    ArrayList<Timer> timers = new ArrayList<Timer>();
     boolean timerOn = true;
     int scorePerTwoSeconds = 20;
 
@@ -51,11 +50,11 @@ public class GamePanel extends JPanel implements MouseListener{
         this.add(qtePanel);
         // Add ObjectivePanel to this panel
         objPanel = new ObjectivePanel(this, planet);
-        objPanel.setBounds(500, 40, planetLabelSize+100, planetLabelSize+100);
+        objPanel.setBounds(500, 40, 280, 400);
         objPanel.setOpaque(false); // makes transparent
         objPanel.setBackground(new Color(0,0,0,0)); // makes transparent
         this.add(objPanel);
-         // Add JLabels
+        // Add JLabels
         Image planetImg = new ImageIcon("assets/rocky_planet.png").getImage().getScaledInstance(planetLabelSize,
                 planetLabelSize, Image.SCALE_DEFAULT);
         ImageIcon planetIcon = new ImageIcon(planetImg);
@@ -94,9 +93,9 @@ public class GamePanel extends JPanel implements MouseListener{
         }
         blockRectLabels = new JLabel[planet.getBlocks().size()];
         blockTextLabels = new JTextArea[planet.getBlocks().size()];
-        int panelX = 40;
+        int panelX = 40; // x, y coords of whole constitution display
         int panelY = 380;
-        int totalWidth = 150;
+        int totalWidth = 150; // width, height of constitution display
         int totalHeight = 180;
         int currentHeight = 0;
         for (int i = 0; i < blockTextLabels.length; i++) {
@@ -104,20 +103,20 @@ public class GamePanel extends JPanel implements MouseListener{
             int percentOfPlanet = (int) (100 * (double) currentBlock.getVolume() / planet.getTotalVolume());
             JLabel blockLabel1 = new JLabel(); // coloured rectangle
             JTextArea blockLabel2 = new JTextArea(); // text with block's information
+            // set height of rectangle to block's percent of planet
             blockLabel1.setBounds(panelX, panelY + currentHeight, totalWidth, percentOfPlanet * totalHeight / 100);
             blockLabel1.setOpaque(true);
             blockLabel1.setBackground(Utils.colorOfBlockType(currentBlock.getType(), currentBlock.getName()));
-            blockLabel1.setForeground(Utils.colorOfBlockType(currentBlock.getType(), currentBlock.getName()));
             blockLabel1.setName("i=" + i);
 
-            blockLabel2 = Utils.blockTextPanel(percentOfPlanet + "% " + currentBlock.getName(), panelX + totalWidth + 5,
-                    panelY + currentHeight, 120, 70);
+            blockLabel2 = Utils.blockTextPanel(percentOfPlanet + "% " + currentBlock.getName() + " (" + currentBlock.getVolume() + ")", panelX + totalWidth + 5,
+                    panelY + currentHeight, 140, 70);
             currentHeight += percentOfPlanet * totalHeight / 100;
+            // Add block labels
             blockRectLabels[i] = blockLabel1;
             blockTextLabels[i] = blockLabel2;
             blockTextLabels[i].setEditable(false);
             blockTextLabels[i].setLineWrap(true);
-
             this.add(blockRectLabels[i]);
             this.add(blockTextLabels[i]);
             blockRectLabels[i].addMouseListener(this);
@@ -127,7 +126,8 @@ public class GamePanel extends JPanel implements MouseListener{
     public void updateLabels() {
       scoreLabel.setText(formatScore(planet.getScore()));
       tempLabel.setText(planet.getTemp() +" Celsius");
-      objPanel.checkAllObjectives();
+      objPanel.checkAllObjectives(); // Update objectives
+      objPanel.displayObjectives();
     }
 
     @Override
@@ -149,8 +149,8 @@ public class GamePanel extends JPanel implements MouseListener{
     @Override
     public void mouseExited(MouseEvent e) {
         if (e.getSource() instanceof JLabel) {
-            JLabel source = (JLabel) e.getSource();
-            // rectangles have a name "i=?"
+             JLabel source = (JLabel) e.getSource();
+             // rectangles have a name "i=?"
              int i = Integer.parseInt(source.getName().substring(2));
              // Remove the border when the mouse exits the label
              source.setBorder(null);
@@ -172,16 +172,16 @@ public class GamePanel extends JPanel implements MouseListener{
 
     @Override
     public void mouseClicked(MouseEvent e) {
-      if (windowBuildingMode) {// prints the mouse coords if needed
+      if (windowBuildingMode) { // prints the mouse coords if needed
            int x = e.getX();
            int y = e.getY();
            System.out.println(x + ", " + y);
-        }
+      }
     }
 
     private void initTimers() {
-      // this timer adds score every 2 sec
-        timers.add(new Timer(2000, new ActionListener() {
+        // this timer adds score every 2 sec
+        new Timer(2000, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (timerOn) {
@@ -189,15 +189,12 @@ public class GamePanel extends JPanel implements MouseListener{
                     updateLabels();
                 }
             }
-        }));
-        for (Timer t : timers) {
-            t.start();
-        }
+        }).start();
     }
 
     private static String formatScore(int score) {
       // adds nine leading zeros to the score
-        return String.format("SCORE: %09d", score);
+      return String.format("SCORE: %09d", score);
     }
 
     public static void main(String[] args) {
