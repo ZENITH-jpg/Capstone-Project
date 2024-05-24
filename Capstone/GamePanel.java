@@ -127,6 +127,7 @@ public class GamePanel extends JPanel implements MouseListener {
     public void updateLabels() {
       scoreLabel.setText(formatScore(planet.getScore()));
       tempLabel.setText(planet.getTemp() +" Celsius");
+      objPanel.checkAllObjectives();
     }
 
     @Override
