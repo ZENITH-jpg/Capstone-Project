@@ -60,6 +60,7 @@ public class QTEPanel extends JPanel implements MouseListener {
                planet.getBlocks().get(planet.findBlock(blockName)).doQTE();
                QTEPanel.this.revalidate();
                QTEPanel.this.repaint();
+               game.updateLabels();
             }
         }
     }
@@ -95,6 +96,7 @@ public class QTEPanel extends JPanel implements MouseListener {
                   // triggers fail QTE of corresponding block
                   String blockName = qteLabel.getName().substring(11);
                   planet.getBlocks().get(planet.findBlock(blockName)).doFailedQTE();
+                  game.updateLabels();
                }
             }
         }));

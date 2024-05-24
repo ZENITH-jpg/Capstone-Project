@@ -8,7 +8,7 @@ public class RockBlock extends Block {
    }
    public void doQTE() {
       if (this.volume < 1000 + random.nextInt(501)) {
-         planet.addBlock(new RockBlock(this.getName(), random.nextInt(200)));
+         planet.addBlock(new WaterBlock("Clean water", random.nextInt(200)));
       } else {
          int num = random.nextInt(200);
          planet.addBlock(new SoilBlock("Soil", num));

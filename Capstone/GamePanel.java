@@ -1,3 +1,9 @@
+/*
+Van Nguyen
+2024-05-24
+Mr Guglielmi
+Manage the window when the game has started.
+*/
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -16,9 +22,9 @@ public class GamePanel extends JPanel implements MouseListener {
     Window window;
     Planet planet;
     QTEPanel qtePanel;
+    ObjectivePanel objPanel;
 
     // GUI handling
-//     JLabel backgroundLabel;
     JLabel planetLabel;
     int planetLabelSize = 300;
     JLabel[] blockRectLabels = new JLabel[0];
@@ -43,6 +49,12 @@ public class GamePanel extends JPanel implements MouseListener {
         qtePanel.setOpaque(false); // makes transparent
         qtePanel.setBackground(new Color(0,0,0,0)); // makes transparent
         this.add(qtePanel);
+        // Add ObjectivePanel to this panel
+        objPanel = new ObjectivePanel(this, planet);
+        objPanel.setBounds(500, 40, planetLabelSize+100, planetLabelSize+100);
+        objPanel.setOpaque(false); // makes transparent
+        objPanel.setBackground(new Color(0,0,0,0)); // makes transparent
+        this.add(objPanel);
          // Add JLabels
         Image planetImg = new ImageIcon("assets/rocky_planet.png").getImage().getScaledInstance(planetLabelSize,
                 planetLabelSize, Image.SCALE_DEFAULT);
@@ -103,7 +115,6 @@ public class GamePanel extends JPanel implements MouseListener {
             currentHeight += percentOfPlanet * totalHeight / 100;
             blockRectLabels[i] = blockLabel1;
             blockTextLabels[i] = blockLabel2;
-
             blockTextLabels[i].setEditable(false);
             blockTextLabels[i].setLineWrap(true);
 
@@ -117,12 +128,6 @@ public class GamePanel extends JPanel implements MouseListener {
       scoreLabel.setText(formatScore(planet.getScore()));
       tempLabel.setText(planet.getTemp() +" Celsius");
     }
-      @Override
-        protected void paintComponent(Graphics g) {
-             super.paintComponent(g);
-             Image bgImage = new ImageIcon("assets/space_bg.jpg").getImage();//.getScaledInstance(800, 600, Image.SCALE_DEFAULT);
-              g.drawImage(bgImage, 0, 0, null);
-      }
 
     @Override
     public void mouseEntered(MouseEvent e) {
@@ -166,7 +171,7 @@ public class GamePanel extends JPanel implements MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-      if (windowBuildingMode) {
+      if (windowBuildingMode) {// prints the mouse coords if needed
            int x = e.getX();
            int y = e.getY();
            System.out.println(x + ", " + y);
@@ -174,6 +179,7 @@ public class GamePanel extends JPanel implements MouseListener {
     }
 
     private void initTimers() {
+      // this timer adds score every 2 sec
         timers.add(new Timer(2000, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -189,6 +195,7 @@ public class GamePanel extends JPanel implements MouseListener {
     }
 
     private static String formatScore(int score) {
+      // adds nine leading zeros to the score
         return String.format("SCORE: %09d", score);
     }
 
