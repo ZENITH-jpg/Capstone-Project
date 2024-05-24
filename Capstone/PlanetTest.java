@@ -22,7 +22,7 @@ public class PlanetTest {
    }*/
 
    /*@Test public void defaultTest() {
-      Planet p = new Planet();
+      Planet p = new Planet(new GamePanel(new Window()));
       p.displayConstitution();
       p.addBlock(new RockBlock("Sand", 300));
       p.displayConstitution();
