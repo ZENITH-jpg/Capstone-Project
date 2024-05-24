@@ -16,7 +16,7 @@ import java.awt.event.MouseListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class GamePanel extends JPanel implements MouseListener {
+public class GamePanel extends JPanel implements MouseListener{
     static boolean windowBuildingMode = false;
     static Random random = new Random();
     Window window;

@@ -83,6 +83,15 @@ public class Window extends JFrame {
 		window.setVisible(false); //set visibility to false, then clean up panel
 		window.dispose();
 	}
+
+	public void testMaze(){
+		m.setVisible(false);
+		MazeGame maze = new MazeGame(this);
+		window.add(maze);
+		maze.requestFocus();
+		maze.setUp();
+
+	}
    public static void main (String[] args) {
       Utils.init();
       Window w = new Window(); // run window

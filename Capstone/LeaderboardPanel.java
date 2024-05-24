@@ -125,7 +125,7 @@ public class LeaderboardPanel extends JPanel implements KeyListener {
                 g2d.drawString(players.get(i).getName(),315,237+50*i); //name
                 g2d.drawString(players.get(i).getScore()+"",515,237+50*i); //score
             } else {
-                g2d.drawString("NA",315,237+50*i); // incase leaderboard isn't filled
+                g2d.drawString("NA",315,237+50*i); // in case leaderboard isn't filled
                 g2d.drawString("NA",515,237+50*i);
             }
         }
