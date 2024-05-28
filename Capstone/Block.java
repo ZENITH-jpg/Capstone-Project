@@ -11,7 +11,6 @@ public abstract class Block {
       this.name = n;
       this.volume = v;
    }
-   public abstract void doProperty();
    public abstract void doQTE();
    public abstract void doFailedQTE();
    public static void setPlanet(Planet p) { // sets static planet variable

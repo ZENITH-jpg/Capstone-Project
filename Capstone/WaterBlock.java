@@ -4,8 +4,6 @@ public class WaterBlock extends Block {
       this.type = "water";
       this.property = "Regulates heat and turns into ice.";
    }
-   public void doProperty() {
-   }
    public void doQTE() {
       if (this.volume < 2000 + random.nextInt(501)) {
          planet.addBlock(new WaterBlock(this.getName(),random.nextInt(300)));

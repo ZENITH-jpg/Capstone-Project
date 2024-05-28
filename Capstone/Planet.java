@@ -5,6 +5,7 @@ public class Planet {
    static Random random = new Random();
    static GamePanel game;
    private ArrayList<Block> blocks;
+   private ArrayList<Creature> creatures;
    // The fields below have no setter, only adder
    private int score;
    private int temp;
@@ -14,10 +15,13 @@ public class Planet {
       game = g;
       this.score = 0;
       this.temp = 100;
+      this.humans = 0;
       Block.setPlanet(this);
       this.blocks = new ArrayList<Block>();
       this.blocks.add(new WaterBlock("Clean water", 200));
       this.blocks.add(new RockBlock("Rock", 1000));
+      this.creatures = new ArrayList<Creature>();
+      Creature.randomizeSpecies();
    }
    
    // Used in GamePanel, chooses a random block that is skewed by every block's volume
@@ -100,6 +104,11 @@ public class Planet {
          System.out.println((int) (percentOfPlanet * 100) + "% " + block.getName());
       }
    }
+   
+   public void createCreature() {
+      // add a random creature to this.creatures
+      this.creatures.add(new Creature(this.creatures.size(), 1000+random.nextInt(1000)));
+   }
 
    public int getScore() {
       return this.score;
@@ -120,6 +129,10 @@ public class Planet {
    
    public int getHumans() {
       return this.humans;
+   }
+   
+   public ArrayList<Creature> getCreatures() {
+      return this.creatures;
    }
 
    public void addHumans(int h) {

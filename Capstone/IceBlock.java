@@ -4,8 +4,6 @@ public class IceBlock extends Block {
       this.type = "ice";
       this.property = "Click Ice QTEs to cool down planet";
    }
-   public void doProperty() {
-   }
    public void doQTE() {
       planet.addTemp(-random.nextInt(10));
    }
