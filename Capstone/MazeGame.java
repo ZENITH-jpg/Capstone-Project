@@ -58,6 +58,8 @@ public class MazeGame extends JPanel implements KeyListener {
       tS = System.currentTimeMillis();
       dT = 0;
       flag = 0;
+      collected = 0;
+      inv = 0;
       this.add(context);
       startGame();
    }
@@ -71,7 +73,7 @@ public class MazeGame extends JPanel implements KeyListener {
       dT = 0;
       flag = 1;
       this.remove(context);
-      while (dT < 30000 || collected < 6) {
+      while (dT < 30000 && collected < 6) {
          dT = System.currentTimeMillis() - tS;
          repaint();
       }
@@ -99,6 +101,7 @@ public class MazeGame extends JPanel implements KeyListener {
                   }
                }
             }
+            break;
          default:
             g.drawImage(messageBg, 0, 0, null);
 
