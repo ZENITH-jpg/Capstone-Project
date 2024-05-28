@@ -7,6 +7,8 @@ public class Utils { // for fonts, custom colors, and other objects that are to 
     final static Font MESSAGE_FONT = new Font("Helvetica", Font.PLAIN, 20);
     final static Font BLOCKTEXT_FONT = new Font("Helvetica", Font.PLAIN, 12);
     final static Font GAMEHEADING_FONT = new Font("Helvetica", Font.PLAIN, 16);
+    final static String[] climateTips =
+    {""};
     static Font PIXEL;
     public static void init(){
         try {

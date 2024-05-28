@@ -88,7 +88,6 @@ public class Window extends JFrame {
 		m.setVisible(false);
 		MazeGame maze = new MazeGame(this);
 		window.add(maze);
-		maze.requestFocus();
 		maze.setUp();
 
 	}
