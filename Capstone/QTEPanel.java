@@ -71,8 +71,8 @@ public class QTEPanel extends JPanel implements MouseListener {
             public void actionPerformed(ActionEvent e) {
                // Make a QTE of a random block every 4 sec
                 if (game.timerOn) {
-                     // Randomness is skewed by block volume
-                     Block block = planet.randomWeightedBlock();
+                     // Block block = planet.randomWeightedBlock(); // Randomness is skewed by block volume
+                     Block block = planet.getBlocks().get(random.nextInt(planet.getBlocks().size())); // Randomness not skewed by block volume
                      Image qteImg = new ImageIcon("assets/"+block.getType()+".png").getImage().getScaledInstance(qteSize, qteSize, Image.SCALE_DEFAULT);
                      ImageIcon qteIcon = new ImageIcon(qteImg);
                      JLabel qteLabel = new JLabel(qteIcon);

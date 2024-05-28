@@ -5,8 +5,10 @@ public class Planet {
    static Random random = new Random();
    static GamePanel game;
    private ArrayList<Block> blocks;
-   private int score; // no setter only adder
-   private int temp; // no setter only adder
+   // The fields below have no setter, only adder
+   private int score;
+   private int temp;
+   private int humans;
 
    public Planet(GamePanel g) {
       game = g;
@@ -19,6 +21,7 @@ public class Planet {
    }
    
    // Used in GamePanel, chooses a random block that is skewed by every block's volume
+   /*
    public Block randomWeightedBlock() {
       int volume = random.nextInt(getTotalVolume());
       for (int i = 0; i < this.blocks.size(); i++) {
@@ -28,7 +31,7 @@ public class Planet {
             volume -= this.blocks.get(i).getVolume();
       }
       return null;
-   }
+   }*/
 
    public void sortBlocks() {
       ArrayList<Block> newBlocks = new ArrayList<Block>();
@@ -114,7 +117,16 @@ public class Planet {
       this.temp += t;
       game.updateLabels();
    }
+   
+   public int getHumans() {
+      return this.humans;
+   }
 
+   public void addHumans(int h) {
+      this.humans += h;
+      game.updateLabels();
+   }
+   
    public ArrayList<Block> getBlocks() {
       return this.blocks;
    }

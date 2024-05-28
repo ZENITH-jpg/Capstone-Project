@@ -7,7 +7,10 @@ public class SoilBlock extends Block {
    public void doProperty() {
    }
    public void doQTE() {
+      // create a random creature, max of 5 creatures
+      // if humans unlocked from objective, increase human population
    }
    public void doFailedQTE() {
+      // just produces soil
    }
 }
