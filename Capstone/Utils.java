@@ -16,7 +16,7 @@ public class Utils { // for fonts, custom colors, and other objects that are to 
             GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
             ge.registerFont(PIXEL);
         } catch (IOException | FontFormatException e) {
-            System.out.println("fuck");
+
         }
     }
     public static JTextArea messagePanel(String s, int x, int y, int w, int h) {
