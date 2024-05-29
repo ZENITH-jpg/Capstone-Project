@@ -29,6 +29,7 @@ public class GamePanel extends JPanel implements MouseListener{
     int planetLabelSize = 300;
     JLabel[] blockRectLabels = new JLabel[0];
     JTextArea[] blockTextLabels = new JTextArea[0];
+    JTextArea[] creatureTextLabels = new JTextArea[5];
     JTextField[][] addBlockFields;
     JTextArea scoreLabel;
     JTextArea tempLabel;
@@ -72,6 +73,10 @@ public class GamePanel extends JPanel implements MouseListener{
         tempLabel = Utils.gameHeadingPanel("", 320, 45, 150, 20);
         this.add(scoreLabel);
         this.add(tempLabel);
+        for (int i = 0; i < creatureTextLabels.length; i++) {
+         creatureTextLabels[i] = Utils.blockTextPanel("", 340, 390 + 18*i, 300, 20);
+         this.add(creatureTextLabels[i]);
+        }
         if (windowBuildingMode)
             this.addMouseListener(this);
         initTimers();
@@ -123,9 +128,16 @@ public class GamePanel extends JPanel implements MouseListener{
         }
     }
     
+    public void displayCreatureLabels() {
+      for (int i = 0; i < planet.getCreatures().size(); i++) {
+         creatureTextLabels[i].setText(planet.getCreatures().get(i).getSpecies()+" ; "+planet.getCreatures().get(i).getPopulation());
+      }
+    }
+    
     public void updateLabels() {
       scoreLabel.setText(formatScore(planet.getScore()));
       tempLabel.setText(planet.getTemp() +" Celsius");
+      displayCreatureLabels();
       objPanel.checkAllObjectives(); // Update objectives
       objPanel.displayObjectives();
     }
