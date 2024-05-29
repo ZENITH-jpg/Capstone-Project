@@ -94,6 +94,6 @@ public class Window extends JFrame {
    public static void main (String[] args) {
       Utils.init();
       Window w = new Window(); // run window
-      w.testMaze();
+      //w.testMaze();
    }
 }
