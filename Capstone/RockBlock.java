@@ -8,13 +8,13 @@ public class RockBlock extends Block {
       if (this.volume < 1000 + random.nextInt(501)) {
          planet.addBlock(new RockBlock(this.getName(), random.nextInt(200)));
       } else {
-         int num = random.nextInt(200);
+         int num = 100+random.nextInt(200);
          planet.addBlock(new SoilBlock("Soil", num));
          planet.addBlock(new RockBlock(this.getName(), -num));
       }
    }
    public void doFailedQTE() {
-         int num = random.nextInt(100);
+         int num = 50+random.nextInt(100);
          planet.addBlock(new LavaBlock("Lava", num));
          planet.addBlock(new RockBlock(this.getName(), -num));
    }
