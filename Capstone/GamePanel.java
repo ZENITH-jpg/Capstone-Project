@@ -35,8 +35,9 @@ public class GamePanel extends JPanel implements MouseListener{
     JTextArea tempLabel;
 
     // Score handling
-    boolean timerOn = true;
-    int scorePerTwoSeconds = 20;
+    public static boolean timerOn = true;
+    public static int difficulty = 0; // 0 is easy, 1 is medium, and so on
+    public static int scorePerTwoSeconds = 20;
 
     GamePanel(Window w) {
         window = w;
@@ -104,7 +105,7 @@ public class GamePanel extends JPanel implements MouseListener{
         int totalHeight = 180;
         int currentHeight = 0;
         for (int i = 0; i < blockTextLabels.length; i++) {
-            Block currentBlock = planet.getBlocks().get(i);
+            Block currentBlock = planet.getBlockAtIndex(i);
             int percentOfPlanet = (int) (100 * (double) currentBlock.getVolume() / planet.getTotalVolume());
             JLabel blockLabel1 = new JLabel(); // coloured rectangle
             JTextArea blockLabel2 = new JTextArea(); // text with block's information
@@ -115,7 +116,7 @@ public class GamePanel extends JPanel implements MouseListener{
             blockLabel1.setName("i=" + i);
 
             blockLabel2 = Utils.blockTextPanel(percentOfPlanet + "% " + currentBlock.getName() + " (" + currentBlock.getVolume() + ")", panelX + totalWidth + 5,
-                    panelY + currentHeight, 140, 70);
+                    panelY + currentHeight, 140, 140);
             currentHeight += percentOfPlanet * totalHeight / 100;
             // Add block labels
             blockRectLabels[i] = blockLabel1;
@@ -152,7 +153,7 @@ public class GamePanel extends JPanel implements MouseListener{
              source.setBorder(new LineBorder(Color.RED, 2));
              // APPENDS the block property to the visible text beside the rectangle
              blockTextLabels[i]
-                     .setText(blockTextLabels[i].getText() + "\n" + planet.getBlocks().get(i).getProperty());
+                     .setText(blockTextLabels[i].getText() + "\n" + planet.getBlockAtIndex(i).getProperty());
              blockTextLabels[i].setOpaque(true);
              blockTextLabels[i].setBackground(Color.WHITE);
         }
@@ -167,7 +168,7 @@ public class GamePanel extends JPanel implements MouseListener{
              // Remove the border when the mouse exits the label
              source.setBorder(null);
              // REMOVES the block property to the visible text beside the rectangle
-             int propertyLength = planet.getBlocks().get(i).getProperty().length();
+             int propertyLength = planet.getBlockAtIndex(i).getProperty().length();
              blockTextLabels[i].setText(blockTextLabels[i].getText()
                      .substring(0, blockTextLabels[i].getText().length() - propertyLength).replace("\n", ""));
              blockTextLabels[i].setOpaque(false);
@@ -208,6 +209,14 @@ public class GamePanel extends JPanel implements MouseListener{
       // adds nine leading zeros to the score
       return String.format("SCORE: %09d", score);
     }
+    
+    public QTEPanel getQTEPanel() {
+      return qtePanel;
+   }
+   
+   public ObjectivePanel getObjectivePanel() {
+      return objPanel;
+   }
 
     public static void main(String[] args) {
         new Window().startGame();

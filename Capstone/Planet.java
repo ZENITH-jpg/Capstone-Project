@@ -24,19 +24,6 @@ public class Planet {
       Creature.randomizeSpecies();
    }
    
-   // Used in GamePanel, chooses a random block that is skewed by every block's volume
-   /*
-   public Block randomWeightedBlock() {
-      int volume = random.nextInt(getTotalVolume());
-      for (int i = 0; i < this.blocks.size(); i++) {
-         if (this.blocks.get(i).getVolume() >= volume)
-            return this.blocks.get(i);
-         else 
-            volume -= this.blocks.get(i).getVolume();
-      }
-      return null;
-   }*/
-
    public void sortBlocks() {
       ArrayList<Block> newBlocks = new ArrayList<Block>();
       int i = 0;
@@ -142,5 +129,13 @@ public class Planet {
    
    public ArrayList<Block> getBlocks() {
       return this.blocks;
+   }
+   
+   public Block getBlockAtIndex(int i) {
+      return this.blocks.get(i);
+   }
+   
+   public Block getBlockWithName(String n) {
+      return this.blocks.get(this.findBlock(n));
    }
 }

@@ -2,7 +2,7 @@ public class SoilBlock extends Block {
    public SoilBlock(String n, int v) {
       super(n, v);
       this.type = "soil";
-      this.property = "Clicking Soil QTEs creates random creatures and humans. Missing QTEs just produces soil";
+      this.property = "Clicking Soil QTEs creates random creatures and humans. Up to 5 creatures can be created. Missing QTEs just produces soil";
    }
    public void doQTE() {
       // create a random creature, max of 5 creatures
