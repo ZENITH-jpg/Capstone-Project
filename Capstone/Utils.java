@@ -16,7 +16,7 @@ public class Utils { // for fonts, custom colors, and other objects that are to 
             GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
             ge.registerFont(PIXEL);
         } catch (IOException | FontFormatException e) {
-            System.out.println("fuck");
+
         }
     }
     public static JTextArea messagePanel(String s, int x, int y, int w, int h) {
@@ -78,7 +78,7 @@ public class Utils { // for fonts, custom colors, and other objects that are to 
             case "lava":
                return Color.ORANGE;
             case "soil":
-               return Color.GREEN;
+               return new Color (92, 58, 21);
             default:
                 return Color.BLACK;
         }

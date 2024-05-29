@@ -14,21 +14,29 @@ public class QTEPanel extends JPanel implements MouseListener {
     static Random random = new Random();
     GamePanel game;
     Planet planet;
+    ArrayList<String> chances; // determines the type of block the qtes are
 
     // GUI handling
     int qteSize = 50;
     ArrayList<JLabel> qteLabels = new ArrayList<JLabel>();
 
-    // Score handling
-    ArrayList<Timer> timers = new ArrayList<Timer>();
-
     QTEPanel(GamePanel g, Planet p) {
          game = g;
          planet = p;
+         chances = new ArrayList<String>();
+         for (Block b : p.getBlocks()) {
+            chances.add(b.getName());
+         }
         this.setLayout(null);
         this.setBounds(0, 0, 800, 600);
         initTimers();
-       }
+    }
+    
+    public void removeChance(String blockName) {
+      while (chances.contains(blockName)) {
+         chances.remove(blockName);
+      }
+    }
        
        @Override
     public void mouseEntered(MouseEvent e) {
@@ -57,7 +65,7 @@ public class QTEPanel extends JPanel implements MouseListener {
                this.remove(source);
                source.setVisible(false);
                String blockName = source.getName().substring(11);
-               planet.getBlocks().get(planet.findBlock(blockName)).doQTE();
+               planet.getBlockWithName(blockName).doQTE();
                QTEPanel.this.revalidate();
                QTEPanel.this.repaint();
                game.updateLabels();
@@ -66,13 +74,14 @@ public class QTEPanel extends JPanel implements MouseListener {
     }
 
     private void initTimers() {
-        timers.add(new Timer(4000, new ActionListener() {
+        new Timer(4000, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                // Make a QTE of a random block every 4 sec
                 if (game.timerOn) {
-                     // Block block = planet.randomWeightedBlock(); // Randomness is skewed by block volume
-                     Block block = planet.getBlocks().get(random.nextInt(planet.getBlocks().size())); // Randomness not skewed by block volume
+                     // Get a random name from chances, then the corresponding block in planet
+                     String blockName = chances.get(random.nextInt(chances.size()));
+                     Block block = planet.getBlockWithName(blockName);
                      Image qteImg = new ImageIcon("assets/"+block.getType()+".png").getImage().getScaledInstance(qteSize, qteSize, Image.SCALE_DEFAULT);
                      ImageIcon qteIcon = new ImageIcon(qteImg);
                      JLabel qteLabel = new JLabel(qteIcon);
@@ -81,12 +90,12 @@ public class QTEPanel extends JPanel implements MouseListener {
                      qteLabels.add(qteLabel);
                      QTEPanel.this.add(qteLabel);
                      qteLabel.addMouseListener(QTEPanel.this);
-                     QTEPanel.this.setComponentZOrder(qteLabel, 0); // move qte above planet label
+                     // QTEPanel.this.setComponentZOrder(qteLabel, 0); // move qte above planet label
                      QTEPanel.this.revalidate();
                      QTEPanel.this.repaint();
                 }
                if (qteLabels.size() > 2) {
-                  // removes a QTE when at least 1 other QTE shows up
+                  // removes a QTE when at least 2 other QTEs show up
                   JLabel qteLabel = qteLabels.get(0);
                   qteLabel.removeMouseListener(QTEPanel.this);
                   QTEPanel.this.remove(qteLabel);
@@ -95,14 +104,11 @@ public class QTEPanel extends JPanel implements MouseListener {
                   QTEPanel.this.repaint();
                   // triggers fail QTE of corresponding block
                   String blockName = qteLabel.getName().substring(11);
-                  planet.getBlocks().get(planet.findBlock(blockName)).doFailedQTE();
+                  planet.getBlockWithName(blockName).doFailedQTE();
                   game.updateLabels();
                }
             }
-        }));
-        for (Timer t : timers) {
-            t.start();
-        }
+        }).start();
     }
 
     private static String formatScore(int score) {

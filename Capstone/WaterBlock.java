@@ -8,7 +8,7 @@ public class WaterBlock extends Block {
       if (this.volume < 2000 + random.nextInt(501)) {
          planet.addBlock(new WaterBlock(this.getName(),random.nextInt(300)));
       } else {
-         int num = random.nextInt(200);
+         int num = 100+random.nextInt(200);
          planet.addBlock(new IceBlock("Ice", random.nextInt(200)));
          planet.addBlock(new WaterBlock(this.getName(), -num));
       }
