@@ -84,16 +84,16 @@ public class Window extends JFrame {
 		window.dispose();
 	}
 
-	public void testMaze(){
+	public void testProtest(){
 		m.setVisible(false);
-		MazeGame maze = new MazeGame(this);
-		window.add(maze);
-		maze.setUp();
+		ProtestGame p = new ProtestGame(this);
+		window.add(p);
+		p.setUp();
 
 	}
    public static void main (String[] args) {
       Utils.init();
       Window w = new Window(); // run window
-      //w.testMaze();
+      w.testProtest();
    }
 }
