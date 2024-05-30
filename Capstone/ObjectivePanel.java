@@ -21,6 +21,8 @@ public class ObjectivePanel extends JPanel {
          }
          public void reward() {
             planet.addBlock(new AirBlock("Clean air", 300));
+            // decided to have no air qtes
+            game.getQTEPanel().removeChance("Clean air");
             objectives.add(new Objective("Diverse blocks","Obtain soil and ice. Reward: Increase score per second.") {
                public boolean isComplete() {
                   return planet.findBlock("Soil") != -1 && planet.findBlock("Ice") != -1;
@@ -31,7 +33,7 @@ public class ObjectivePanel extends JPanel {
             });
          }
       });
-      objectives.add(new Objective("Unlock medium difficulty","Get 3000 total volume.\nReward: Add more objectives. QTEs appear a second sooner.") {
+      objectives.add(new Objective("Unlock medium difficulty","Get 3000 total volume.\nReward: QTEs appear a second sooner.") {
          public boolean isComplete() {
             return planet.getTotalVolume() >= 3000;
          }
@@ -65,9 +67,9 @@ public class ObjectivePanel extends JPanel {
    }
    public void addMoreObjectives() {
       if (game.difficulty == 1) {
-         objectives.add(new Objective("Tectonic plates", "Have soil and have 3000 rock and soil combined.\nReward: No more Rock QTEs, but more Lava and Lava QTEs.") {
+         objectives.add(new Objective("Tectonic plates", "Have 1000 rock and 1000 soil.\nReward: No more Rock QTEs, but more Lava and Lava QTEs.") {
             public boolean isComplete() {
-               return planet.findBlock("Soil") != -1 && planet.getBlockWithName("Rock").getVolume() + planet.getBlockWithName("Soil").getVolume() >= 2000;
+               return planet.findBlock("Soil") != -1 && planet.getBlockWithName("Rock").getVolume() >= 1000 && planet.getBlockWithName("Soil").getVolume() >= 1000;
             }
             public void reward() {
                game.getQTEPanel().removeChance("Rock");

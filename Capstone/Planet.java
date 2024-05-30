@@ -70,7 +70,8 @@ public class Planet {
       } else { // otherwise add volume to the block of same name
          this.blocks.get(blockIndex).addVolume(block.getVolume());
          if (this.blocks.get(blockIndex).getVolume() <= 0) {
-            // if block has no more volume, remove that block
+            // if block has no more volume, remove that block qte and block
+            game.getQTEPanel().removeChance(this.blocks.get(blockIndex).getName());
             this.blocks.remove(blockIndex);
          }
       }
