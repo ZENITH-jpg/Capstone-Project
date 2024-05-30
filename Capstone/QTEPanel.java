@@ -15,6 +15,7 @@ public class QTEPanel extends JPanel implements MouseListener {
     GamePanel game;
     Planet planet;
     ArrayList<String> chances; // determines the type of block the qtes are
+    Timer qteTimer;
 
     // GUI handling
     int qteSize = 50;
@@ -29,7 +30,11 @@ public class QTEPanel extends JPanel implements MouseListener {
          }
         this.setLayout(null);
         this.setBounds(0, 0, 800, 600);
-        initTimers();
+        setQTETimer(4000);
+    }
+    
+    public void addChance (String blockName) {
+      chances.add(blockName);
     }
     
     public void removeChance(String blockName) {
@@ -72,12 +77,14 @@ public class QTEPanel extends JPanel implements MouseListener {
             }
         }
     }
-
-    private void initTimers() {
-        new Timer(4000, new ActionListener() {
+    
+    public void setQTETimer(int cooldown) {
+      if (qteTimer != null)
+         qteTimer.stop();
+      qteTimer = new Timer(cooldown, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-               // Make a QTE of a random block every 4 sec
+               // Make a QTE of a random block after every cooldown
                 if (game.timerOn) {
                      // Get a random name from chances, then the corresponding block in planet
                      String blockName = chances.get(random.nextInt(chances.size()));
@@ -108,7 +115,8 @@ public class QTEPanel extends JPanel implements MouseListener {
                   game.updateLabels();
                }
             }
-        }).start();
+        });
+        qteTimer.start();
     }
 
     private static String formatScore(int score) {

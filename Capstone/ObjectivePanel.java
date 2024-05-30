@@ -3,6 +3,7 @@ import java.util.Random;
 import javax.swing.*;
 
 public class ObjectivePanel extends JPanel {
+   static Random random = new Random();
    ArrayList<Objective> objectives = new ArrayList<Objective>();
    GamePanel game;
    Planet planet;
@@ -20,15 +21,23 @@ public class ObjectivePanel extends JPanel {
          }
          public void reward() {
             planet.addBlock(new AirBlock("Clean air", 300));
+            objectives.add(new Objective("Diverse blocks","Obtain soil and ice. Reward: Increase score per second.") {
+               public boolean isComplete() {
+                  return planet.findBlock("Soil") != -1 && planet.findBlock("Ice") != -1;
+               }
+               public void reward() {
+                  GamePanel.scorePerTwoSeconds += 20;
+               }
+            });
          }
       });
-      objectives.add(new Objective("Unlock Medium Difficulty","Get 3000 total volume.\nReward: Increase score per second.") {
+      objectives.add(new Objective("Unlock medium difficulty","Get 3000 total volume.\nReward: Add more objectives. QTEs appear a second sooner.") {
          public boolean isComplete() {
             return planet.getTotalVolume() >= 3000;
          }
          public void reward() {
             GamePanel.difficulty++;
-            GamePanel.scorePerTwoSeconds += 20;
+            game.getQTEPanel().setQTETimer(3000);
             addMoreObjectives();
          }
       });
@@ -56,12 +65,23 @@ public class ObjectivePanel extends JPanel {
    }
    public void addMoreObjectives() {
       if (game.difficulty == 1) {
-         objectives.add(new Objective("Tectonic plates", "Have 3000 volume of rock and soil combined.\nReward: No more Rock QTEs. Less lava forms.") {
+         objectives.add(new Objective("Tectonic plates", "Have soil and have 3000 rock and soil combined.\nReward: No more Rock QTEs, but more Lava and Lava QTEs.") {
             public boolean isComplete() {
-               return planet.getBlockWithName("Rock").getVolume() + planet.getBlockWithName("Soil").getVolume() >= 3000;
+               return planet.findBlock("Soil") != -1 && planet.getBlockWithName("Rock").getVolume() + planet.getBlockWithName("Soil").getVolume() >= 2000;
             }
             public void reward() {
                game.getQTEPanel().removeChance("Rock");
+               planet.addBlock(new LavaBlock("Lava", 200 + random.nextInt(501)));
+               game.getQTEPanel().addChance("Lava");
+            }
+         });
+         objectives.add(new Objective("Diverse life", "Create 4 or more creatures.\nReward: Increase score per second. Humans appear.") {
+            public boolean isComplete() {
+               return planet.getCreatures().size() >= 4;
+            }
+            public void reward() {
+               GamePanel.scorePerTwoSeconds += 20;
+               planet.addHumans(500+random.nextInt(500));
             }
          });
       }

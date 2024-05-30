@@ -30,6 +30,7 @@ public class GamePanel extends JPanel implements MouseListener{
     JLabel[] blockRectLabels = new JLabel[0];
     JTextArea[] blockTextLabels = new JTextArea[0];
     JTextArea[] creatureTextLabels = new JTextArea[5];
+    JTextArea humanLabel;
     JTextField[][] addBlockFields;
     JTextArea scoreLabel;
     JTextArea tempLabel;
@@ -72,10 +73,11 @@ public class GamePanel extends JPanel implements MouseListener{
         }
         scoreLabel = Utils.gameHeadingPanel("", 320, 20, 150, 20);
         tempLabel = Utils.gameHeadingPanel("", 320, 45, 150, 20);
+        humanLabel = Utils.blockTextPanel("", 340, 390, 300, 20);
         this.add(scoreLabel);
         this.add(tempLabel);
         for (int i = 0; i < creatureTextLabels.length; i++) {
-         creatureTextLabels[i] = Utils.blockTextPanel("", 340, 390 + 18*i, 300, 20);
+         creatureTextLabels[i] = Utils.blockTextPanel("", 340, 420 + 18*i, 300, 20);
          this.add(creatureTextLabels[i]);
         }
         if (windowBuildingMode)

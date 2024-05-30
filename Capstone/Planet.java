@@ -65,6 +65,8 @@ public class Planet {
       int blockIndex = findBlock(block.getName());
       if (blockIndex == -1) { // if planet didn't have block with that name, make a new block
          this.blocks.add(block);
+         // add block qte to qtepanel
+         game.getQTEPanel().addChance(block.getName());
       } else { // otherwise add volume to the block of same name
          this.blocks.get(blockIndex).addVolume(block.getVolume());
          if (this.blocks.get(blockIndex).getVolume() <= 0) {

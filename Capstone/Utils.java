@@ -73,6 +73,8 @@ public class Utils { // for fonts, custom colors, and other objects that are to 
                     return new Color(78, 103, 204);
                 else
                     return new Color(68, 146, 158);
+            case "ice":
+               return new Color(194, 217, 255);
             case "rock":
                 return Color.GRAY;
             case "lava":
