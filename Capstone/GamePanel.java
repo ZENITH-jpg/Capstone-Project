@@ -29,7 +29,7 @@ public class GamePanel extends JPanel implements MouseListener{
     int planetLabelSize = 300;
     JLabel[] blockRectLabels = new JLabel[0];
     JTextArea[] blockTextLabels = new JTextArea[0];
-    JTextArea[] creatureTextLabels = new JTextArea[5];
+    JTextArea[] creatureTextLabels = new JTextArea[Planet.maxCreatures];
     JTextArea humanLabel;
     JTextField[][] addBlockFields;
     JTextArea scoreLabel;
@@ -76,8 +76,9 @@ public class GamePanel extends JPanel implements MouseListener{
         humanLabel = Utils.blockTextPanel("", 340, 390, 300, 20);
         this.add(scoreLabel);
         this.add(tempLabel);
+        this.add(humanLabel);
         for (int i = 0; i < creatureTextLabels.length; i++) {
-         creatureTextLabels[i] = Utils.blockTextPanel("", 340, 420 + 18*i, 300, 20);
+         creatureTextLabels[i] = Utils.blockTextPanel("", 340, 410 + 18*i, 300, 20);
          this.add(creatureTextLabels[i]);
         }
         if (windowBuildingMode)
@@ -133,13 +134,14 @@ public class GamePanel extends JPanel implements MouseListener{
     
     public void displayCreatureLabels() {
       for (int i = 0; i < planet.getCreatures().size(); i++) {
-         creatureTextLabels[i].setText(planet.getCreatures().get(i).getSpecies()+" ; "+planet.getCreatures().get(i).getPopulation());
+         creatureTextLabels[i].setText(planet.getCreatures().get(i).getPopulation()+" "+planet.getCreatures().get(i).getSpecies());
       }
     }
     
     public void updateLabels() {
       scoreLabel.setText(formatScore(planet.getScore()));
       tempLabel.setText(planet.getTemp() +" Celsius");
+      humanLabel.setText(planet.getHumans() + " Humans");
       displayCreatureLabels();
       objPanel.checkAllObjectives(); // Update objectives
       objPanel.displayObjectives();

@@ -20,7 +20,7 @@ public class Planet {
       Block.setPlanet(this);
       this.blocks = new ArrayList<Block>();
       this.blocks.add(new WaterBlock("Clean water", 200));
-      this.blocks.add(new RockBlock("Rock", 100));
+      this.blocks.add(new RockBlock("Rock", 1000));
       this.creatures = new ArrayList<Creature>();
       Creature.randomizeSpecies();
    }

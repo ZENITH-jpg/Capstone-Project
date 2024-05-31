@@ -2,7 +2,7 @@ public class SoilBlock extends Block {
    public SoilBlock(String n, int v) {
       super(n, v);
       this.type = "soil";
-      this.property = "Clicking Soil QTEs creates random creatures and humans. Up to "+Planet.maxCreatures+" creatures can be created. Missing QTEs just produces soil";
+      this.property = "Clicking Soil QTEs creates random creatures and humans. Up to "+Planet.maxCreatures+" creatures can be created.";
    }
    public void doQTE() {
       // create a random creature, unless at max creatures
@@ -22,7 +22,5 @@ public class SoilBlock extends Block {
          planet.addHumans(planet.getHumans()/3 + random.nextInt(planet.getHumans()));
    }
    public void doFailedQTE() {
-      // just produces soil
-      planet.addBlock(new SoilBlock(this.name, random.nextInt(500)));
    }
 }

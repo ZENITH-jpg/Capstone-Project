@@ -2,7 +2,7 @@ public class WaterBlock extends Block {
    public WaterBlock(String n, int v) {
       super(n, v);
       this.type = "water";
-      this.property = "Clicking Water QTEs turns dirty water clean and produces water. Might turn into ice if volume > 1000.";
+      this.property = "Clicking Water QTEs produces more water. Might turn into ice if volume > 1000.";
    }
    public void doQTE() {
       if (this.volume < 1000 + random.nextInt(501)) {

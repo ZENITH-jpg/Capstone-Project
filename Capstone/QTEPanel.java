@@ -16,6 +16,7 @@ public class QTEPanel extends JPanel implements MouseListener {
     Planet planet;
     ArrayList<String> chances; // determines the type of block the qtes are
     Timer qteTimer;
+    public static int maxQTEs = 2; // max qtes that can appear on screen
 
     // GUI handling
     int qteSize = 50;
@@ -101,8 +102,8 @@ public class QTEPanel extends JPanel implements MouseListener {
                      QTEPanel.this.revalidate();
                      QTEPanel.this.repaint();
                 }
-               if (qteLabels.size() > 2) {
-                  // removes a QTE when at least 2 other QTEs show up
+               if (qteLabels.size() > maxQTEs) {
+                  // removes a QTE when at maxQTEs
                   JLabel qteLabel = qteLabels.get(0);
                   qteLabel.removeMouseListener(QTEPanel.this);
                   QTEPanel.this.remove(qteLabel);
