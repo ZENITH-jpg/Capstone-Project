@@ -21,11 +21,14 @@ public class GamePanel extends JPanel implements MouseListener{
     static Random random = new Random();
     Window window;
     Planet planet;
+
+    // Graphics and Panels
+    Image background;
     QTEPanel qtePanel;
     ObjectivePanel objPanel;
-
+    
     // GUI handling
-    JLabel planetLabel;
+    JLabel planetLabel = new JLabel();
     int planetLabelSize = 300;
     JLabel[] blockRectLabels = new JLabel[0];
     JTextArea[] blockTextLabels = new JTextArea[0];
@@ -58,13 +61,10 @@ public class GamePanel extends JPanel implements MouseListener{
         objPanel.setOpaque(false); // makes transparent
         objPanel.setBackground(new Color(0,0,0,0)); // makes transparent
         this.add(objPanel);
+        // Add background
+        background = new ImageIcon("assets/space_bg.png").getImage();
         // Add JLabels
-        Image planetImg = new ImageIcon("assets/rocky_planet.png").getImage().getScaledInstance(planetLabelSize,
-                planetLabelSize, Image.SCALE_DEFAULT);
-        ImageIcon planetIcon = new ImageIcon(planetImg);
-        planetLabel = new JLabel(planetIcon);
-        planetLabel.setBounds(40, 40, planetLabelSize, planetLabelSize);
-        this.add(planetLabel);
+        this.setPlanetLabel("assets/rocky_planet.png");
         ArrayList<JTextArea> permanentLabels = new ArrayList<JTextArea>();
         permanentLabels.add(Utils.gameHeadingPanel("Constitution of Planet", 40, 360, 300, 20));
         permanentLabels.add(Utils.gameHeadingPanel("Existing Creatures", 340, 360, 300, 20));
@@ -160,7 +160,7 @@ public class GamePanel extends JPanel implements MouseListener{
              blockTextLabels[i]
                      .setText(blockTextLabels[i].getText() + "\n" + planet.getBlockAtIndex(i).getProperty());
              blockTextLabels[i].setOpaque(true);
-             blockTextLabels[i].setBackground(Color.WHITE);
+             blockTextLabels[i].setBackground(Color.BLACK);
         }
     }
 
@@ -197,6 +197,22 @@ public class GamePanel extends JPanel implements MouseListener{
       }
     }
 
+    @Override
+    public void paintComponent(Graphics g) { // screen
+        Graphics2D g2d = (Graphics2D)g;
+        g2d.drawImage(background,0,0,null); //bg
+    }
+    
+    public void setPlanetLabel(String file) {
+        this.remove(planetLabel);
+        Image planetImg = new ImageIcon(file).getImage().getScaledInstance(planetLabelSize,
+                planetLabelSize, Image.SCALE_DEFAULT);
+        ImageIcon planetIcon = new ImageIcon(planetImg);
+        planetLabel = new JLabel(planetIcon);
+        planetLabel.setBounds(40, 40, planetLabelSize, planetLabelSize);
+        this.add(planetLabel);
+    } 
+    
     private void initTimers() {
         // this timer adds score every 2 sec
         new Timer(2000, new ActionListener() {

@@ -31,6 +31,7 @@ public class ObjectivePanel extends JPanel {
                   GamePanel.scorePerTwoSeconds += 20;
                   planet.addBlock(new IceBlock("Ice", 300)); // also add 300 ice
                   game.getQTEPanel().addChance("Soil"); // also increase chance of soil qtes
+                  game.setPlanetLabel("assets/earthy_planet.png"); // also change planet appearance 
                   GamePanel.creaturesCanAppear = true;
                   objectives.add(new Objective("Diverse life", "Create 4 or more creatures.\nReward: No more Water QTEs. Increase score per second. Humans appear.") {
                      public boolean isComplete() {
