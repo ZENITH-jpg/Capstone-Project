@@ -23,7 +23,7 @@ public class ObjectivePanel extends JPanel {
             planet.addBlock(new AirBlock("Clean air", 300));
             // decided to have no air qtes until later
             game.getQTEPanel().removeChance("Clean air");
-            objectives.add(new Objective("Diverse blocks","Obtain soil and ice. Reward: No more Water QTEs. Increase score per second.") {
+            objectives.add(new Objective("Diverse blocks","Obtain soil and ice. Reward: Increase score per second. Creatures appear.") {
                public boolean isComplete() {
                   return planet.findBlock("Soil") != -1 && planet.findBlock("Ice") != -1;
                }
@@ -31,13 +31,15 @@ public class ObjectivePanel extends JPanel {
                   GamePanel.scorePerTwoSeconds += 20;
                   // also add 300 ice
                   planet.addBlock(new IceBlock("Ice", 300));
-                  game.getQTEPanel().removeChance("Clean water");
-                  objectives.add(new Objective("Diverse life", "Create 4 or more creatures.\nReward: Increase score per second. Humans appear.") {
+                  GamePanel.creaturesCanAppear = true;
+                  planet.createCreature();
+                  objectives.add(new Objective("Diverse life", "Create 4 or more creatures.\nReward: No more Water QTEs. Increase score per second. Humans appear.") {
                      public boolean isComplete() {
                         return planet.getCreatures().size() >= 4;
                      }
                      public void reward() {
                         GamePanel.scorePerTwoSeconds += 20;
+                        game.getQTEPanel().removeChance("Clean water");
                         planet.addHumans(500+random.nextInt(500));
                      }
                   });

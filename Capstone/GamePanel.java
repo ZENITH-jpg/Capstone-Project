@@ -39,6 +39,7 @@ public class GamePanel extends JPanel implements MouseListener{
     public static boolean timerOn = true;
     public static int difficulty = 0; // 0 is easy, 1 is medium, and so on
     public static int scorePerTwoSeconds = 20;
+    public static boolean creaturesCanAppear = false; // updated by completing objectives
 
     GamePanel(Window w) {
         window = w;
