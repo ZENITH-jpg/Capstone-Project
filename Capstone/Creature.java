@@ -2,7 +2,7 @@ import java.util.Random;
 
 public class Creature {
    private static Random random = new Random();
-   private static String[] possibleSpecies = new String[] {"Lemurs", "Moquitos", "Baobabs", "Octopi", "Platypi"};
+   private static String[] possibleSpecies = new String[] {"Lemurs", "Moquitos", "Baboons", "Baobabs", "Octopi", "Platypi", "Bats", "Iguanas", "Conifers", "Ferns"};
    private String species;
    private int population; // no setter, only adder
    

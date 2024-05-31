@@ -21,7 +21,7 @@ public class ObjectivePanel extends JPanel {
          }
          public void reward() {
             planet.addBlock(new AirBlock("Clean air", 300));
-            // decided to have no air qtes
+            // decided to have no air qtes until later
             game.getQTEPanel().removeChance("Clean air");
             objectives.add(new Objective("Diverse blocks","Obtain soil and ice. Reward: Increase score per second.") {
                public boolean isComplete() {
@@ -84,6 +84,16 @@ public class ObjectivePanel extends JPanel {
             public void reward() {
                GamePanel.scorePerTwoSeconds += 20;
                planet.addHumans(500+random.nextInt(500));
+            }
+         });
+         objectives.add(new Objective("Unlock medium difficulty","Get 3000 total volume.\nReward: QTEs appear a second sooner.") {
+            public boolean isComplete() {
+               return planet.getTotalVolume() >= 3000;
+            }
+            public void reward() {
+               GamePanel.difficulty++;
+               game.getQTEPanel().setQTETimer(3000);
+               addMoreObjectives();
             }
          });
       }

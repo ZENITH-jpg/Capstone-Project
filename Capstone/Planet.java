@@ -6,6 +6,7 @@ public class Planet {
    static GamePanel game;
    private ArrayList<Block> blocks;
    private ArrayList<Creature> creatures;
+   public static int maxCreatures = 8;
    // The fields below have no setter, only adder
    private int score;
    private int temp;
@@ -19,7 +20,7 @@ public class Planet {
       Block.setPlanet(this);
       this.blocks = new ArrayList<Block>();
       this.blocks.add(new WaterBlock("Clean water", 200));
-      this.blocks.add(new RockBlock("Rock", 1000));
+      this.blocks.add(new RockBlock("Rock", 100));
       this.creatures = new ArrayList<Creature>();
       Creature.randomizeSpecies();
    }

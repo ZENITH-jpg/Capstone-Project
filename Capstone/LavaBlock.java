@@ -7,6 +7,6 @@ public class LavaBlock extends Block {
    public void doQTE() {
    }
    public void doFailedQTE() {
-      planet.addTemp(15+random.nextInt(10));
+      planet.addTemp(25+random.nextInt(40));
    }
 }
