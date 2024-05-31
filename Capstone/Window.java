@@ -25,17 +25,6 @@ public class Window extends JFrame {
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //standard init
 		window.getContentPane().setBackground(Color.black);
 		window.setLayout(null);
-
-		/*message = new JTextArea("HAHAHAHAHAHHAHAHA");
-		message.setBounds(50,410,700,150);
-		message.setBackground(Color.black);
-		message.setForeground(Color.white);
-		message.setEditable(false);
-		message.setLineWrap(true);
-		message.setWrapStyleWord(true);
-		message.setFont(new Font("Book Antiqua", Font.PLAIN, 26));
-		window.add(message);
-		 */
 		window.add(l);
 		window.add(m);
 		l.setVisible(false);
@@ -63,20 +52,6 @@ public class Window extends JFrame {
 		m.setVisible(true);
 		m.requestFocus();
 		window.repaint();
-	}
-	public void createBackground(){
-		/*
-		bgPanel[1] = new JPanel();// add a background (jpanel)
-		bgPanel[1].setBounds(0,0,800,600);
-		bgPanel[1].setLayout(null);
-		window.add(bgPanel[1]); // add background to window
-		bgLabel[1] = new JLabel();
-		bgLabel[1].setBounds(0,0,800,600);
-		ImageIcon bgIcon = new ImageIcon(getClass().getClassLoader().getResource("assets/background.png")); // get image for background
-		bgLabel[1].setIcon(bgIcon);
-		bgPanel[1].add(bgLabel[1]); // set background to image
-		 */
-
 	}
 	public void close(){
 		window.setVisible(false); //set visibility to false, then clean up panel
