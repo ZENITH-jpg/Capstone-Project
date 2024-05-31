@@ -23,16 +23,15 @@ public class ObjectivePanel extends JPanel {
             planet.addBlock(new AirBlock("Clean air", 300));
             // decided to have no air qtes until later
             game.getQTEPanel().removeChance("Clean air");
-            objectives.add(new Objective("Diverse blocks","Obtain soil and ice. Reward: Increase score per second. Creatures appear.") {
+            objectives.add(new Objective("Diverse blocks","Obtain soil and ice.\nReward: Increase score per second. Creatures can appear.") {
                public boolean isComplete() {
                   return planet.findBlock("Soil") != -1 && planet.findBlock("Ice") != -1;
                }
                public void reward() {
                   GamePanel.scorePerTwoSeconds += 20;
-                  // also add 300 ice
-                  planet.addBlock(new IceBlock("Ice", 300));
+                  planet.addBlock(new IceBlock("Ice", 300)); // also add 300 ice
+                  game.getQTEPanel().addChance("Soil"); // also increase chance of soil qtes
                   GamePanel.creaturesCanAppear = true;
-                  planet.createCreature();
                   objectives.add(new Objective("Diverse life", "Create 4 or more creatures.\nReward: No more Water QTEs. Increase score per second. Humans appear.") {
                      public boolean isComplete() {
                         return planet.getCreatures().size() >= 4;
@@ -47,7 +46,7 @@ public class ObjectivePanel extends JPanel {
             });
          }
       });
-      objectives.add(new Objective("Unlock medium difficulty","Get 3000 total volume.\nReward: QTEs appear a second sooner.") {
+      objectives.add(new Objective("Easy mode","Get 3000 total volume.\nReward: QTEs appear a second sooner.") {
          public boolean isComplete() {
             return planet.getTotalVolume() >= 3000;
          }
@@ -91,14 +90,18 @@ public class ObjectivePanel extends JPanel {
                game.getQTEPanel().addChance("Lava");
             }
          });
-         objectives.add(new Objective("Unlock hard difficulty","Have 100,000 humans.\nReward: Garbage blocks appear. +1 QTE will be on screen") {
+         objectives.add(new Objective("Medium mode","Have 50,000 humans.\nReward: Garbage blocks appear. +1 QTE will be on screen") {
             public boolean isComplete() {
-               return planet.getHumans() >= 100000;
+               return planet.getHumans() >= 50000;
             }
             public void reward() {
                GamePanel.difficulty++;
                planet.addBlock(new GarbageBlock("Garbage", 500));
                QTEPanel.maxQTEs++;
+               planet.removeBlockWithName("Rock"); // Also remove rock from view
+               planet.addBlock(new AirBlock("Clean air", 300)); // also add 300 air
+               game.getQTEPanel().clearQTEs();
+               game.displayBlockLabels();
                addMoreObjectives();
             }
          });

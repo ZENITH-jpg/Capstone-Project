@@ -119,6 +119,18 @@ public class QTEPanel extends JPanel implements MouseListener {
         });
         qteTimer.start();
     }
+    
+    // to prevent the error of deleting a block with qtes on screem
+    public void clearQTEs () {
+      for (int i = 0; i < qteLabels.size(); i++) {
+         JLabel qteLabel = qteLabels.get(i);
+         qteLabel.removeMouseListener(this);
+         this.remove(qteLabel);
+         qteLabels.remove(i); 
+      }
+      this.revalidate();
+      this.repaint();
+    }
 
     private static String formatScore(int score) {
         return String.format("SCORE: %09d", score);

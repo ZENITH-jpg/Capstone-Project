@@ -1,8 +1,11 @@
-For our LeaderboardPanel class, we use a merge sort to sort the leaderboard candidates in correct order
-This follows a merge sort, however, instead of sorting objects in ascending order, we do it in descending order
-We take in a Player class lists and split them into 2 smaller list such that each list is around half the size of the original list
-We then run a merge sort on those two lists and merge the two lists back into the original list in descending order.
-If merge sort is called and the list is of size 1, we return the list as sorted before any operations are done
-Our pre-conditions for this merge sort is that each object in our list must be of the Player class and that the score field for each of these classes is initialized and an integer >= 0
-Our post-conditions is that our list should contain all the same objects as the original list, just that the order of the list in arranged such that the Player's scores are in ascending order
+For our LeaderboardPanel class, we use a merge sort to sort the leaderboard candidates in correct order. However, instead of sorting objects in ascending order, we do it in descending order.
+
+How merge sort works:
+We take in a Player class lists and split them into 2 smaller lists such that each list is around half the size of the original list
+We keep splitting the two lists by calling the sort method recursively.
+If sort() is called and the list is of size 1, we return the list unchanged since it is already sorted.
+Finally we use the merge method to merge the lists back into the original list in descending order.
+
+Our pre-conditions for this algorithm are that each object in our list must be of the Player class and that the score field for each of these classes is initialized with an integer >= 0
+Our post-conditions are that our list should contain all the same objects as the original list, just that the order of the list in arranged such that the Player's scores are in descending order.
 The complexity of this algorithm is O(nlogn) as we split the array into 2 every call (logn) and loop through each element in the list to rearrange them back together (n)

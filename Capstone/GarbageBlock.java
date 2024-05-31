@@ -2,7 +2,7 @@ public class GarbageBlock extends Block {
    public GarbageBlock(String n, int v) {
       super(n, v);
       this.type = "garbage";
-      this.property = "Failing a QTE can reduce the population of creatures";
+      this.property = "Missing a QTE can reduce the population of creatures. Clicking a QTE will produce garbage.";
    }
    public void doQTE() {
    }
