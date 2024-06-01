@@ -1,7 +1,7 @@
 For our LeaderboardPanel class, we use a merge sort to sort the leaderboard candidates in correct order. However, instead of sorting objects in ascending order, we do it in descending order.
 
 How merge sort works:
-We take in a Player class lists and split them into 2 smaller lists such that each list is around half the size of the original list
+We take in a Player class lists and split them into 2 smaller lists such that each list is around half the size of the original list.
 We keep splitting the two lists by calling the sort method recursively.
 If sort() is called and the list is of size 1, we return the list unchanged since it is already sorted.
 Finally we use the merge method to merge the lists back into the original list in descending order.
