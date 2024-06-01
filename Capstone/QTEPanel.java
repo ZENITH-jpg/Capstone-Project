@@ -1,3 +1,9 @@
+/*
+Van N
+2024-05-31
+Mr Guglielmi
+Class that controls the QTE popups
+*/
 import java.util.ArrayList;
 import java.util.Random;
 

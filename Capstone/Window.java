@@ -1,6 +1,11 @@
+/*
+Van N, Tristan C
+2024-05-31
+Mr Guglielmi
+Window for the game
+*/
 import javax.swing.*;
 import java.awt.*;
-//Window for the game
 public class Window extends JFrame {
 
    //window components

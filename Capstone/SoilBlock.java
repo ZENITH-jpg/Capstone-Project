@@ -1,3 +1,9 @@
+/*
+Van N
+2024-05-31
+Mr Guglielmi
+Soil block in the planet composition
+*/
 public class SoilBlock extends Block {
    public SoilBlock(String n, int v) {
       super(n, v);

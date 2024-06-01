@@ -1,3 +1,9 @@
+/*
+Van N
+2024-05-31
+Mr Guglielmi
+Garbage block in the planet composition, initiates a minigame
+*/
 public class GarbageBlock extends Block {
    public GarbageBlock(String n, int v) {
       super(n, v);
@@ -5,6 +11,7 @@ public class GarbageBlock extends Block {
       this.property = "Missing a QTE can reduce the population of creatures. Clicking a QTE will produce garbage.";
    }
    public void doQTE() {
+
    }
    public void doFailedQTE() {
       // reduce population of a random number of creatures

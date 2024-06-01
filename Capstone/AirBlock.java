@@ -1,3 +1,9 @@
+/*
+Van N
+2024-05-31
+Mr Guglielmi
+Air block in the planet composition
+*/
 public class AirBlock extends Block {
    public AirBlock(String n, int v) {
       super(n, v);

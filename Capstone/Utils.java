@@ -1,3 +1,9 @@
+/*
+Tristan C, Van N
+2024-05-31
+Mr Guglielmi
+Common utils for the game, stores fonts and other useful generators
+*/
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;

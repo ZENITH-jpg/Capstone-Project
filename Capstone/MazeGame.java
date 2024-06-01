@@ -1,3 +1,9 @@
+/*
+Tristan Cao
+2024-05-31
+Mr Guglielmi
+The maze minigame initiated when garbage qte is clicked on
+*/
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;

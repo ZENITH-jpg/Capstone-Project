@@ -1,3 +1,9 @@
+/*
+Van N
+2024-05-31
+Mr Guglielmi
+Lava block in the planet composition
+*/
 public class LavaBlock extends Block {
    public LavaBlock(String n, int v) {
       super(n, v);

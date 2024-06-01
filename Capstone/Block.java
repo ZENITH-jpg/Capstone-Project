@@ -1,4 +1,9 @@
-
+/*
+Van N
+2024-05-31
+Mr Guglielmi
+Block superclass for the block objects in the game
+*/
 import java.util.Random;
 public abstract class Block {
    protected static Random random = new Random();

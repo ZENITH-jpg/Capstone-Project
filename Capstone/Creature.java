@@ -1,3 +1,9 @@
+/*
+Van N
+2024-05-31
+Mr Guglielmi
+Animals that exist in the game which will either appear or die
+*/
 import java.util.Random;
 
 public class Creature {

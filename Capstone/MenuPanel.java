@@ -1,4 +1,9 @@
-
+/*
+Tristan Cao
+2024-05-31
+Mr Guglielmi
+The main menu for the game
+*/
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;

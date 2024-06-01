@@ -1,3 +1,9 @@
+/*
+Tristan Cao
+2024-05-31
+Mr Guglielmi
+The protest minigame initiated when ??? qte is clicked on, space spammmer
+*/
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;

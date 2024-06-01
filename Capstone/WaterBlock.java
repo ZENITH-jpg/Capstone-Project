@@ -1,3 +1,9 @@
+/*
+Van N
+2024-05-31
+Mr Guglielmi
+Water block in the planet composition
+*/
 public class WaterBlock extends Block {
    public WaterBlock(String n, int v) {
       super(n, v);

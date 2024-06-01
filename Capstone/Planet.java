@@ -1,3 +1,9 @@
+/*
+Van N
+2024-05-31
+Mr Guglielmi
+Planet containing the blocks and has other game information such as creatures, and score
+*/
 import java.util.ArrayList;
 import java.util.Random;
 

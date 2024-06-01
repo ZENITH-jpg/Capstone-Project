@@ -1,3 +1,9 @@
+/*
+Van N
+2024-05-31
+Mr Guglielmi
+Ice block in the planet composition
+*/
 public class IceBlock extends Block {
    public IceBlock(String n, int v) {
       super(n, v);

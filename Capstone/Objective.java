@@ -1,4 +1,9 @@
-
+/*
+Van N
+2024-05-31
+Mr Guglielmi
+Objective object in the game with a prompt and description
+*/
 public class Objective {
    private static ObjectivePanel objPanel;
    private String name;
