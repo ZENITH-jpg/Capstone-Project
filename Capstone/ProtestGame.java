@@ -2,7 +2,7 @@
 Tristan Cao
 2024-05-31
 Mr Guglielmi
-The protest minigame initiated when ??? qte is clicked on, space spammmer
+The protest minigame initiated when smog qte is clicked on, space spammer
 */
 import javax.swing.*;
 import java.awt.*;

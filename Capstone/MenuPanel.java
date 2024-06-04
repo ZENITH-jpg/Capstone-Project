@@ -16,7 +16,7 @@ public class MenuPanel extends JPanel implements KeyListener {
     int index;
     final String[] options = {"start", "instructions", "leaderboard"}; //menu selection
     Image[][] menuItems = new Image[3][2]; //image array for menu items [item choice][is item active]
-    final String guide = "Use arrow keys or WASD to navigate\nSPACE or ENTER to select, ESC to exit game at any time.";
+    final String guide = "Use arrow keys or WASD to navigate\nSPACE or ENTER to select, ESC to exit game.";
 
     MenuPanel(Window w){
         window = w; // default init

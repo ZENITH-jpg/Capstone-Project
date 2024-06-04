@@ -63,13 +63,6 @@ public class Window extends JFrame {
 		window.dispose();
 	}
 
-	public void testProtest(){
-		m.setVisible(false);
-		ProtestGame p = new ProtestGame(this);
-		window.add(p);
-		p.setUp();
-
-	}
    public static void main (String[] args) {
       Utils.init();
       Window w = new Window(); // run window
