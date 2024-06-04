@@ -9,9 +9,7 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-public class MazeGame extends JPanel implements KeyListener {
-   private Window window; // from other classes
-   private Planet planet;
+public class MazeGame extends Minigame implements KeyListener {
    private int x; // location in 2d array
    private int y;
    private Image messageBg; // assets
@@ -27,8 +25,8 @@ public class MazeGame extends JPanel implements KeyListener {
 
    private int[][] grid;
 
-   public MazeGame(Window w) {
-      window = w; // standard init
+   public MazeGame(GamePanel g, Planet pl) {
+      super(g, pl); // standard init
       this.setFocusable(true);
       this.setBackground(Color.black);
       this.addKeyListener(this);

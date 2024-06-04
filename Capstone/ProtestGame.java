@@ -9,9 +9,7 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-public class ProtestGame extends JPanel implements KeyListener {
-    private Window window; // from other classes
-    private Planet planet;
+public class ProtestGame extends Minigame implements KeyListener {
     private Image messageBg; // assets
     private Image bg;
     private Image crowd;
@@ -23,8 +21,8 @@ public class ProtestGame extends JPanel implements KeyListener {
     private int clicks = 0; // controls how high the sign is and success of minigame
 
 
-    public ProtestGame(Window w) {
-        window = w; // standard init
+    public ProtestGame(GamePanel g, Planet p) {
+        super(g, p); // standard init
         this.setFocusable(true);
         this.setBackground(Color.black);
         this.addKeyListener(this);
