@@ -9,7 +9,7 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-public class MazeGame extends Minigame implements KeyListener {
+public class MazeGame extends Minigame {
    private int x; // location in 2d array
    private int y;
    private Image messageBg; // assets

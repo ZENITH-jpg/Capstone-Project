@@ -9,7 +9,7 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-public class ProtestGame extends Minigame implements KeyListener {
+public class ProtestGame extends Minigame {
     private Image messageBg; // assets
     private Image bg;
     private Image crowd;

@@ -26,6 +26,7 @@ public class GamePanel extends JPanel implements MouseListener{
     Image background;
     QTEPanel qtePanel;
     ObjectivePanel objPanel;
+    Minigame minigamePanel;
     
     // GUI handling
     JLabel planetLabel = new JLabel();
@@ -38,7 +39,7 @@ public class GamePanel extends JPanel implements MouseListener{
     JTextArea scoreLabel;
     JTextArea tempLabel;
 
-    // Score handling
+    // Static variables
     public static boolean timerOn = true;
     public static int difficulty = 0; // 0 is easy, 1 is medium, and so on
     public static int scorePerTwoSeconds = 20;
@@ -146,6 +147,16 @@ public class GamePanel extends JPanel implements MouseListener{
       displayCreatureLabels();
       objPanel.checkAllObjectives(); // Update objectives
       objPanel.displayObjectives();
+    }
+    
+    public void startMinigame (Minigame minigame) {
+      if (minigamePanel != null) {
+         // remove the label and its listeners
+         this.remove(minigamePanel);
+         minigamePanel.removeKeyListener(minigamePanel); 
+      }
+      minigamePanel = minigame;
+      this.add(minigamePanel);
     }
 
     @Override
