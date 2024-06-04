@@ -25,8 +25,8 @@ public class MazeGame extends Minigame {
 
    private int[][] grid;
 
-   public MazeGame(GamePanel g, Planet pl) {
-      super(g, pl); // standard init
+   public MazeGame(Window w) {
+      super(w); // standard init
       this.setFocusable(true);
       this.setBackground(Color.black);
       this.addKeyListener(this);

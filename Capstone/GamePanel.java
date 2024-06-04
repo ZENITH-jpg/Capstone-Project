@@ -26,7 +26,6 @@ public class GamePanel extends JPanel implements MouseListener{
     Image background;
     QTEPanel qtePanel;
     ObjectivePanel objPanel;
-    Minigame minigamePanel;
     
     // GUI handling
     JLabel planetLabel = new JLabel();
@@ -149,16 +148,7 @@ public class GamePanel extends JPanel implements MouseListener{
       objPanel.displayObjectives();
     }
     
-    public void startMinigame (Minigame minigame) {
-      if (minigamePanel != null) {
-         // remove the label and its listeners
-         this.remove(minigamePanel);
-         minigamePanel.removeKeyListener(minigamePanel); 
-      }
-      minigamePanel = minigame;
-      this.add(minigamePanel);
-    }
-
+    
     @Override
     public void mouseEntered(MouseEvent e) {
         if (e.getSource() instanceof JLabel) {
@@ -241,6 +231,10 @@ public class GamePanel extends JPanel implements MouseListener{
       // adds nine leading zeros to the score
       return String.format("SCORE: %09d", score);
     }
+    
+    public Planet getPlanet() {
+      return planet;
+   }
     
     public QTEPanel getQTEPanel() {
       return qtePanel;

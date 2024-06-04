@@ -11,11 +11,13 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class Minigame extends JPanel implements KeyListener {
+   Window window;
    GamePanel game;
    Planet planet;
-   public Minigame (GamePanel g, Planet p) {
-      game = g;
-      planet = p;
+   public Minigame (Window w) {
+      //window = w;
+      //game = w.getGame();
+      //planet = game.getPlanet();
    }
    @Override
    public void keyTyped(KeyEvent e) {
