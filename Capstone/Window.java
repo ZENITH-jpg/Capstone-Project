@@ -20,7 +20,8 @@ public class Window extends JFrame {
 	
 	Window(){
 		m = new MenuPanel(this); //create window panels
-		//g = new GamePanel(this);
+		g = new GamePanel(this);
+      GamePanel.timerOn = false;
 		l = new LeaderboardPanel(this);
 		icon = new ImageIcon("assets/icon.png").getImage(); // set window data
 		window = new JFrame("PlanetSim");
@@ -32,14 +33,15 @@ public class Window extends JFrame {
 		window.setLayout(null);
 		window.add(l);
 		window.add(m);
+      window.add(g);
+      g.setVisible(false);
 		l.setVisible(false);
 		window.setVisible(true);
 	}
 	public void startGame() {
 		m.setVisible(false);
-      g = new GamePanel(this);
-      window.add(g);
 		g.setVisible(true);
+      GamePanel.timerOn = true;
 		g.requestFocus();
 		window.repaint();
 	}
@@ -51,9 +53,7 @@ public class Window extends JFrame {
 	}
 	public void returnMenu(){
 		l.setVisible(false);
-      if (g != null)
-		   g.setVisible(false);
-		//i.setVisible(false);
+		g.setVisible(false);
 		m.setVisible(true);
 		m.requestFocus();
 		window.repaint();
