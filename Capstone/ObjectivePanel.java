@@ -103,13 +103,22 @@ public class ObjectivePanel extends JPanel {
             }
             public void reward() {
                GamePanel.difficulty++;
-               planet.addBlock(new GarbageBlock("Garbage", 500));
+               planet.addBlock(new SmogBlock("Smog", 500));
                QTEPanel.maxQTEs++;
                planet.removeBlockWithName("Rock"); // Also remove rock from view
                planet.addBlock(new AirBlock("Clean air", 300)); // also add 300 air
                game.getQTEPanel().clearQTEs();
                game.displayBlockLabels();
                addMoreObjectives();
+            }
+         });
+      } else if (game.difficulty == 2) {
+         objectives.add(new Objective("Ozone layer","Get 800 air by converting smog.") {
+         public boolean isComplete() {
+               return planet.getBlockWithName("Clean air").getVolume() >= 800;
+            }
+            public void reward() {
+               game.startMinigame(new MazeGame(game, planet));
             }
          });
       }

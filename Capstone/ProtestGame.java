@@ -21,8 +21,8 @@ public class ProtestGame extends Minigame {
     private int clicks = 0; // controls how high the sign is and success of minigame
 
 
-    public ProtestGame(GamePanel g, Planet p) {
-        super(g, p); // standard init
+    public ProtestGame(Window w) {
+        super(w); // standard init
         this.setFocusable(true);
         this.setBackground(Color.black);
         this.addKeyListener(this);
@@ -35,6 +35,7 @@ public class ProtestGame extends Minigame {
         messageBg = new ImageIcon("assets/background.png").getImage();
         context = Utils.messagePanel("Spam the spacebar enough times to raise the protest sign before time runs out!" + //instructions
                 "\n\nProtesting for climate laws ensure that our government takes action in the fight against climate change", 200, 180, 400, 200);
+        setUp();
     }
 
     public void setUp() {

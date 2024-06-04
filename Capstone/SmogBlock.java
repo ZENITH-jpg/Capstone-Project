@@ -2,16 +2,15 @@
 Van N
 2024-05-31
 Mr Guglielmi
-Garbage block in the planet composition, initiates a minigame
+Smog block in the planet composition, initiates a minigame
 */
-public class GarbageBlock extends Block {
-   public GarbageBlock(String n, int v) {
+public class SmogBlock extends Block {
+   public SmogBlock(String n, int v) {
       super(n, v);
-      this.type = "garbage";
-      this.property = "Missing a QTE can reduce the population of creatures. Clicking a QTE will produce garbage.";
+      this.type = "smog";
+      this.property = "Missing QTEs reduces the population of creatures.";
    }
    public void doQTE() {
-
    }
    public void doFailedQTE() {
       // reduce population of a random number of creatures
