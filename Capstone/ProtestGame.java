@@ -35,7 +35,6 @@ public class ProtestGame extends Minigame {
         messageBg = new ImageIcon("assets/background.png").getImage();
         context = Utils.messagePanel("Spam the spacebar enough times to raise the protest sign before time runs out!" + //instructions
                 "\n\nProtesting for climate laws ensure that our government takes action in the fight against climate change", 200, 180, 400, 200);
-        setUp();
     }
 
     public void setUp() {
@@ -48,11 +47,11 @@ public class ProtestGame extends Minigame {
     }
 
     public void startGame() {
-        while (dT < 7000) { // show message for 7 secs
+        /*while (dT < 7000) { // show message for 7 secs
             dT += System.currentTimeMillis() - tS; //getting time passed
             tS = System.currentTimeMillis();
             repaint(); // repaint the canvas for animation
-        }
+        }*/
         this.requestFocus(); // allow input
         dT = 0; // reset time
         flag ++; // change screen

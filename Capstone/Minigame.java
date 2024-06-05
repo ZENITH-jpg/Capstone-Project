@@ -19,6 +19,7 @@ public class Minigame extends JPanel implements KeyListener {
       //game = w.getGame();
       //planet = game.getPlanet();
    }
+   public void setUp() {}
    @Override
    public void keyTyped(KeyEvent e) {
    }

@@ -12,7 +12,7 @@ public class WaterBlock extends Block {
    }
    public void doQTE() {
       if (this.volume < 1000) {
-         planet.addBlock(new WaterBlock(this.getName(),200+random.nextInt(200)));
+         planet.addBlock(new WaterBlock(this.getName(),100+random.nextInt(200)));
       } else {
          int num = 200+random.nextInt(200);
          planet.addBlock(new IceBlock("Ice", num));

@@ -14,6 +14,7 @@ public class Window extends JFrame {
 	private MenuPanel m; // panels that can be switched to
 	private GamePanel g;
 	private LeaderboardPanel l;
+   private Minigame mg;
 	public JTextArea message;
 	public JPanel bgPanel[] = new JPanel[10];
 	public JLabel bgLabel[] = new JLabel[10];
@@ -44,7 +45,17 @@ public class Window extends JFrame {
       GamePanel.timerOn = true;
 		g.requestFocus();
 		window.repaint();
+      // Delete later
+      startMinigame (new ProtestGame(this));
 	}
+   public void startMinigame(Minigame minigame) {
+      GamePanel.timerOn = false;
+      mg = minigame;
+      window.add(mg);
+      mg.setVisible(true);
+      g.setVisible(false);
+      mg.setUp();
+   }
 	public void showLeaderboard() {
 		m.setVisible(false);
 		l.setVisible(true);
@@ -62,7 +73,9 @@ public class Window extends JFrame {
 		window.setVisible(false); //set visibility to false, then clean up panel
 		window.dispose();
 	}
-
+   public GamePanel getGame() {
+      return g;
+   }
    public static void main (String[] args) {
       Utils.init();
       Window w = new Window(); // run window
