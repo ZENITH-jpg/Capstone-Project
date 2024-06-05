@@ -151,6 +151,9 @@ public class Planet {
    
    // when calling this method, also call game.getQTEPanel().clearQTEs() and game.displayBlockLabels()
    public void removeBlockWithName(String n) {
-      this.blocks.remove(this.findBlock(n));
+      Block block = blocks.get(findBlock(n));
+      this.blocks.remove(block);
+      game.getQTEPanel().clearQTEs(block.getName());
+      game.displayBlockLabels();
    }
 }
