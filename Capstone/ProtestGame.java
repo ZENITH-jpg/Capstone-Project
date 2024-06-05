@@ -47,11 +47,11 @@ public class ProtestGame extends Minigame {
     }
 
     public void startGame() {
-        /*while (dT < 7000) { // show message for 7 secs
+        while (dT < 7000) { // show message for 7 secs
             dT += System.currentTimeMillis() - tS; //getting time passed
             tS = System.currentTimeMillis();
             repaint(); // repaint the canvas for animation
-        }*/
+        }
         this.requestFocus(); // allow input
         dT = 0; // reset time
         flag ++; // change screen

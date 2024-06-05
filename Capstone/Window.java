@@ -41,12 +41,12 @@ public class Window extends JFrame {
 	}
 	public void startGame() {
 		m.setVisible(false);
-		g.setVisible(true);
-      GamePanel.timerOn = true;
-		g.requestFocus();
-		window.repaint();
-      // Delete later
+		//g.setVisible(true);
+      //GamePanel.timerOn = true;
+		//g.requestFocus();
+      window.repaint();
       startMinigame (new ProtestGame(this));
+      // Delete later
 	}
    public void startMinigame(Minigame minigame) {
       GamePanel.timerOn = false;
@@ -54,7 +54,9 @@ public class Window extends JFrame {
       window.add(mg);
       mg.setVisible(true);
       g.setVisible(false);
+      mg.requestFocus();
       mg.setUp();
+      window.repaint();
    }
 	public void showLeaderboard() {
 		m.setVisible(false);
