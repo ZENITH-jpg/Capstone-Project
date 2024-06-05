@@ -8,8 +8,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
-public class LightsGame extends Minigame {
+public class LightsGame extends Minigame implements MouseListener {
    private Image messageBg; // assets
    private Image bg;
    private Image lightOff;
@@ -18,11 +20,13 @@ public class LightsGame extends Minigame {
    private long dT; // passed time
    private long tS; // time increment from last (start pos)
    private int flag; // choose what to draw
-   private int clicks = 0; // controls how high the sign is and success of minigame
+   private boolean[] lights = new boolean[7]; // if light at index i is turned on or off
+   final private int[] x = {}; //x and y pos of each light
+   final private int[] y = {};
 
 
-   public LightsGame(GamePanel g, Planet p) {
-      super(g, p); // standard init
+   public LightsGame(Window w) {
+      super(w); // standard init
       this.setFocusable(true);
       this.setBackground(Color.black);
       this.addKeyListener(this);
@@ -34,14 +38,18 @@ public class LightsGame extends Minigame {
       bg = new ImageIcon("assets/lightroom.png").getImage();
       messageBg = new ImageIcon("assets/background.png").getImage();
       context = Utils.messagePanel("Turn off the lights before going outside! Click on the yellow lights to turn them off." + //instructions
-            "\n\nTurning off your lights reduce your energy usage, in turn reducing your carbon footprint", 200, 180, 400, 200);
+            "\n\nTurning off your lights reduce your energy usage, in turn reducing your carbon footprint, fighting climate change", 200, 180, 400, 200);
    }
 
    public void setUp() {
+      Timer t = new Timer(33, null);
+      t.start();
       tS = System.currentTimeMillis(); //time stuff
       dT = 0;
       flag = 0; // what to display
-      clicks = 0; // set sign height to lowest
+      for (int i = 0; i < 7; i++) {
+         lights[i] = true; // set lights to on
+      }
       this.add(context); // tooltip
       startGame(); // start
    }
@@ -56,7 +64,7 @@ public class LightsGame extends Minigame {
       dT = 0; // reset time
       flag ++; // change screen
       this.remove(context); // remove tooltip
-      while (dT < 10000 && clicks < 30) { // give 10 sec to spam
+      while (dT < 10000 && !gameBeat()) { // give 10 sec to turn off lights
          dT += System.currentTimeMillis() - tS; // same as prev
          tS = System.currentTimeMillis();
          repaint();
@@ -83,10 +91,18 @@ public class LightsGame extends Minigame {
             g.fillRect(percent + 100, 480, 600 - 2 * percent, 20);
             break;
          case 1: // game
-
+            g.drawImage(bg,0,0,null); //bg
+            for (int i = 0; i < 7; i++) {
+               if(lights[i]){
+                  g.drawImage(lightOn,x[i],y[i],null);
+               }else{
+                  g.drawImage(lightOff,x[i],y[i],null);
+               }
+            }
+            Utils.drawGrid(g);
             break;
          default: // win or lose screen
-            if(clicks >= 30){ // win or lose
+            if(gameBeat()){ // win or lose
                g.setFont(Utils.PIXEL.deriveFont(150f));
                g.drawString("you  win",40,190);
             }else{
@@ -95,7 +111,15 @@ public class LightsGame extends Minigame {
             }
       }
    }
-
+   private boolean gameBeat(){
+      boolean b = false;
+      for (int i = 0; i < 7 && !lights[i]; i++) {
+         if(i == 6){
+            b = true;
+         }
+      }
+      return b;
+   }
    @Override
    public void keyTyped(KeyEvent e) {
 
@@ -103,11 +127,7 @@ public class LightsGame extends Minigame {
 
    @Override
    public void keyPressed(KeyEvent e) {
-      if(e.getKeyCode() == KeyEvent.VK_SPACE){
-         if(clicks<30){ // if space pressed and clicks is less than 30, then increase the clicks
-            clicks++;
-         }
-      }
+
    }
 
    @Override
@@ -115,4 +135,28 @@ public class LightsGame extends Minigame {
 
    }
 
+   @Override
+   public void mouseClicked(MouseEvent e) {
+
+   }
+
+   @Override
+   public void mousePressed(MouseEvent e) {
+
+   }
+
+   @Override
+   public void mouseReleased(MouseEvent e) {
+
+   }
+
+   @Override
+   public void mouseEntered(MouseEvent e) {
+
+   }
+
+   @Override
+   public void mouseExited(MouseEvent e) {
+
+   }
 }
