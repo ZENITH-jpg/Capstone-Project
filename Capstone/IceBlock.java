@@ -8,14 +8,10 @@ public class IceBlock extends Block {
    public IceBlock(String n, int v) {
       super(n, v);
       this.type = "ice";
-      this.property = "Click Ice QTEs to cool down planet, but only when >800 volume.";
+      this.property = "Click Ice QTEs to cool down planet. DANGER: Missing QTEs makes ice disappear.";
    }
    public void doQTE() {
-      if (planet.getBlockWithName("Ice").getVolume() < 800) {
-         int num = 150+random.nextInt(100);
-         planet.addTemp(-random.nextInt(10));
-         planet.addBlock(new IceBlock(this.getName(), num));
-      }
+      planet.addTemp(-5-random.nextInt(20));
    }
    public void doFailedQTE() {
       int num = 50+random.nextInt(100);

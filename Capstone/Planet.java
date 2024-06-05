@@ -24,6 +24,7 @@ public class Planet {
       this.temp = 100;
       this.humans = 0;
       Block.setPlanet(this);
+      Block.setGame(game);
       this.blocks = new ArrayList<Block>();
       this.blocks.add(new WaterBlock("Clean water", 200));
       this.blocks.add(new RockBlock("Rock", 1000));
@@ -72,13 +73,12 @@ public class Planet {
       int blockIndex = findBlock(block.getName());
       if (blockIndex == -1) { // if planet didn't have block with that name, make a new block
          this.blocks.add(block);
-         // add block qte to qtepanel
-         game.getQTEPanel().addChance(block.getName());
       } else { // otherwise add volume to the block of same name
          this.blocks.get(blockIndex).addVolume(block.getVolume());
          if (this.blocks.get(blockIndex).getVolume() <= 0) {
             // if block has no more volume, remove that block qte and block
             game.getQTEPanel().removeChance(this.blocks.get(blockIndex).getName());
+            game.getQTEPanel().clearQTEs(block.getName());
             this.blocks.remove(blockIndex);
          }
       }

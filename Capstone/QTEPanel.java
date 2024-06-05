@@ -127,12 +127,13 @@ public class QTEPanel extends JPanel implements MouseListener {
     }
     
     // to prevent the error of deleting a block with qtes on screem
-    public void clearQTEs () {
-      for (int i = 0; i < qteLabels.size(); i++) {
-         JLabel qteLabel = qteLabels.get(i);
-         qteLabel.removeMouseListener(this);
-         this.remove(qteLabel);
-         qteLabels.remove(i); 
+    public void clearQTEs (String blockName) {
+      for (JLabel qteLabel : qteLabels) {
+         if (qteLabel.getName().equals("block_name="+blockName)) {
+            qteLabel.removeMouseListener(this);
+            this.remove(qteLabel);
+            qteLabels.remove(qteLabel); 
+         }
       }
       this.revalidate();
       this.repaint();

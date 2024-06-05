@@ -8,7 +8,7 @@ public class AirBlock extends Block {
    public AirBlock(String n, int v) {
       super(n, v);
       this.type = "air";
-      this.property = "Clicking Air QTEs turns dirty air clean, but might also cause disasters!";
+      this.property = "Without air no creatures can form";
    }
    public void doQTE() {
    }

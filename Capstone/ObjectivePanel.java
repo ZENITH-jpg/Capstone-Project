@@ -29,14 +29,15 @@ public class ObjectivePanel extends JPanel {
             planet.addBlock(new AirBlock("Clean air", 300));
             // decided to have no air qtes until later
             game.getQTEPanel().removeChance("Clean air");
-            objectives.add(new Objective("Diverse blocks","Obtain soil and ice.\nReward: Increase score per second. Creatures can appear.") {
+            objectives.add(new Objective("Diverse blocks","Obtain ice and soil.\nReward: Increase score per second. Creatures can appear.") {
                public boolean isComplete() {
                   return planet.findBlock("Soil") != -1 && planet.findBlock("Ice") != -1;
                }
                public void reward() {
                   GamePanel.scorePerTwoSeconds += 20;
                   planet.addBlock(new IceBlock("Ice", 300)); // also add 300 ice
-                  game.getQTEPanel().addChance("Soil"); // also increase chance of soil qtes
+                  game.getQTEPanel().addChance("Soil"); // also add soil qtes double chance
+                  game.getQTEPanel().addChance("Soil");
                   game.setPlanetLabel("assets/earthy_planet.png"); // also change planet appearance 
                   GamePanel.creaturesCanAppear = true;
                   objectives.add(new Objective("Diverse life", "Create 4 or more creatures.\nReward: No more Water QTEs. Increase score per second. Humans appear.") {
@@ -51,16 +52,16 @@ public class ObjectivePanel extends JPanel {
                   });
                }
             });
-         }
-      });
-      objectives.add(new Objective("Easy mode","Get 3000 total volume.\nReward: QTEs appear a second sooner.") {
-         public boolean isComplete() {
-            return planet.getTotalVolume() >= 3000;
-         }
-         public void reward() {
-            GamePanel.difficulty++;
-            game.getQTEPanel().setQTETimer(3000);
-            addMoreObjectives();
+            objectives.add(new Objective("Easy mode","Get 3000 total volume.\nReward: QTEs appear a second sooner.") {
+               public boolean isComplete() {
+                  return planet.getTotalVolume() >= 3000;
+               }
+               public void reward() {
+                  GamePanel.difficulty++;
+                  game.getQTEPanel().setQTETimer(3000);
+                  addMoreObjectives();
+               }
+            });
          }
       });
       this.displayObjectives();
@@ -87,40 +88,37 @@ public class ObjectivePanel extends JPanel {
    }
    public void addMoreObjectives() {
       if (game.difficulty == 1) {
-         objectives.add(new Objective("Tectonic plates", "Have 1000 rock and 600 soil.\nReward: No more Rock QTEs, but more Lava and Lava QTEs.") {
+         objectives.add(new Objective("Tectonic plates", "Have 1000 rock and 600 soil.\nReward: No more Rock QTEs, but you must start clicking Ice and Lava QTEs.") {
             public boolean isComplete() {
                return planet.findBlock("Soil") != -1 && planet.getBlockWithName("Rock").getVolume() >= 1000 && planet.getBlockWithName("Soil").getVolume() >= 600;
             }
             public void reward() {
                game.getQTEPanel().removeChance("Rock");
                planet.addBlock(new LavaBlock("Lava", 200 + random.nextInt(501)));
+               planet.addBlock(new IceBlock("Ice", 50)); // also add 50 ice and ice qtes
                game.getQTEPanel().addChance("Lava");
-            }
-         });
-         objectives.add(new Objective("Medium mode","Have 50,000 humans.\nReward: Garbage blocks appear. +1 QTE will be on screen") {
-            public boolean isComplete() {
-               return planet.getHumans() >= 50000;
-            }
-            public void reward() {
-               GamePanel.difficulty++;
-               planet.addBlock(new SmogBlock("Smog", 500));
-               QTEPanel.maxQTEs++;
-               planet.removeBlockWithName("Rock"); // Also remove rock from view
-               planet.addBlock(new AirBlock("Clean air", 300)); // also add 300 air
-               game.getQTEPanel().clearQTEs();
-               game.displayBlockLabels();
-               addMoreObjectives();
+               game.getQTEPanel().addChance("Ice");
+               objectives.add(new Objective("Medium mode","Have 50,000 humans.\nReward: Smog appears. +1 QTE will be on screen") {
+                  public boolean isComplete() {
+                     return planet.getHumans() >= 50000;
+                  }
+                  public void reward() {
+                     GamePanel.difficulty++;
+                     planet.addBlock(new SmogBlock("Smog", 500));
+                     game.getQTEPanel().addChance("Smog");
+                     QTEPanel.maxQTEs++;
+                     planet.removeBlockWithName("Rock"); // Also remove rock from view
+                     game.getQTEPanel().clearQTEs("Rock");
+                     planet.addBlock(new AirBlock("Clean air", 300)); // also add 300 air
+                     game.displayBlockLabels();
+                     addMoreObjectives();
+                  }
+               });
+
             }
          });
       } else if (game.difficulty == 2) {
-         objectives.add(new Objective("Ozone layer","Get 800 air by converting smog.") {
-         public boolean isComplete() {
-               return planet.getBlockWithName("Clean air").getVolume() >= 800;
-            }
-            public void reward() {
-               game.startMinigame(new MazeGame(game, planet));
-            }
-         });
+         
       }
    }
 }
