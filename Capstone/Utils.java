@@ -14,7 +14,11 @@ public class Utils { // for fonts, custom colors, and other objects that are to 
     final static Font BLOCKTEXT_FONT = new Font("Helvetica", Font.PLAIN, 12);
     final static Font GAMEHEADING_FONT = new Font("Helvetica", Font.PLAIN, 16);
     final static String[] climateTips =
-    {""};
+    {"When a creature goes extinct, much like real life, it never comes back",
+     "Carbon emissions and other greenhouse gases trap heat in the atmosphere, heating up the planet",
+     "High temperatures will cause the death of animal species, and eventually, humans",
+     "Try your hardest to reduce your carbon footprint!"};
+
     static Font PIXEL;
     public static void init(){
         try {

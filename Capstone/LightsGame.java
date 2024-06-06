@@ -7,7 +7,6 @@ The light minigame initiated when smog qte is clicked on, click on lights to tur
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -21,18 +20,20 @@ public class LightsGame extends Minigame implements MouseListener {
    private long tS; // time increment from last (start pos)
    private int flag; // choose what to draw
    private boolean[] lights = new boolean[7]; // if light at index i is turned on or off
-   final private int[] x = {}; //x and y pos of each light
-   final private int[] y = {};
+   final private int[] x = {70,265,470,670,170,565,490}; //x and y pos of each light
+   final private int[] y = {130,180,130,130,460,280,435};
+   private int turned;
 
 
    public LightsGame(Window w) {
       super(w); // standard init
       this.setFocusable(true);
       this.setBackground(Color.black);
-      this.addKeyListener(this);
+      this.addMouseListener(this);
       this.setBounds(0, 0, 800, 600);
       this.setLayout(null);
       flag = 0;
+      turned = 0;
       lightOn = new ImageIcon("assets/on.png").getImage(); // getting images
       lightOff = new ImageIcon("assets/off.png").getImage();
       bg = new ImageIcon("assets/lightroom.png").getImage();
@@ -47,6 +48,7 @@ public class LightsGame extends Minigame implements MouseListener {
       tS = System.currentTimeMillis(); //time stuff
       dT = 0;
       flag = 0; // what to display
+      turned = 0; // set the amount of light turnt off to 0
       for (int i = 0; i < 7; i++) {
          lights[i] = true; // set lights to on
       }
@@ -64,13 +66,14 @@ public class LightsGame extends Minigame implements MouseListener {
       dT = 0; // reset time
       flag ++; // change screen
       this.remove(context); // remove tooltip
-      while (dT < 10000 && !gameBeat()) { // give 10 sec to turn off lights
+      while (dT < 10000 && turned<7) { // give 10 sec to turn off lights
          dT += System.currentTimeMillis() - tS; // same as prev
          tS = System.currentTimeMillis();
          repaint();
       }
       flag++; // change screen
       dT = 0;
+      repaint();
       while (dT < 5000) { // display win or loss screen for 5 sec
          dT += System.currentTimeMillis() - tS;
          tS = System.currentTimeMillis();
@@ -99,26 +102,21 @@ public class LightsGame extends Minigame implements MouseListener {
                   g.drawImage(lightOff,x[i],y[i],null);
                }
             }
-            Utils.drawGrid(g);
+            g.setColor(Color.white);
+            g.drawString("TIME:  "+(10000-dT)/1000+" sec",20,30); // draw game info
+            g.drawString("TURNED OFF:   "+ turned +"/7",100,30);
             break;
          default: // win or lose screen
-            if(gameBeat()){ // win or lose
+            g.drawImage(messageBg,0,0,null);
+            if(turned >=7){ // win or lose (put greater or equal in case of some strange bug (probably won't happen))
                g.setFont(Utils.PIXEL.deriveFont(150f));
+               g.setColor(Color.white);
                g.drawString("you  win",40,190);
             }else{
                g.setFont(Utils.PIXEL.deriveFont(130f));
                g.drawString("you  lose",45,165);
             }
       }
-   }
-   private boolean gameBeat(){
-      boolean b = false;
-      for (int i = 0; i < 7 && !lights[i]; i++) {
-         if(i == 6){
-            b = true;
-         }
-      }
-      return b;
    }
    @Override
    public void keyTyped(KeyEvent e) {
@@ -142,7 +140,15 @@ public class LightsGame extends Minigame implements MouseListener {
 
    @Override
    public void mousePressed(MouseEvent e) {
-
+      if(e.getButton() == MouseEvent.BUTTON1){
+         Point p = e.getPoint();
+         for (int i = 0; i < 7; i++) {
+            if(x[i] < p.getX() && 22 + x[i] > p.getX() && y[i] < p.getY() && 30 + y[i] > p.getY()){
+               if(lights[i]) turned++; // if light on, turn off and increment amount
+               lights[i] = false;
+            }
+         }
+      }
    }
 
    @Override
