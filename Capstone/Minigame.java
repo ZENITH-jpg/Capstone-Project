@@ -6,13 +6,12 @@ The superclass for minigames that are added to game panel
 */
 
 import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.ArrayList;
+import java.util.Random;
 
-public class Minigame extends JPanel implements KeyListener {
+public abstract class Minigame extends JPanel implements KeyListener {
    protected Window window;
    protected GamePanel game;
    protected Planet planet;
@@ -21,10 +20,29 @@ public class Minigame extends JPanel implements KeyListener {
       game = w.getGame();
       planet = game.getPlanet();
    }
-   public void setUp() {}
-   protected void returnToGame() {
-      window.startGame();
+   public abstract void setUp();
+   protected void returnToGame(){
+      if(!gameWon()){
+         // reduce population of a random number of creatures
+         Random random = new Random();
+         if (planet.getCreatures().size() > 0) {
+            int num = 1 + random.nextInt(planet.getCreatures().size());
+            // for num times decrease a random creature's population
+            while (num > 0) {
+               int index = random.nextInt(planet.getCreatures().size());
+               Creature c = planet.getCreatures().get(index);
+               c.addPopulation(-random.nextInt(c.getPopulation()/2));
+               num--;
+            }
+         }
+         //planet.addBlock(new SmogBlock("Smog",500)); // add more smog
+      }
+      this.setVisible(false); // set minigame to invisible
+      game.setVisible(true); // set main game visible
+      game.requestFocus(); // put listener in action
+
    }
+   protected abstract boolean gameWon();
    @Override
    public void keyTyped(KeyEvent e) {
    }

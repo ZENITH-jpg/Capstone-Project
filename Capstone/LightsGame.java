@@ -11,15 +11,15 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 public class LightsGame extends Minigame implements MouseListener {
-   private Image messageBg; // assets
-   private Image bg;
-   private Image lightOff;
-   private Image lightOn;
-   private JTextArea context;
+   private final Image messageBg; // assets
+   private final Image bg;
+   private final Image lightOff;
+   private final Image lightOn;
+   private final JTextArea context;
    private long dT; // passed time
    private long tS; // time increment from last (start pos)
    private int flag; // choose what to draw
-   private boolean[] lights = new boolean[7]; // if light at index i is turned on or off
+   private final boolean[] lights = new boolean[7]; // if light at index i is turned on or off
    final private int[] x = {70,265,470,670,170,565,490}; //x and y pos of each light
    final private int[] y = {130,180,130,130,460,280,435};
    private int turned;
@@ -48,12 +48,17 @@ public class LightsGame extends Minigame implements MouseListener {
       tS = System.currentTimeMillis(); //time stuff
       dT = 0;
       flag = 0; // what to display
-      turned = 0; // set the amount of light turnt off to 0
+      turned = 0; // set the amount of light turned off to 0
       for (int i = 0; i < 7; i++) {
          lights[i] = true; // set lights to on
       }
       this.add(context); // tooltip
       startGame(); // start
+   }
+
+   @Override
+   protected boolean gameWon() {
+      return turned==7;
    }
 
    public void startGame() {
@@ -78,7 +83,6 @@ public class LightsGame extends Minigame implements MouseListener {
          dT += System.currentTimeMillis() - tS;
          tS = System.currentTimeMillis();
       }
-      this.setVisible(false); // set minigame to invisible
       returnToGame();
       repaint(); // gone
    }
@@ -98,7 +102,7 @@ public class LightsGame extends Minigame implements MouseListener {
             g.drawImage(bg,0,0,null); //bg
             for (int i = 0; i < 7; i++) {
                if(lights[i]){
-                  g.drawImage(lightOn,x[i],y[i],null);
+                  g.drawImage(lightOn,x[i],y[i],null); //draw lights
                }else{
                   g.drawImage(lightOff,x[i],y[i],null);
                }
@@ -109,7 +113,7 @@ public class LightsGame extends Minigame implements MouseListener {
             break;
          default: // win or lose screen
             g.drawImage(messageBg,0,0,null);
-            if(turned >=7){ // win or lose (put greater or equal in case of some strange bug (probably won't happen))
+            if(turned ==7){ // win or lose
                g.setFont(Utils.PIXEL.deriveFont(150f));
                g.setColor(Color.white);
                g.drawString("you  win",40,190);
@@ -141,12 +145,12 @@ public class LightsGame extends Minigame implements MouseListener {
 
    @Override
    public void mousePressed(MouseEvent e) {
-      if(e.getButton() == MouseEvent.BUTTON1){
-         Point p = e.getPoint();
+      if(e.getButton() == MouseEvent.BUTTON1){ // if left click
+         Point p = e.getPoint(); // get position of click
          for (int i = 0; i < 7; i++) {
-            if(x[i] < p.getX() && 22 + x[i] > p.getX() && y[i] < p.getY() && 30 + y[i] > p.getY()){
+            if(x[i] < p.getX() && 22 + x[i] > p.getX() && y[i] < p.getY() && 30 + y[i] > p.getY()){ // check if on a light
                if(lights[i]) turned++; // if light on, turn off and increment amount
-               lights[i] = false;
+               lights[i] = false; // turn light off
             }
          }
       }

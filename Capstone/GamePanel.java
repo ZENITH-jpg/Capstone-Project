@@ -249,8 +249,8 @@ public class GamePanel extends JPanel implements MouseListener{
       return objPanel;
    }
    
-   public void startMinigame(Minigame minigame) {
-      window.startMinigame(minigame);
+   public void startMinigame(int i) {
+      window.startMinigame(i);
    }
    
    public Window getWindow() {
