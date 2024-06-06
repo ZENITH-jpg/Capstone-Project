@@ -102,7 +102,7 @@ public class GamePanel extends JPanel implements MouseListener{
         int panelX = 40; // x, y coords of whole constitution display
         int panelY = 380;
         int totalWidth = 150; // width, height of constitution display
-        int totalHeight = 180;
+        int totalHeight = 150;
         int currentHeight = 0;
         for (int i = 0; i < blockTextLabels.length; i++) {
             Block currentBlock = planet.getBlockAtIndex(i);
@@ -233,8 +233,8 @@ public class GamePanel extends JPanel implements MouseListener{
     }
 
     private static String formatScore(int score) {
-      // adds nine leading zeros to the score
-      return String.format("SCORE: %09d", score);
+      // adds six leading zeros to the score
+      return String.format("SCORE: %06d", score);
     }
     
     public Planet getPlanet() {
@@ -252,7 +252,11 @@ public class GamePanel extends JPanel implements MouseListener{
    public void startMinigame(Minigame minigame) {
       window.startMinigame(minigame);
    }
-
+   
+   public Window getWindow() {
+      return window;
+   }
+   
     public static void main(String[] args) {
         new Window().startGame();
     }

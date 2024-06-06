@@ -53,8 +53,7 @@ public class Window extends JFrame {
       mg.setVisible(true);
       g.setVisible(false);
       mg.requestFocus();
-      mg.setUp();
-      window.repaint();
+      new MinigameHandler (mg).run(); // required to sync minigame to window
    }
 	public void showLeaderboard() {
 		m.setVisible(false);
@@ -80,6 +79,6 @@ public class Window extends JFrame {
       Utils.init();
       Window w = new Window(); // run window
 	   w.m.setVisible(false);
-		w.startMinigame(new LightsGame(w));
+		w.startMinigame(new ProtestGame(w));
    }
 }

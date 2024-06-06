@@ -22,8 +22,8 @@ public class Minigame extends JPanel implements KeyListener {
       planet = game.getPlanet();
    }
    public void setUp() {}
-   protected void returnToGame(){
-
+   protected void returnToGame() {
+      window.startGame();
    }
    @Override
    public void keyTyped(KeyEvent e) {

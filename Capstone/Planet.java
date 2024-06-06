@@ -45,7 +45,7 @@ public class Planet {
          }
       }
       // sort by block type
-      String[] typeOrder = new String[] { "air", "ice", "water", "garbage", "soil", "rock", "lava" };
+      String[] typeOrder = new String[] { "air", "ice", "water", "smog", "soil", "rock", "lava" };
       for (String type : typeOrder) {
          for (Block block : this.blocks) {
             if (block.getType().equals(type))

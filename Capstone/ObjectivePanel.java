@@ -41,16 +41,14 @@ public class ObjectivePanel extends JPanel {
                public void reward() {
                   GamePanel.scorePerTwoSeconds += 20;
                   planet.addBlock(new IceBlock("Ice", 300)); // also add 300 ice
-                  game.getQTEPanel().addChance("Soil"); // also add soil qtes double chance
-                  game.getQTEPanel().addChance("Soil");
+                  game.getQTEPanel().addChance("Soil"); // also add soil qtes
                   game.setPlanetLabel("assets/earthy_planet.png"); // also change planet appearance 
-                  objectives.add(new Objective("Diverse life", "Create 4 or more creatures.\nReward: No more Water QTEs. Increase score per second. Humans appear.") {
+                  objectives.add(new Objective("Diverse life", "Create 4 or more creatures.\nReward: Increase score per second. Humans appear.") {
                      public boolean isComplete() {
                         return planet.getCreatures().size() >= 4;
                      }
                      public void reward() {
                         GamePanel.scorePerTwoSeconds += 20;
-                        game.getQTEPanel().removeChance("Clean water");
                         planet.addHumans(500+random.nextInt(500));
                      }
                   });
@@ -92,24 +90,25 @@ public class ObjectivePanel extends JPanel {
    }
    public void addMoreObjectives() {
       if (game.difficulty == 1) {
-         objectives.add(new Objective("Tectonic plates", "Have 1000 rock and 600 soil.\nReward: No more Rock QTEs, but you must start clicking Ice and Lava QTEs.") {
+         objectives.add(new Objective("Tectonic plates", "Have 600 ice and 600 soil.\nReward: No more Rock and Water QTEs, but you must start clicking Ice and Lava QTEs.") {
             public boolean isComplete() {
-               return planet.findBlock("Soil") != -1 && planet.getBlockWithName("Rock").getVolume() >= 1000 && planet.getBlockWithName("Soil").getVolume() >= 600;
+               return planet.findBlock("Soil") != -1 && planet.findBlock("Ice") != -1 && planet.getBlockWithName("Ice").getVolume() >= 600 && planet.getBlockWithName("Soil").getVolume() >= 600;
             }
             public void reward() {
                game.getQTEPanel().removeChance("Rock");
+               game.getQTEPanel().removeChance("Clean water");
                planet.addBlock(new LavaBlock("Lava", 200 + random.nextInt(501)));
-               planet.addBlock(new IceBlock("Ice", 50)); // also add 50 ice and ice qtes
                game.getQTEPanel().addChance("Lava");
                game.getQTEPanel().addChance("Ice");
-               objectives.add(new Objective("Surpass medium mode","Have 25,000 humans.\nReward: No more rock and soil. Smog appears. +1 QTE will be on screen") {
+               game.getQTEPanel().addChance("Soil"); // Also increase chance of soil qtes
+               objectives.add(new Objective("Surpass medium mode","Have 25,000 humans.\nReward: No more soil QTEs. Smog appears. +1 QTE will be on screen") {
                   public boolean isComplete() {
                      return planet.getHumans() >= 25000;
                   }
                   public void reward() {
                      GamePanel.difficulty++;
                      planet.addBlock(new SmogBlock("Smog", 500));
-                     game.getQTEPanel().addChance("Smog");
+                     //game.getQTEPanel().addChance("Smog");
                      QTEPanel.maxQTEs++;
                      planet.removeBlockWithName("Soil");
                      planet.removeBlockWithName("Rock");

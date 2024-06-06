@@ -90,7 +90,7 @@ public class ProtestGame extends Minigame {
                 g.setColor(Color.white);
                 g.setFont(Utils.MESSAGE_FONT);
                 g.drawString("TIME:  "+(10000-dT)/1000+" sec",20,40); // draw game info
-                g.drawString("CLICKS:   "+clicks+"/30",20,80);
+                g.drawString("PRESSES:   "+clicks+"/30",20,80);
                 break;
             default: // win or lose screen
                 g.drawImage(bg, 0, 0, null); //draw crowd

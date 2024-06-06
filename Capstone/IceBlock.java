@@ -8,7 +8,7 @@ public class IceBlock extends Block {
    public IceBlock(String n, int v) {
       super(n, v);
       this.type = "ice";
-      this.property = "Click Ice QTEs to cool down planet. DANGER: Missing QTEs makes ice disappear.";
+      this.property = "Click Ice QTEs to cool down planet. DANGER: Missing QTEs makes ice disappear. Max volume = 800";
    }
    public void doQTE() {
       planet.addTemp(-5-random.nextInt(20));
