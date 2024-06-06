@@ -16,7 +16,6 @@ public class IceBlock extends Block {
    public void doFailedQTE() {
       int num = 50+random.nextInt(100);
       planet.addBlock(new WaterBlock("Clean water", num));
-      if (planet.getBlockWithName(this.getName()).getVolume() > 150)
-         planet.addBlock(new IceBlock(this.getName(), -num));
+      planet.addBlock(new IceBlock(this.getName(), -num));
    }
 }
