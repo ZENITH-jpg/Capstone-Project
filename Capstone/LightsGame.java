@@ -79,6 +79,7 @@ public class LightsGame extends Minigame implements MouseListener {
          tS = System.currentTimeMillis();
       }
       this.setVisible(false); // set minigame to invisible
+      returnToGame();
       repaint(); // gone
    }
 

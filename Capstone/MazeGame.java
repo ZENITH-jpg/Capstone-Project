@@ -90,6 +90,7 @@ public class MazeGame extends Minigame {
          tS = System.currentTimeMillis();
       }
       this.setVisible(false); // set minigame to invisible
+      returnToGame();
       repaint(); // gone
    }
 
