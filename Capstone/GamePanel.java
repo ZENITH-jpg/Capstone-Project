@@ -39,29 +39,25 @@ public class GamePanel extends JPanel implements MouseListener{
     JTextArea tempLabel;
 
     // Static variables
-    public static boolean timerOn = true;
-    public static int difficulty = 0; // 0 is easy, 1 is medium, and so on
-    public static int scorePerTwoSeconds = 20;
-    public static boolean creaturesCanAppear = false; // updated by completing objectives
+    public static boolean timerOn;
+    public static int difficulty; // 0 is easy, 1 is medium, and so on
+    public static int scorePerTwoSeconds;
 
     GamePanel(Window w) {
         window = w;
         planet = new Planet(this);
         this.setLayout(null);
         this.setBounds(0, 0, 800, 600);
-        // Add QTEPanel to this panel
+        // Reset static variables
+        timerOn = true;
+        difficulty = 0;
+        scorePerTwoSeconds = 20;
+        // Add QTEPanel, ObjectivePanel, and background
         qtePanel = new QTEPanel(this, planet);
         qtePanel.setBounds(0, 0, planetLabelSize+100, planetLabelSize+100);
-        qtePanel.setOpaque(false); // makes transparent
-        qtePanel.setBackground(new Color(0,0,0,0)); // makes transparent
-        this.add(qtePanel);
-        // Add ObjectivePanel to this panel
         objPanel = new ObjectivePanel(this, planet);
-        objPanel.setBounds(500, 40, 280, 400);
-        objPanel.setOpaque(false); // makes transparent
-        objPanel.setBackground(new Color(0,0,0,0)); // makes transparent
+        this.add(qtePanel);
         this.add(objPanel);
-        // Add background
         background = new ImageIcon("assets/space_bg.png").getImage();
         // Add JLabels
         this.setPlanetLabel("assets/rocky_planet.png");
@@ -148,6 +144,15 @@ public class GamePanel extends JPanel implements MouseListener{
       objPanel.displayObjectives();
     }
     
+    public boolean checkGameOver() {
+      // if temperature is over 500 degrees
+      if (planet.getTemp() >= 500)
+         return true;
+      // if there are no creatures except humans
+      if (planet.getHumans() > 0 && planet.getCreatures().size() == 0)
+         return true;
+      return false;
+    }
     
     @Override
     public void mouseEntered(MouseEvent e) {

@@ -31,6 +31,9 @@ public class QTEPanel extends JPanel implements MouseListener {
     QTEPanel(GamePanel g, Planet p) {
          game = g;
          planet = p;
+         this.setOpaque(false); // makes transparent
+         this.setBackground(new Color(0,0,0,0)); // makes transparent
+        
          chances = new ArrayList<String>();
          for (Block b : p.getBlocks()) {
             chances.add(b.getName());
