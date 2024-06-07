@@ -94,7 +94,7 @@ public class Planet {
    
    /**
    Adds a block or block volume to the planet
-   @param Block block to be added
+   @param block block to be added
    */
    public void addBlock(Block block) {
       int blockIndex = findBlock(block.getName());
@@ -133,7 +133,7 @@ public class Planet {
 
    /**
    Get score
-   @int score
+   @return score
    */
    public int getScore() {
       return this.score;
@@ -182,7 +182,7 @@ public class Planet {
    
    /**
    Add to human population
-   @return h amount to add
+   @param h amount to add
    */
    public void addHumans(int h) {
       this.humans += h;
