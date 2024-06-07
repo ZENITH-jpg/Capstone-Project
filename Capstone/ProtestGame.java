@@ -118,16 +118,16 @@ public class ProtestGame extends Minigame {
 
     @Override
     public void keyPressed(KeyEvent e) {
+
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
         if(e.getKeyCode() == KeyEvent.VK_SPACE){
             if(clicks<30){ // if space pressed and clicks is less than 30, then increase the clicks
                 clicks++;
             }
         }
-    }
-
-    @Override
-    public void keyReleased(KeyEvent e) {
-
     }
 
 }

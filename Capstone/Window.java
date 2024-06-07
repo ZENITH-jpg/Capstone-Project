@@ -50,13 +50,12 @@ public class Window extends JFrame {
       window.repaint();
 	}
    public void startRandomMinigame() {
-      int i = 2;//random.nextInt(mg.length);
+      int i = random.nextInt(mg.length);
       GamePanel.timerOn = false;
       g.setVisible(false);
       window.add(mg[i]);
       mg[i].setVisible(true);
-      mg[i].requestFocus();
-      new MinigameHandler (mg[i]).run(); // required to sync minigame to window
+		new MinigameHandler (mg[i]).start(); // required to sync minigame to window
    }
 	public void showLeaderboard() {
 		m.setVisible(false);

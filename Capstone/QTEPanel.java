@@ -67,25 +67,26 @@ public class QTEPanel extends JPanel implements MouseListener {
 
     @Override
     public void mousePressed(MouseEvent e) {
+       if (e.getSource() instanceof JLabel) {
+          JLabel source = (JLabel) e.getSource();
+          // qtes have a name "block_name=?"
+          if (source.getName().startsWith("block_name=")) {
+             source.removeMouseListener(this);
+             qteLabels.remove(source);
+             this.remove(source);
+             source.setVisible(false);
+             String blockName = source.getName().substring(11);
+             planet.getBlockWithName(blockName).doQTE();
+             QTEPanel.this.revalidate();
+             QTEPanel.this.repaint();
+             game.updateLabels();
+          }
+       }
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        if (e.getSource() instanceof JLabel) {
-            JLabel source = (JLabel) e.getSource();
-            // qtes have a name "block_name=?"
-            if (source.getName().startsWith("block_name=")) {
-               source.removeMouseListener(this);
-               qteLabels.remove(source);
-               this.remove(source);
-               source.setVisible(false);
-               String blockName = source.getName().substring(11);
-               planet.getBlockWithName(blockName).doQTE();
-               QTEPanel.this.revalidate();
-               QTEPanel.this.repaint();
-               game.updateLabels();
-            }
-        }
+
     }
     
     public void setQTETimer(int cooldown) {
