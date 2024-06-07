@@ -16,6 +16,11 @@ import java.awt.event.MouseListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+JPanel that controls the QTE popups
+@author Van N
+@version 1.0
+*/
 public class QTEPanel extends JPanel implements MouseListener {
     static Random random = new Random();
     GamePanel game;
@@ -28,6 +33,11 @@ public class QTEPanel extends JPanel implements MouseListener {
     int qteSize = 50;
     ArrayList<JLabel> qteLabels = new ArrayList<JLabel>();
 
+   /**
+   Constructor
+   @param g GamePanel
+   @param p planet
+   */
     QTEPanel(GamePanel g, Planet p) {
          game = g;
          planet = p;
@@ -43,10 +53,18 @@ public class QTEPanel extends JPanel implements MouseListener {
         setQTETimer(4000);
     }
     
+    /**
+    Add a chance for a block qte to appear
+    @param blockName name of block qte
+    */
     public void addChance (String blockName) {
       chances.add(blockName);
     }
     
+    /**
+    Remove every chance of a specified block qte
+    @param blockName name of block qte
+    */
     public void removeChance(String blockName) {
       while (chances.contains(blockName)) {
          chances.remove(blockName);
@@ -65,6 +83,9 @@ public class QTEPanel extends JPanel implements MouseListener {
     public void mouseReleased(MouseEvent e) {
     }
 
+   /**
+   When a QTE is clicked, trigger the QTE effect
+   */
     @Override
     public void mousePressed(MouseEvent e) {
        if (e.getSource() instanceof JLabel) {
@@ -86,9 +107,12 @@ public class QTEPanel extends JPanel implements MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-
     }
     
+    /**
+    Create and start a timer that spawns qtes
+    @param cooldown spawnrate
+    */
     public void setQTETimer(int cooldown) {
       if (qteTimer != null)
          qteTimer.stop();
@@ -130,7 +154,10 @@ public class QTEPanel extends JPanel implements MouseListener {
         qteTimer.start();
     }
     
-    // to prevent the error of deleting a block with qtes on screem
+    /**
+    Clear QTEs to prevent the error of deleting a block with qtes on screen
+    @param blockName name of QTE to clear
+    */
     public void clearQTEs (String blockName) {
       for (JLabel qteLabel : qteLabels) {
          if (qteLabel.getName().equals("block_name="+blockName)) {
@@ -141,13 +168,5 @@ public class QTEPanel extends JPanel implements MouseListener {
       }
       this.revalidate();
       this.repaint();
-    }
-
-    private static String formatScore(int score) {
-        return String.format("SCORE: %09d", score);
-    }
-
-    public static void main(String[] args) {
-        new Window().startGame();
     }
 }

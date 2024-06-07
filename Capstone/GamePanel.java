@@ -15,7 +15,11 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
+/**
+ * This panel is visible when the game has started
+ * @author Van N
+ * @version 1.0
+ */
 public class GamePanel extends JPanel implements MouseListener{
     static boolean windowBuildingMode = false;
     static Random random = new Random();
@@ -43,6 +47,10 @@ public class GamePanel extends JPanel implements MouseListener{
     public static int difficulty; // 0 is easy, 1 is medium, and so on
     public static int scorePerTwoSeconds;
 
+    /**
+    Constructor of GamePanel
+    @param w the window that's running
+    */
     GamePanel(Window w) {
         window = w;
         planet = new Planet(this);
@@ -84,8 +92,9 @@ public class GamePanel extends JPanel implements MouseListener{
         displayBlockLabels();
     }
 
-    // creates coloured rectangles with sizes depending on the block volumes
-    // precondition: there are no blocks with volumes <= 0
+    /**
+    Creates coloured rectangles with sizes depending on the block volumes. There shouldn't be any blocks with volumes less than 0
+    */
     public void displayBlockLabels() {
         // Remove previous block labels
         for (JLabel label : blockRectLabels) {
@@ -129,6 +138,9 @@ public class GamePanel extends JPanel implements MouseListener{
         }
     }
     
+    /**
+    Displays the populations of creatures, displaying "EXTINCT" if a creature is extinct
+    */
     public void displayCreatureLabels() {
       for (int i = 0; i < planet.getCreatures().size(); i++) {
          int population = planet.getCreatures().get(i).getPopulation();
@@ -139,6 +151,9 @@ public class GamePanel extends JPanel implements MouseListener{
       }
     }
     
+    /**
+    Updates the score, temperature, population label displays. Also checks if objectives are complete
+    */
     public void updateLabels() {
       scoreLabel.setText(formatScore(planet.getScore()));
       tempLabel.setText(planet.getTemp() +" Celsius");
@@ -148,6 +163,10 @@ public class GamePanel extends JPanel implements MouseListener{
       objPanel.displayObjectives();
     }
     
+    /**
+    Checks if the game is over; max temperature reached or no creatures left
+    @return the game over status as a boolean
+    */
     public boolean checkGameOver() {
       // if temperature is over 500 degrees
       if (planet.getTemp() >= 500)
@@ -158,6 +177,9 @@ public class GamePanel extends JPanel implements MouseListener{
       return false;
     }
     
+    /**
+    When the mouse hovers over a block rectangle label, change the properties of the label
+    */
     @Override
     public void mouseEntered(MouseEvent e) {
         if (e.getSource() instanceof JLabel) {
@@ -173,7 +195,10 @@ public class GamePanel extends JPanel implements MouseListener{
              blockTextLabels[i].setBackground(Color.BLACK);
         }
     }
-
+    
+    /**
+    When the mouse exits a block rectangle label, change the properties of the label
+    */
     @Override
     public void mouseExited(MouseEvent e) {
         if (e.getSource() instanceof JLabel) {
@@ -197,7 +222,10 @@ public class GamePanel extends JPanel implements MouseListener{
     @Override
     public void mousePressed(MouseEvent e) {
     }
-
+    
+    /**
+    When the mouse is clicked and program is in windowBuildingMode, print the mouse coordinates
+    */
     @Override
     public void mouseClicked(MouseEvent e) {
       if (windowBuildingMode) { // prints the mouse coords if needed
@@ -207,12 +235,19 @@ public class GamePanel extends JPanel implements MouseListener{
       }
     }
 
+   /**
+   Paints the background of the game
+   */
     @Override
     public void paintComponent(Graphics g) { // screen
         Graphics2D g2d = (Graphics2D)g;
         g2d.drawImage(background,0,0,null); //bg
     }
     
+    /**
+    Set the image of planet icon
+    @param file path to image file
+    */
     public void setPlanetLabel(String file) {
         this.remove(planetLabel);
         Image planetImg = new ImageIcon(file).getImage().getScaledInstance(planetLabelSize,
@@ -223,6 +258,9 @@ public class GamePanel extends JPanel implements MouseListener{
         this.add(planetLabel);
     } 
     
+    /**
+    start the timer to add score
+    */
     private void initTimers() {
         // this timer adds score every 2 sec
         new Timer(2000, new ActionListener() {
@@ -236,27 +274,46 @@ public class GamePanel extends JPanel implements MouseListener{
         }).start();
     }
 
+   /**
+   Add six leading zeros to the current score
+   @return formatted score
+   */
     private static String formatScore(int score) {
       // adds six leading zeros to the score
       return String.format("SCORE: %06d", score);
     }
     
+    /**
+    Get planet
+    @return planet
+    */
     public Planet getPlanet() {
       return planet;
    }
-    
+    /**
+    Get qte panel
+    @return QTEPanel
+    */
     public QTEPanel getQTEPanel() {
       return qtePanel;
    }
-   
+   /**
+    Get objective panel
+    @return ObjectivePanel
+    */
    public ObjectivePanel getObjectivePanel() {
       return objPanel;
    }
-   
+   /**
+    Tell the window to start a random minigame
+    */
    public void startRandomMinigame() {
       window.startRandomMinigame();
    }
-   
+   /**
+    Get window
+    @return Window
+    */
    public Window getWindow() {
       return window;
    }
