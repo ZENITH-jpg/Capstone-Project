@@ -122,16 +122,23 @@ public class QTEPanel extends JPanel implements MouseListener {
             public void actionPerformed(ActionEvent e) {
                // Delete a QTE when at maxQTEs
                if (qteLabels.size() > maxQTEs -1) {
-                  JLabel qteLabel = qteLabels.get(0);
-                  qteLabel.removeMouseListener(QTEPanel.this);
-                  QTEPanel.this.remove(qteLabel);
-                  qteLabels.remove(0); 
-                  QTEPanel.this.revalidate();
-                  QTEPanel.this.repaint();
-                  // triggers fail QTE of corresponding block
-                  String blockName = qteLabel.getName().substring(11);
-                  planet.getBlockWithName(blockName).doFailedQTE();
-                  game.updateLabels();
+                  int index = -1; // find the index of the first QTE not yet clicked
+                  for (int i = 0; i < qteLabels.size(); i++) {
+                      if (!qteLabel.get(i).getName().equals("clicked"))
+                        index = i;
+                  }
+                  if (index != -1) {
+                      JLabel qteLabel = qteLabels.get(index);
+                      qteLabel.removeMouseListener(QTEPanel.this);
+                      QTEPanel.this.remove(qteLabel);
+                      qteLabels.remove(index); 
+                      QTEPanel.this.revalidate();
+                      QTEPanel.this.repaint();
+                      // triggers fail QTE of corresponding block
+                      String blockName = qteLabel.getName().substring(11);
+                      planet.getBlockWithName(blockName).doFailedQTE();
+                      game.updateLabels();
+                  }
                }
                // Delete QTEs that are clicked
                for (int i = qteLabels.size()-1; i >= 0; i--) {
