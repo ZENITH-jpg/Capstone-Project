@@ -43,8 +43,6 @@ public class LightsGame extends Minigame implements MouseListener {
    }
 
    public void setUp() {
-      Timer t = new Timer(33, null);
-      t.start();
       tS = System.currentTimeMillis(); //time stuff
       dT = 0;
       flag = 0; // what to display
