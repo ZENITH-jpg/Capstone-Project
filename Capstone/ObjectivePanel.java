@@ -108,10 +108,10 @@ public class ObjectivePanel extends JPanel {
                   public void reward() {
                      GamePanel.difficulty++;
                      planet.addBlock(new SmogBlock("Smog", 500));
-                     //game.getQTEPanel().addChance("Smog");
+                     game.getQTEPanel().addChance("Smog");
                      QTEPanel.maxQTEs++;
-                     planet.removeBlockWithName("Soil");
-                     planet.removeBlockWithName("Rock");
+                     //planet.removeBlockWithName("Soil");
+                     //planet.removeBlockWithName("Rock");
                      planet.addBlock(new AirBlock("Clean air", 300)); // also add 300 air
                      game.displayBlockLabels();
                      addMoreObjectives();
