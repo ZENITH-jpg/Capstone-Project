@@ -39,6 +39,7 @@ public abstract class Minigame extends JPanel implements KeyListener {
       }
       this.setVisible(false); // set minigame to invisible
       game.setVisible(true); // set main game visible
+      GamePanel.timerOn = true; // turn back on timers
       game.requestFocus(); // put listener in action
 
    }

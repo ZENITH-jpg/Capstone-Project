@@ -146,7 +146,6 @@ public class GamePanel extends JPanel implements MouseListener{
       displayCreatureLabels();
       objPanel.checkAllObjectives(); // Update objectives
       objPanel.displayObjectives();
-      this.startRandomMinigame();
     }
     
     public boolean checkGameOver() {
@@ -232,6 +231,7 @@ public class GamePanel extends JPanel implements MouseListener{
                 if (timerOn) {
                     planet.addScore(scorePerTwoSeconds);
                     updateLabels();
+                    window.startRandomMinigame();
                 }
             }
         }).start();
