@@ -5,6 +5,11 @@ Mr Guglielmi
 Water block in the planet composition
 */
 public class WaterBlock extends Block {
+   /**
+    * Constructor for the class, creates block using name and volume, sets the description
+    * @param n the name of the block
+    * @param v the volume the block holds
+    */
    public WaterBlock(String n, int v) {
       super(n, v);
       this.type = "water";
@@ -22,6 +27,6 @@ public class WaterBlock extends Block {
       }
    }
    public void doFailedQTE() {
-      game.startRandomMinigame();
+
    }
 }

@@ -5,6 +5,11 @@ Mr Guglielmi
 Smog block in the planet composition, initiates a minigame
 */
 public class SmogBlock extends Block {
+   /**
+    * Constructor for the class, creates block using name and volume, sets the description
+    * @param n the name of the block
+    * @param v the volume the block holds
+    */
    public SmogBlock(String n, int v) {
       super(n, v);
       this.type = "smog";

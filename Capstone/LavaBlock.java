@@ -5,6 +5,11 @@ Mr Guglielmi
 Lava block in the planet composition
 */
 public class LavaBlock extends Block {
+   /**
+    * Constructor for the class, creates block using name and volume, sets the description
+    * @param n the name of the block
+    * @param v the volume the block holds
+    */
    public LavaBlock(String n, int v) {
       super(n, v);
       this.type = "lava";

@@ -5,6 +5,11 @@ Mr Guglielmi
 Rock block in the planet composition
 */
 public class RockBlock extends Block {
+   /**
+    * Constructor for the class, creates block using name and volume, sets the description
+    * @param n the name of the block
+    * @param v the volume the block holds
+    */
    public RockBlock(String n, int v) {
       super(n, v);
       this.type = "rock";

@@ -13,20 +13,41 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Controls the data and the graphics of the leaderboard page
+ * @author Tristan C
+ * @version 1.0
+ */
 public class LeaderboardPanel extends JPanel implements KeyListener {
+    /**
+     * Subclass that creates a player that has a score and a name
+     */
     private static class Player{ // class player that keeps info about score and name of player
         private String name; //fields
         private int score;
 
+        /**
+         * Constructor of player
+         * @param name the name of the player
+         * @param score the score the player got in the game
+         */
         public Player(String name, int score) { // constructor
             this.name = name;
             this.score = score;
         }
         // getters
+
+        /**
+         * Get the player's name
+         * @return the player's name
+         */
         public String getName() {
             return name;
         }
-
+        /**
+         * Get the player's score
+         * @return the player's score
+         */
         public int getScore() {
             return score;
         }
@@ -35,6 +56,11 @@ public class LeaderboardPanel extends JPanel implements KeyListener {
     Image logo;
     Image background; // images
     ArrayList<Player> players; // player list
+
+    /**
+     * Constructor for the leaderboard, sets up assets and scores list
+     * @param w the window to display the leaderboard on
+     */
     public LeaderboardPanel(Window w){ //constructor
         window = w; // set up
         logo = new ImageIcon("assets/leaderboard.png").getImage();
@@ -50,6 +76,10 @@ public class LeaderboardPanel extends JPanel implements KeyListener {
         JTextArea message = Utils.messagePanel("Press 'B' to return to menu",50,490,700,70); // and context box
         this.add(message);
     }
+
+    /**
+     * Fills the players array with players from the leaderboard file
+     */
     private void fillPlayers(){
         try {
             Scanner f = new Scanner(new File("leaderboard.txt")); // get players from file
@@ -64,6 +94,11 @@ public class LeaderboardPanel extends JPanel implements KeyListener {
             System.out.print(e);
         }
     }
+
+    /**
+     * Sorts the players in the leaderboard in descending order. Follows a merge sort.
+     * @param arr the player array to be sorted
+     */
     private void sort(ArrayList<Player> arr){ // merge sort
         int x = arr.size()/2;
         if(x == 0){
@@ -81,6 +116,13 @@ public class LeaderboardPanel extends JPanel implements KeyListener {
         sort(right);
         merge(right,left,arr); // merge lists
     }
+
+    /**
+     * Merge tool for the sort function
+     * @param r the right list
+     * @param l the left list
+     * @param a the list to put sorted elements in
+     */
     private void merge(ArrayList<Player> r, ArrayList<Player> l, ArrayList<Player> a){
         int i = 0;
         int j = 0;
@@ -106,6 +148,11 @@ public class LeaderboardPanel extends JPanel implements KeyListener {
             k++;
         }
     }
+
+    /**
+     * The graphics of the leaderboard
+     * @param g the <code>Graphics</code> object to protect
+     */
     @Override
     public void paintComponent(Graphics g){ //screen
         Graphics2D g2d = (Graphics2D)g;
@@ -137,11 +184,20 @@ public class LeaderboardPanel extends JPanel implements KeyListener {
         }
         //Utils.drawGrid(g2d);
     }
+
+    /**
+     * Key listener when the key is typed
+     * @param e the event to be processed
+     */
     @Override
     public void keyTyped(KeyEvent e) {
 
     }
 
+    /**
+     * Key listener when the key is pressed
+     * @param e the event to be processed
+     */
     @Override
     public void keyPressed(KeyEvent e) { //go back to main menu on b pressed
         if(e.getKeyCode() == KeyEvent.VK_B){
@@ -149,6 +205,10 @@ public class LeaderboardPanel extends JPanel implements KeyListener {
         }
     }
 
+    /**
+     * Key listener when the key is released
+     * @param e the event to be processed
+     */
     @Override
     public void keyReleased(KeyEvent e) {
 

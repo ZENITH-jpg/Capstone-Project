@@ -10,6 +10,11 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+/**
+ * Lights minigame that requires you to click on lights to turn them off
+ * @author Tristan C
+ * @version 1.0
+ */
 public class LightsGame extends Minigame implements MouseListener {
    private final Image messageBg; // assets
    private final Image bg;
@@ -24,7 +29,10 @@ public class LightsGame extends Minigame implements MouseListener {
    final private int[] y = {130,180,130,130,460,280,435};
    private int turned;
 
-
+   /**
+    * Constructor of game, sets up assests and game info
+    * @param w The window the game is in
+    */
    public LightsGame(Window w) {
       super(w); // standard init
       this.setFocusable(true);
@@ -42,6 +50,10 @@ public class LightsGame extends Minigame implements MouseListener {
             "\n\nTurning off your lights reduce your energy usage, in turn reducing your carbon footprint, fighting climate change", 200, 180, 400, 200);
    }
 
+   /**
+    * Sets up the game to play
+    */
+   @Override
    public void setUp() {
       tS = System.currentTimeMillis(); //time stuff
       dT = 0;
@@ -54,11 +66,18 @@ public class LightsGame extends Minigame implements MouseListener {
       startGame(); // start
    }
 
+   /**
+    * Check if the game was won
+    * @return if the game was won
+    */
    @Override
    protected boolean gameWon() {
       return turned==7;
    }
 
+   /**
+    * Start the minigame off
+    */
    public void startGame() {
       while (dT < 7000) { // show message for 7 secs
          dT += System.currentTimeMillis() - tS; //getting time passed
@@ -85,6 +104,10 @@ public class LightsGame extends Minigame implements MouseListener {
       repaint(); // gone
    }
 
+   /**
+    * The graphics of the game and what to draw when
+    * @param g the <code>Graphics</code> object to protect
+    */
    @Override
    public void paintComponent(Graphics g) {
       switch (flag) {
@@ -121,26 +144,48 @@ public class LightsGame extends Minigame implements MouseListener {
             }
       }
    }
+
+   /**
+    *
+    * @param e the event to be processed
+    */
    @Override
    public void keyTyped(KeyEvent e) {
 
    }
 
+   /**
+    *
+    * @param e the event to be processed
+    */
    @Override
    public void keyPressed(KeyEvent e) {
 
    }
 
+   /**
+    *
+    * @param e the event to be processed
+    */
    @Override
    public void keyReleased(KeyEvent e) {
 
    }
+
+   /**
+    *
+    * @param e the event to be processed
+    */
 
    @Override
    public void mouseClicked(MouseEvent e) {
 
    }
 
+   /**
+    *
+    * @param e the event to be processed
+    */
    @Override
    public void mousePressed(MouseEvent e) {
       if(e.getButton() == MouseEvent.BUTTON1){ // if left click
@@ -154,16 +199,28 @@ public class LightsGame extends Minigame implements MouseListener {
       }
    }
 
+   /**
+    *
+    * @param e the event to be processed
+    */
    @Override
    public void mouseReleased(MouseEvent e) {
 
    }
 
+   /**
+    *
+    * @param e the event to be processed
+    */
    @Override
    public void mouseEntered(MouseEvent e) {
 
    }
 
+   /**
+    *
+    * @param e the event to be processed
+    */
    @Override
    public void mouseExited(MouseEvent e) {
 
