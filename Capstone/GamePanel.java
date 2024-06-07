@@ -231,7 +231,6 @@ public class GamePanel extends JPanel implements MouseListener{
                 if (timerOn) {
                     planet.addScore(scorePerTwoSeconds);
                     updateLabels();
-                    window.startRandomMinigame();
                 }
             }
         }).start();

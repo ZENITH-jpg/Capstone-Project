@@ -22,5 +22,6 @@ public class WaterBlock extends Block {
       }
    }
    public void doFailedQTE() {
+      game.startRandomMinigame();
    }
 }
