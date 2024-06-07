@@ -66,7 +66,7 @@ public class Planet {
          if (this.blocks.get(i).getName().equals(name))
             return i;
       }
-      System.out.println(name+" is not a block.");
+      // System.out.println(name+" is not a block."); // for debugging purposes
       return -1;
    }
 

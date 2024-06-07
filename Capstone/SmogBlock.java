@@ -12,21 +12,20 @@ public class SmogBlock extends Block {
             "Activates a minigame when clicked. Failing minigame has same consequences";
    }
    public void doQTE() {
-
-      game.startMinigame(random.nextInt(3));
+      game.startRandomMinigame();
    }
    public void doFailedQTE() {
       // reduce population of a random number of creatures
       if (planet.getCreatures().size() > 0) {
-         int num = 1 + random.nextInt(planet.getCreatures().size());
+         int num = 5 + random.nextInt(planet.getCreatures().size());
          // for num times decrease a random creature's population
          while (num > 0) {
             int index = random.nextInt(planet.getCreatures().size());
             Creature c = planet.getCreatures().get(index);
-            c.addPopulation(-random.nextInt(c.getPopulation()/2));
+            c.addPopulation(-c.getPopulation()/3-random.nextInt(c.getPopulation()/2));
             num--;
          }
       }
-      //planet.addBlock(new SmogBlock("Smog",500)); // add more smog
+      planet.addBlock(new SmogBlock("Smog", 100+random.nextInt(300))); // add more smog
    }
 }

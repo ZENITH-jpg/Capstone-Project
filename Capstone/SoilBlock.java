@@ -25,7 +25,7 @@ public class SoilBlock extends Block {
       }
       // if humans unlocked from objective, increase human population
       if (planet.getHumans() > 0)
-         planet.addHumans(planet.getHumans()/3 + random.nextInt(planet.getHumans()));
+         planet.addHumans(planet.getHumans()/2 + random.nextInt(planet.getHumans()));
    }
    public void doFailedQTE() {
    }

@@ -6,8 +6,10 @@ Window for the game
 */
 import javax.swing.*;
 import java.awt.*;
-public class Window extends JFrame {
+import java.util.Random;
 
+public class Window extends JFrame {
+   private static Random random = new Random();
    //window components
 	private JFrame window;
 	private Image icon;
@@ -47,7 +49,8 @@ public class Window extends JFrame {
 		g.requestFocus();
       window.repaint();
 	}
-   public void startMinigame(int i) {
+   public void startRandomMinigame() {
+      int i = 1;//random.nextInt(mg.length);
       GamePanel.timerOn = false;
       window.add(mg[i]);
       mg[i].setVisible(true);
