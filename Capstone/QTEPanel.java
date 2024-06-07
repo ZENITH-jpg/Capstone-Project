@@ -93,11 +93,12 @@ public class QTEPanel extends JPanel implements MouseListener {
           // qtes have a name "block_name=?"
           if (source.getName().startsWith("block_name=")) {
              source.removeMouseListener(this);
-             qteLabels.remove(source);
              this.remove(source);
              source.setVisible(false);
              String blockName = source.getName().substring(11);
              planet.getBlockWithName(blockName).doQTE();
+             // Change name to clicked but don't delete
+             source.setName("clicked");
              QTEPanel.this.revalidate();
              QTEPanel.this.repaint();
              game.updateLabels();
@@ -119,25 +120,8 @@ public class QTEPanel extends JPanel implements MouseListener {
       qteTimer = new Timer(cooldown, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-               // Make a QTE of a random block after every cooldown
-                if (game.timerOn) {
-                     // Get a random name from chances, then the corresponding block in planet
-                     String blockName = chances.get(random.nextInt(chances.size()));
-                     Block block = planet.getBlockWithName(blockName);
-                     Image qteImg = new ImageIcon("assets/"+block.getType()+".png").getImage().getScaledInstance(qteSize, qteSize, Image.SCALE_DEFAULT);
-                     ImageIcon qteIcon = new ImageIcon(qteImg);
-                     JLabel qteLabel = new JLabel(qteIcon);
-                     qteLabel.setBounds(50+random.nextInt(280),50+random.nextInt(280),qteSize,qteSize);
-                     qteLabel.setName("block_name="+block.getName());
-                     qteLabels.add(qteLabel);
-                     QTEPanel.this.add(qteLabel);
-                     qteLabel.addMouseListener(QTEPanel.this);
-                     // QTEPanel.this.setComponentZOrder(qteLabel, 0); // move qte above planet label
-                     QTEPanel.this.revalidate();
-                     QTEPanel.this.repaint();
-                }
-               if (qteLabels.size() > maxQTEs) {
-                  // removes a QTE when at maxQTEs
+               // Delete a QTE when at maxQTEs
+               if (qteLabels.size() > maxQTEs -1) {
                   JLabel qteLabel = qteLabels.get(0);
                   qteLabel.removeMouseListener(QTEPanel.this);
                   QTEPanel.this.remove(qteLabel);
@@ -149,6 +133,35 @@ public class QTEPanel extends JPanel implements MouseListener {
                   planet.getBlockWithName(blockName).doFailedQTE();
                   game.updateLabels();
                }
+               // Delete QTEs that are clicked
+               for (int i = qteLabels.size()-1; i >= 0; i--) {
+                  JLabel qteLabel = qteLabels.get(i);
+                  if (qteLabel.getName().equals("clicked"))
+                    qteLabels.remove(i);
+               }
+               // Make a QTE of a random block after every cooldown
+               int count = 1;
+               // 33% chance to double spawn
+               if (game.difficulty > 0 && random.nextInt(3) == 0)
+                  count++;
+                if (game.timerOn) {
+                     for (int i = 0; i < count; i++) {
+                        // Get a random name from chances, then the corresponding block in planet
+                        String blockName = chances.get(random.nextInt(chances.size()));
+                        Block block = planet.getBlockWithName(blockName);
+                        Image qteImg = new ImageIcon("assets/"+block.getType()+".png").getImage().getScaledInstance(qteSize, qteSize, Image.SCALE_DEFAULT);
+                        ImageIcon qteIcon = new ImageIcon(qteImg);
+                        JLabel qteLabel = new JLabel(qteIcon);
+                        qteLabel.setBounds(50+random.nextInt(280),50+random.nextInt(280),qteSize,qteSize);
+                        qteLabel.setName("block_name="+block.getName());
+                        qteLabels.add(qteLabel);
+                        QTEPanel.this.add(qteLabel);
+                        qteLabel.addMouseListener(QTEPanel.this);
+                        // QTEPanel.this.setComponentZOrder(qteLabel, 0); // move qte above planet label
+                        QTEPanel.this.revalidate();
+                        QTEPanel.this.repaint();
+                     }
+                }
             }
         });
         qteTimer.start();
