@@ -34,6 +34,7 @@ public class GamePanel extends JPanel implements MouseListener{
     // GUI handling
     JLabel planetLabel = new JLabel();
     int planetLabelSize = 300;
+    int tempScale = 2;
     JLabel[] blockRectLabels = new JLabel[0];
     JTextArea[] blockTextLabels = new JTextArea[0];
     JTextArea[] creatureTextLabels = new JTextArea[Planet.maxCreatures];
@@ -67,7 +68,6 @@ public class GamePanel extends JPanel implements MouseListener{
         objPanel = new ObjectivePanel(this, planet);
         this.add(qtePanel);
         this.add(objPanel);
-        int tempScale = 2;
         Image tempImg = new ImageIcon("assets/thermometer.png").getImage().getScaledInstance(80/tempScale, 150/tempScale, Image.SCALE_DEFAULT);
         ImageIcon tempIcon = new ImageIcon(tempImg);
         tempLabel = new JLabel(tempIcon);
@@ -76,7 +76,7 @@ public class GamePanel extends JPanel implements MouseListener{
         tempRectLabel = new JTextArea();
         tempRectLabel.setBounds(355, 48, 70/tempScale-24, 146/tempScale-10);
         tempRectLabel.setEditable(false);
-        tempRectLabel.setBackground(Color.red);
+        tempRectLabel.setBackground(new Color(255, 81, 69));
         this.add(tempRectLabel);
         background = new ImageIcon("assets/space_bg.png").getImage();
         // Add JLabels
@@ -166,8 +166,14 @@ public class GamePanel extends JPanel implements MouseListener{
     */
     public void updateLabels() {
       scoreLabel.setText(formatScore(planet.getScore()));
-      //tempLabel.setText(planet.getTemp() +" Celsius");
       humanLabel.setText(planet.getHumans() + " Humans");
+      // update temperature is more complicated
+      int tempHeight = 146/tempScale-10;
+      double tempLabelHeight = tempHeight/500.0*planet.getTemp();
+      double tempLabelY = 45 + tempHeight - tempLabelHeight;
+      System.out.println("355, "+(int)tempLabelY+", "+(70/tempScale-24)+", "+(int)tempLabelHeight);
+      tempRectLabel.setBounds(355, (int)tempLabelY, 70/tempScale-24, (int)tempLabelHeight);
+      
       displayCreatureLabels();
       objPanel.checkAllObjectives(); // Update objectives
       objPanel.displayObjectives();

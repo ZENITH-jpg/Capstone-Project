@@ -31,9 +31,10 @@ public class RockBlock extends Block {
       }
    }
    public void doFailedQTE() {
-      int num = 150+random.nextInt(100);
-      planet.addBlock(new LavaBlock("Lava", num));
-      if (planet.getBlockWithName(this.getName()).getVolume() > num)
+      if (this.volume > 350) {
+         int num = 150+random.nextInt(100);
+         planet.addBlock(new LavaBlock("Lava", num));
          planet.addBlock(new RockBlock(this.getName(), -num));
+      }
    }
 }
