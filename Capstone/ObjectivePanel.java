@@ -9,17 +9,25 @@ import java.util.Random;
 import javax.swing.*;
 import java.awt.*;
 
-
+/**
+Display and handles objectives to complete in the game
+@author Van N
+@version 1.0
+*/
 public class ObjectivePanel extends JPanel {
    static Random random = new Random();
    ArrayList<Objective> objectives = new ArrayList<Objective>();
    GamePanel game;
    Planet planet;
    JTextArea objLabel;
+   /**
+   Constructor, creates initial objectives
+   @param g GamePanel
+   @param p Planet
+   */
    public ObjectivePanel (GamePanel g, Planet p) {
       game = g;
       planet = p;
-      Objective.setObjPanel(this);
       this.setBounds(500, 40, 280, 400);
       this.setOpaque(false); // makes transparent
       this.setBackground(new Color(0,0,0,0)); // makes transparent
@@ -68,6 +76,9 @@ public class ObjectivePanel extends JPanel {
       });
       this.displayObjectives();
    }
+   /**
+   Checks the completion statuses of all objectives, and triggers rewards
+   */
    public void checkAllObjectives() {
       // Delete the ones that are complete
       Objective completedObjective = null;
@@ -81,6 +92,9 @@ public class ObjectivePanel extends JPanel {
       if (completedObjective != null) 
          completedObjective.reward(); // reward() must be here to trigger checkAllObjectives() outside for loop
    }
+   /**
+   Displays the objectives to the game
+   */
    public void displayObjectives() {
       String message = "";
       for (Objective objective : objectives) {
@@ -88,6 +102,9 @@ public class ObjectivePanel extends JPanel {
       }
       objLabel.setText(message);
    }
+   /**
+   Adds more objectives based on current difficulty
+   */
    public void addMoreObjectives() {
       if (game.difficulty == 1) {
          objectives.add(new Objective("Tectonic plates", "Have 600 ice and 600 soil.\nReward: No more Rock and Water QTEs, but you must start clicking Ice and Lava QTEs.") {

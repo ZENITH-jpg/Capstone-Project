@@ -6,17 +6,30 @@ Animals that exist in the game which will either appear or die
 */
 import java.util.Random;
 
+/**
+Creates planets and animals that exist in the game which will grow in population or go extinct
+@author Van N
+@version 1.0
+*/
 public class Creature {
    private static Random random = new Random();
    private static String[] possibleSpecies = new String[] {"Lemurs", "Moquitos", "Baboons", "Baobabs", "Octopi", "Platypi", "Bats", "Iguanas", "Conifers", "Ferns"};
    private String species;
    private int population; // no setter, only adder
    
+   /**
+   Constructor of Creature
+   @param speciesIndex index of species name corresponding to the current number of species
+   @param p initial population of the creature
+   */
    public Creature (int speciesIndex, int p) {
       species = possibleSpecies[speciesIndex];
       population = p;
    }
    
+   /**
+   Randomizes the names of species at the start of a new game
+   */
    public static void randomizeSpecies () {
       for (int i = possibleSpecies.length - 1; i > 0; i--) {
         int index = random.nextInt(i + 1);
@@ -26,14 +39,26 @@ public class Creature {
       }
    }
    
+   /**
+   Gets the species name of creature
+   @return species
+   */
    public String getSpecies() {
       return species;
    }
    
+   /**
+   Gets the creature population
+   @return population
+   */
    public int getPopulation() {
       return population;
    }
    
+   /**
+   Adds to the creature population
+   @param p amount to add
+   */
    public void addPopulation(int p) {
       population += p;
       if (population < 0)

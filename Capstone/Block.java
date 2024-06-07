@@ -34,7 +34,7 @@ public abstract class Block {
 
    /**
     * Sets planet of blocks
-    * @param p
+    * @param p planet to refer to
     */
    public static void setPlanet(Planet p) { // sets static planet variable
       planet = p;

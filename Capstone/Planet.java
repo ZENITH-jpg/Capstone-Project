@@ -7,6 +7,11 @@ Planet containing the blocks and has other game information such as creatures, a
 import java.util.ArrayList;
 import java.util.Random;
 
+/**
+Planet containing the blocks and creatures and has other game information such as temp and score
+@author Van N
+@version 1.0
+*/
 public class Planet {
    static Random random = new Random();
    static GamePanel game;
@@ -18,6 +23,10 @@ public class Planet {
    private int temp;
    private int humans;
 
+   /**
+   Constructor
+   @param g GamePanel to refer to
+   */
    public Planet(GamePanel g) {
       game = g;
       this.score = 0;
@@ -32,6 +41,9 @@ public class Planet {
       Creature.randomizeSpecies();
    }
    
+   /**
+   Sorts blocks from descending volume and then based on their types
+   */
    public void sortBlocks() {
       ArrayList<Block> newBlocks = new ArrayList<Block>();
       int i = 0;
@@ -55,12 +67,22 @@ public class Planet {
       this.blocks = newBlocks;
    }
 
+   /**
+   Swap two blocks in the blocks array
+   @param i index of 1st block
+   @param j index of 2nd block
+   */
    private void swapBlocks(int i, int j) {
       Block temp = this.blocks.get(i);
       this.blocks.set(i, this.blocks.get(j));
       this.blocks.set(j, temp);
    }
 
+   /**
+   Search to find a block with the specified name
+   @param name name
+   @return the index of block, -1 if the block doesn't exist
+   */
    public int findBlock(String name) {
       for (int i = 0; i < this.blocks.size(); i++) {
          if (this.blocks.get(i).getName().equals(name))
@@ -69,7 +91,11 @@ public class Planet {
       // System.out.println(name+" is not a block."); // for debugging purposes
       return -1;
    }
-
+   
+   /**
+   Adds a block or block volume to the planet
+   @param Block block to be added
+   */
    public void addBlock(Block block) {
       int blockIndex = findBlock(block.getName());
       if (blockIndex == -1) { // if planet didn't have block with that name, make a new block
@@ -86,70 +112,113 @@ public class Planet {
       this.sortBlocks();
       game.displayBlockLabels();
    }
-
+   
+   /**
+   Gets total volume of all blocks combined
+   @return total volume
+   */
    public int getTotalVolume() {
       int volume = 0;
       for (Block block : this.blocks)
          volume += block.getVolume();
       return volume;
    }
-
-   public void displayConstitution() {
-      int volume = getTotalVolume();
-      System.out.println("total volume: " + volume);
-      for (Block block : this.blocks) {
-         double percentOfPlanet = (double) (block.getVolume()) / volume;
-         System.out.println((int) (percentOfPlanet * 100) + "% " + block.getName());
-      }
-   }
    
+   /**
+   Add a random creature to creatures array
+   */
    public void createCreature() {
-      // add a random creature to this.creatures
       this.creatures.add(new Creature(this.creatures.size(), 1000+random.nextInt(1000)));
    }
 
+   /**
+   Get score
+   @int score
+   */
    public int getScore() {
       return this.score;
    }
-
+   
+   /**
+   Adds to score
+   @param s amount to add
+   */
    public void addScore(int s) {
       this.score += s;
    }
 
+   /**
+   Get temperature
+   @return temp
+   */
    public int getTemp() {
       return this.temp;
    }
-
+   
+   /**
+   Adds to temperature
+   @param t amount to add
+   */
    public void addTemp(int t) {
       this.temp += t;
       game.updateLabels();
    }
    
+   /**
+   Get humans
+   @return population
+   */
    public int getHumans() {
       return this.humans;
    }
    
+   /**
+   Get creatures array
+   @return planet's creatures
+   */
    public ArrayList<Creature> getCreatures() {
       return this.creatures;
    }
-
+   
+   /**
+   Add to human population
+   @return h amount to add
+   */
    public void addHumans(int h) {
       this.humans += h;
       game.updateLabels();
    }
    
+   /**
+   Get blocks array
+   @return planet's blocks
+   */
    public ArrayList<Block> getBlocks() {
       return this.blocks;
    }
    
+   /**
+   Get the block at specific index in blocks array
+   @param i index
+   @return the block
+   */
    public Block getBlockAtIndex(int i) {
       return this.blocks.get(i);
    }
    
+   /**
+   Get the block with a name, block must exist
+   @param n name
+   @return the block
+   */
    public Block getBlockWithName(String n) {
       return this.blocks.get(this.findBlock(n));
    }
    
+   /**
+   Removes the block with specified name, block must exist
+   @param n name
+   */
    public void removeBlockWithName(String n) {
       Block block = blocks.get(findBlock(n));
       game.getQTEPanel().clearQTEs(block.getName());
