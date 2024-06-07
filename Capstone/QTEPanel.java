@@ -147,27 +147,21 @@ public class QTEPanel extends JPanel implements MouseListener {
                     qteLabels.remove(i);
                }
                // Make a QTE of a random block after every cooldown
-               int count = 1;
-               // 33% chance to double spawn
-               if (game.difficulty > 0 && random.nextInt(3) == 0)
-                  count++;
                 if (game.timerOn) {
-                     for (int i = 0; i < count; i++) {
-                        // Get a random name from chances, then the corresponding block in planet
-                        String blockName = chances.get(random.nextInt(chances.size()));
-                        Block block = planet.getBlockWithName(blockName);
-                        Image qteImg = new ImageIcon("assets/"+block.getType()+".png").getImage().getScaledInstance(qteSize, qteSize, Image.SCALE_DEFAULT);
-                        ImageIcon qteIcon = new ImageIcon(qteImg);
-                        JLabel qteLabel = new JLabel(qteIcon);
-                        qteLabel.setBounds(50+random.nextInt(280),50+random.nextInt(280),qteSize,qteSize);
-                        qteLabel.setName("block_name="+block.getName());
-                        qteLabels.add(qteLabel);
-                        QTEPanel.this.add(qteLabel);
-                        qteLabel.addMouseListener(QTEPanel.this);
-                        // QTEPanel.this.setComponentZOrder(qteLabel, 0); // move qte above planet label
-                        QTEPanel.this.revalidate();
-                        QTEPanel.this.repaint();
-                     }
+                     // Get a random name from chances, then the corresponding block in planet
+                     String blockName = chances.get(random.nextInt(chances.size()));
+                     Block block = planet.getBlockWithName(blockName);
+                     Image qteImg = new ImageIcon("assets/"+block.getType()+".png").getImage().getScaledInstance(qteSize, qteSize, Image.SCALE_DEFAULT);
+                     ImageIcon qteIcon = new ImageIcon(qteImg);
+                     JLabel qteLabel = new JLabel(qteIcon);
+                     qteLabel.setBounds(50+random.nextInt(280),50+random.nextInt(280),qteSize,qteSize);
+                     qteLabel.setName("block_name="+block.getName());
+                     qteLabels.add(qteLabel);
+                     QTEPanel.this.add(qteLabel);
+                     qteLabel.addMouseListener(QTEPanel.this);
+                     // QTEPanel.this.setComponentZOrder(qteLabel, 0); // move qte above planet label
+                     QTEPanel.this.revalidate();
+                     QTEPanel.this.repaint();
                 }
             }
         });

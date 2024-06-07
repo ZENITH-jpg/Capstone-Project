@@ -40,7 +40,8 @@ public class GamePanel extends JPanel implements MouseListener{
     JTextArea humanLabel;
     JTextField[][] addBlockFields;
     JTextArea scoreLabel;
-    JTextArea tempLabel;
+    JLabel tempLabel;
+    JTextArea tempRectLabel;
 
     // Static variables
     public static boolean timerOn;
@@ -60,12 +61,23 @@ public class GamePanel extends JPanel implements MouseListener{
         timerOn = true;
         difficulty = 0;
         scorePerTwoSeconds = 20;
-        // Add QTEPanel, ObjectivePanel, and background
+        // Add QTEPanel, ObjectivePanel, temperature, and background
         qtePanel = new QTEPanel(this, planet);
         qtePanel.setBounds(0, 0, planetLabelSize+100, planetLabelSize+100);
         objPanel = new ObjectivePanel(this, planet);
         this.add(qtePanel);
         this.add(objPanel);
+        int tempScale = 2;
+        Image tempImg = new ImageIcon("assets/thermometer.png").getImage().getScaledInstance(80/tempScale, 150/tempScale, Image.SCALE_DEFAULT);
+        ImageIcon tempIcon = new ImageIcon(tempImg);
+        tempLabel = new JLabel(tempIcon);
+        tempLabel.setBounds(340,40,80/tempScale,150/tempScale);
+        this.add(tempLabel);
+        tempRectLabel = new JTextArea();
+        tempRectLabel.setBounds(355, 48, 70/tempScale-24, 146/tempScale-10);
+        tempRectLabel.setEditable(false);
+        tempRectLabel.setBackground(Color.red);
+        this.add(tempRectLabel);
         background = new ImageIcon("assets/space_bg.png").getImage();
         // Add JLabels
         this.setPlanetLabel("assets/rocky_planet.png");
@@ -77,7 +89,6 @@ public class GamePanel extends JPanel implements MouseListener{
             this.add(label);
         }
         scoreLabel = Utils.gameHeadingPanel("", 320, 20, 150, 20);
-        tempLabel = Utils.gameHeadingPanel("", 320, 45, 150, 20);
         humanLabel = Utils.blockTextPanel("", 340, 390, 300, 20);
         this.add(scoreLabel);
         this.add(tempLabel);
@@ -127,11 +138,10 @@ public class GamePanel extends JPanel implements MouseListener{
             blockLabel2 = Utils.blockTextPanel(percentOfPlanet + "% " + currentBlock.getName() + " (" + currentBlock.getVolume() + ")", panelX + totalWidth + 5,
                     panelY + currentHeight, 140, 140);
             currentHeight += percentOfPlanet * totalHeight / 100;
+            blockLabel2.setEditable(false);
             // Add block labels
             blockRectLabels[i] = blockLabel1;
             blockTextLabels[i] = blockLabel2;
-            blockTextLabels[i].setEditable(false);
-            blockTextLabels[i].setLineWrap(true);
             this.add(blockRectLabels[i]);
             this.add(blockTextLabels[i]);
             blockRectLabels[i].addMouseListener(this);
@@ -156,7 +166,7 @@ public class GamePanel extends JPanel implements MouseListener{
     */
     public void updateLabels() {
       scoreLabel.setText(formatScore(planet.getScore()));
-      tempLabel.setText(planet.getTemp() +" Celsius");
+      //tempLabel.setText(planet.getTemp() +" Celsius");
       humanLabel.setText(planet.getHumans() + " Humans");
       displayCreatureLabels();
       objPanel.checkAllObjectives(); // Update objectives
