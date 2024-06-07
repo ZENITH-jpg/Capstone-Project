@@ -5,6 +5,11 @@ Mr Guglielmi
 Ice block in the planet composition
 */
 public class IceBlock extends Block {
+   /**
+    * Constructor for the class, creates block using name and volume, sets the description
+    * @param n the name of the block
+    * @param v the volume the block holds
+    */
    public IceBlock(String n, int v) {
       super(n, v);
       this.type = "ice";
@@ -16,7 +21,6 @@ public class IceBlock extends Block {
    public void doFailedQTE() {
       int num = 50+random.nextInt(100);
       planet.addBlock(new WaterBlock("Clean water", num));
-      if (planet.getBlockWithName(this.getName()).getVolume() > 150)
-         planet.addBlock(new IceBlock(this.getName(), -num));
+      planet.addBlock(new IceBlock(this.getName(), -num));
    }
 }

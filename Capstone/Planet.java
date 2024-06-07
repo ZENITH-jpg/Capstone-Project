@@ -66,7 +66,7 @@ public class Planet {
          if (this.blocks.get(i).getName().equals(name))
             return i;
       }
-      System.out.println(name+" is not a block.");
+      // System.out.println(name+" is not a block."); // for debugging purposes
       return -1;
    }
 
@@ -152,8 +152,9 @@ public class Planet {
    
    public void removeBlockWithName(String n) {
       Block block = blocks.get(findBlock(n));
-      this.blocks.remove(block);
       game.getQTEPanel().clearQTEs(block.getName());
+      game.getQTEPanel().removeChance(block.getName());
       game.displayBlockLabels();
+      this.blocks.remove(block);
    }
 }

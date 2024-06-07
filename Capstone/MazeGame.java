@@ -12,18 +12,18 @@ import java.awt.event.KeyListener;
 public class MazeGame extends Minigame {
    private int x; // location in 2d array
    private int y;
-   private Image messageBg; // assets
-   private Image bg;
-   private Image trash;
-   private Image p;
-   private JTextArea context;
+   private final Image messageBg; // assets
+   private final Image bg;
+   private final Image trash;
+   private final Image p;
+   private final JTextArea context;
    private long dT; // passed time
    private long tS; // time increment from last (start pos)
    private int flag; // choose what to draw
    private int inv = 0; // how much trash is being held
    private int collected = 0; // how much trash has been recycled
 
-   private int[][] grid;
+   private final int[][] grid;
 
    public MazeGame(Window w) {
       super(w); // standard init
@@ -68,6 +68,11 @@ public class MazeGame extends Minigame {
       startGame(); // start
    }
 
+   @Override
+   protected boolean gameWon() {
+      return (collected == 6);
+   }
+
    public void startGame() {
       while (dT < 7000) { // show message for 7 secs
          dT += System.currentTimeMillis() - tS; //getting time passed
@@ -89,7 +94,6 @@ public class MazeGame extends Minigame {
          dT += System.currentTimeMillis() - tS;
          tS = System.currentTimeMillis();
       }
-      this.setVisible(false); // set minigame to invisible
       returnToGame();
       repaint(); // gone
    }

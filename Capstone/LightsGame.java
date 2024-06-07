@@ -10,21 +10,29 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+/**
+ * Lights minigame that requires you to click on lights to turn them off
+ * @author Tristan C
+ * @version 1.0
+ */
 public class LightsGame extends Minigame implements MouseListener {
-   private Image messageBg; // assets
-   private Image bg;
-   private Image lightOff;
-   private Image lightOn;
-   private JTextArea context;
+   private final Image messageBg; // assets
+   private final Image bg;
+   private final Image lightOff;
+   private final Image lightOn;
+   private final JTextArea context;
    private long dT; // passed time
    private long tS; // time increment from last (start pos)
    private int flag; // choose what to draw
-   private boolean[] lights = new boolean[7]; // if light at index i is turned on or off
+   private final boolean[] lights = new boolean[7]; // if light at index i is turned on or off
    final private int[] x = {70,265,470,670,170,565,490}; //x and y pos of each light
    final private int[] y = {130,180,130,130,460,280,435};
    private int turned;
 
-
+   /**
+    * Constructor of game, sets up assests and game info
+    * @param w The window the game is in
+    */
    public LightsGame(Window w) {
       super(w); // standard init
       this.setFocusable(true);
@@ -42,13 +50,15 @@ public class LightsGame extends Minigame implements MouseListener {
             "\n\nTurning off your lights reduce your energy usage, in turn reducing your carbon footprint, fighting climate change", 200, 180, 400, 200);
    }
 
+   /**
+    * Sets up the game to play
+    */
+   @Override
    public void setUp() {
-      Timer t = new Timer(33, null);
-      t.start();
       tS = System.currentTimeMillis(); //time stuff
       dT = 0;
       flag = 0; // what to display
-      turned = 0; // set the amount of light turnt off to 0
+      turned = 0; // set the amount of light turned off to 0
       for (int i = 0; i < 7; i++) {
          lights[i] = true; // set lights to on
       }
@@ -56,6 +66,18 @@ public class LightsGame extends Minigame implements MouseListener {
       startGame(); // start
    }
 
+   /**
+    * Check if the game was won
+    * @return if the game was won
+    */
+   @Override
+   protected boolean gameWon() {
+      return turned==7;
+   }
+
+   /**
+    * Start the minigame off
+    */
    public void startGame() {
       while (dT < 7000) { // show message for 7 secs
          dT += System.currentTimeMillis() - tS; //getting time passed
@@ -78,11 +100,14 @@ public class LightsGame extends Minigame implements MouseListener {
          dT += System.currentTimeMillis() - tS;
          tS = System.currentTimeMillis();
       }
-      this.setVisible(false); // set minigame to invisible
       returnToGame();
       repaint(); // gone
    }
 
+   /**
+    * The graphics of the game and what to draw when
+    * @param g the <code>Graphics</code> object to protect
+    */
    @Override
    public void paintComponent(Graphics g) {
       switch (flag) {
@@ -98,7 +123,7 @@ public class LightsGame extends Minigame implements MouseListener {
             g.drawImage(bg,0,0,null); //bg
             for (int i = 0; i < 7; i++) {
                if(lights[i]){
-                  g.drawImage(lightOn,x[i],y[i],null);
+                  g.drawImage(lightOn,x[i],y[i],null); //draw lights
                }else{
                   g.drawImage(lightOff,x[i],y[i],null);
                }
@@ -109,7 +134,7 @@ public class LightsGame extends Minigame implements MouseListener {
             break;
          default: // win or lose screen
             g.drawImage(messageBg,0,0,null);
-            if(turned >=7){ // win or lose (put greater or equal in case of some strange bug (probably won't happen))
+            if(turned ==7){ // win or lose
                g.setFont(Utils.PIXEL.deriveFont(150f));
                g.setColor(Color.white);
                g.drawString("you  win",40,190);
@@ -119,49 +144,83 @@ public class LightsGame extends Minigame implements MouseListener {
             }
       }
    }
+
+   /**
+    *
+    * @param e the event to be processed
+    */
    @Override
    public void keyTyped(KeyEvent e) {
 
    }
 
+   /**
+    *
+    * @param e the event to be processed
+    */
    @Override
    public void keyPressed(KeyEvent e) {
 
    }
 
+   /**
+    *
+    * @param e the event to be processed
+    */
    @Override
    public void keyReleased(KeyEvent e) {
 
    }
+
+   /**
+    *
+    * @param e the event to be processed
+    */
 
    @Override
    public void mouseClicked(MouseEvent e) {
 
    }
 
+   /**
+    *
+    * @param e the event to be processed
+    */
    @Override
    public void mousePressed(MouseEvent e) {
-      if(e.getButton() == MouseEvent.BUTTON1){
-         Point p = e.getPoint();
+      if(e.getButton() == MouseEvent.BUTTON1){ // if left click
+         Point p = e.getPoint(); // get position of click
          for (int i = 0; i < 7; i++) {
-            if(x[i] < p.getX() && 22 + x[i] > p.getX() && y[i] < p.getY() && 30 + y[i] > p.getY()){
+            if(x[i] < p.getX() && 22 + x[i] > p.getX() && y[i] < p.getY() && 30 + y[i] > p.getY()){ // check if on a light
                if(lights[i]) turned++; // if light on, turn off and increment amount
-               lights[i] = false;
+               lights[i] = false; // turn light off
             }
          }
       }
    }
 
+   /**
+    *
+    * @param e the event to be processed
+    */
    @Override
    public void mouseReleased(MouseEvent e) {
 
    }
 
+   /**
+    *
+    * @param e the event to be processed
+    */
    @Override
    public void mouseEntered(MouseEvent e) {
 
    }
 
+   /**
+    *
+    * @param e the event to be processed
+    */
    @Override
    public void mouseExited(MouseEvent e) {
 

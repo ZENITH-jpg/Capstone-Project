@@ -101,9 +101,9 @@ public class ObjectivePanel extends JPanel {
                game.getQTEPanel().addChance("Lava");
                game.getQTEPanel().addChance("Ice");
                game.getQTEPanel().addChance("Soil"); // Also increase chance of soil qtes
-               objectives.add(new Objective("Surpass medium mode","Have 25,000 humans.\nReward: No more soil QTEs. Smog appears. +1 QTE will be on screen") {
+               objectives.add(new Objective("Surpass medium mode","Have 10,000 humans.\nReward: No more soil QTEs. Smog appears. +1 QTE will be on screen") {
                   public boolean isComplete() {
-                     return planet.getHumans() >= 25000;
+                     return planet.getHumans() >= 10000;
                   }
                   public void reward() {
                      GamePanel.difficulty++;

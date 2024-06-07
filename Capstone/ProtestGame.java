@@ -10,11 +10,11 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class ProtestGame extends Minigame {
-    private Image messageBg; // assets
-    private Image bg;
-    private Image crowd;
-    private Image sign;
-    private JTextArea context;
+    private final Image messageBg; // assets
+    private final Image bg;
+    private final Image crowd;
+    private final Image sign;
+    private final JTextArea context;
     private long dT; // passed time
     private long tS; // time increment from last (start pos)
     private int flag; // choose what to draw
@@ -46,6 +46,11 @@ public class ProtestGame extends Minigame {
         startGame(); // start
     }
 
+    @Override
+    protected boolean gameWon() {
+        return clicks>=30;
+    }
+
     public void startGame() {
         while (dT < 7000) { // show message for 7 secs
             dT += System.currentTimeMillis() - tS; //getting time passed
@@ -67,7 +72,6 @@ public class ProtestGame extends Minigame {
             dT += System.currentTimeMillis() - tS;
             tS = System.currentTimeMillis();
         }
-        this.setVisible(false); // set minigame to invisible
         returnToGame();
         repaint(); // gone
     }
@@ -114,16 +118,16 @@ public class ProtestGame extends Minigame {
 
     @Override
     public void keyPressed(KeyEvent e) {
+
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
         if(e.getKeyCode() == KeyEvent.VK_SPACE){
             if(clicks<30){ // if space pressed and clicks is less than 30, then increase the clicks
                 clicks++;
             }
         }
-    }
-
-    @Override
-    public void keyReleased(KeyEvent e) {
-
     }
 
 }

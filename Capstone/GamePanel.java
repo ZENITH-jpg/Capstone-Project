@@ -131,7 +131,11 @@ public class GamePanel extends JPanel implements MouseListener{
     
     public void displayCreatureLabels() {
       for (int i = 0; i < planet.getCreatures().size(); i++) {
-         creatureTextLabels[i].setText(planet.getCreatures().get(i).getPopulation()+" "+planet.getCreatures().get(i).getSpecies());
+         int population = planet.getCreatures().get(i).getPopulation();
+         if (population != 0)
+            creatureTextLabels[i].setText(population+" "+planet.getCreatures().get(i).getSpecies());
+         else
+            creatureTextLabels[i].setText("EXTINCT");
       }
     }
     
@@ -249,8 +253,8 @@ public class GamePanel extends JPanel implements MouseListener{
       return objPanel;
    }
    
-   public void startMinigame(Minigame minigame) {
-      window.startMinigame(minigame);
+   public void startRandomMinigame() {
+      window.startRandomMinigame();
    }
    
    public Window getWindow() {

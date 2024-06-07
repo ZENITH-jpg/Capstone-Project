@@ -6,15 +6,17 @@ Window for the game
 */
 import javax.swing.*;
 import java.awt.*;
-public class Window extends JFrame {
+import java.util.Random;
 
+public class Window extends JFrame {
+   private static Random random = new Random();
    //window components
 	private JFrame window;
 	private Image icon;
 	private MenuPanel m; // panels that can be switched to
 	private GamePanel g;
 	private LeaderboardPanel l;
-   private Minigame mg;
+   private Minigame[] mg;
 	public JTextArea message;
 	public JPanel bgPanel[] = new JPanel[10];
 	public JLabel bgLabel[] = new JLabel[10];
@@ -35,6 +37,7 @@ public class Window extends JFrame {
 		window.add(l);
 		window.add(m);
       window.add(g);
+		mg = new Minigame[]{new ProtestGame(this), new MazeGame(this), new LightsGame(this)};
       g.setVisible(false);
 		l.setVisible(false);
 		window.setVisible(true);
@@ -46,14 +49,13 @@ public class Window extends JFrame {
 		g.requestFocus();
       window.repaint();
 	}
-   public void startMinigame(Minigame minigame) {
+   public void startRandomMinigame() {
+      int i = random.nextInt(mg.length);
       GamePanel.timerOn = false;
-      mg = minigame;
-      window.add(mg);
-      mg.setVisible(true);
       g.setVisible(false);
-      mg.requestFocus();
-      new MinigameHandler (mg).run(); // required to sync minigame to window
+      window.add(mg[i]);
+      mg[i].setVisible(true);
+		new MinigameHandler (mg[i]).start(); // required to sync minigame to window
    }
 	public void showLeaderboard() {
 		m.setVisible(false);
@@ -78,7 +80,7 @@ public class Window extends JFrame {
    public static void main (String[] args) {
       Utils.init();
       Window w = new Window(); // run window
-	   w.m.setVisible(false);
-		w.startMinigame(new ProtestGame(w));
+      w.startGame();
+      w.startRandomMinigame();
    }
 }
