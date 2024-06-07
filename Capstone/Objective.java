@@ -10,7 +10,13 @@ Objective in the game with a prompt and description
 @version 1.0
 */
 public class Objective {
+   /**
+    * Name of objective
+    */
    private String name;
+   /**
+    * Description of objective
+    */
    private String desc;
    /**
    Constructor

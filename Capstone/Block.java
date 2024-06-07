@@ -12,13 +12,40 @@ import java.util.Random;
  * @version 1.0
  */
 public abstract class Block {
+   /**
+    * Random instance for blocks
+    */
    protected static Random random = new Random();
+   /**
+    * The planet that exists in the game
+    */
    protected static Planet planet; // Whenever a planet is made, sets to that planet
+   /**
+    * The game panel which runs and displays the game
+    */
    protected static GamePanel game;
+   /**
+    * The name of the block
+    */
    protected String name;
+   /**
+    * The size of the block
+    */
    protected int volume;
+   /**
+    * The type of block (rock, soil, water, air, etc)
+    */
    protected String type; // rock, soil, water, air, etc
+   /**
+    * String descriptor of the properties blocks have
+    */
    protected String property; // every block has a property or ability
+
+   /**
+    * Constructor for block
+    * @param n The name of the block
+    * @param v The volume of the block
+    */
    public Block(String n, int v) {
       this.name = n;
       this.volume = v;

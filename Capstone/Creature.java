@@ -12,9 +12,21 @@ Creates planets and animals that exist in the game which will grow in population
 @version 1.0
 */
 public class Creature {
+   /**
+    * random instance for creature, makes a random number of certain species
+    */
    private static Random random = new Random();
+   /**
+    * Possible animals that exist within the game
+    */
    private static String[] possibleSpecies = new String[] {"Lemurs", "Moquitos", "Baboons", "Baobabs", "Octopi", "Platypi", "Bats", "Iguanas", "Conifers", "Ferns"};
+   /**
+    * String containing the animal's name
+    */
    private String species;
+   /**
+    * The population of the species of animal
+    */
    private int population; // no setter, only adder
    
    /**

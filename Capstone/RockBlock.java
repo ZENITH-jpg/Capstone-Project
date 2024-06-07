@@ -20,6 +20,10 @@ public class RockBlock extends Block {
       this.type = "rock";
       this.property = "Clicking Rock QTEs produces more rock. Will turn into soil if volume > 2000. Missing QTEs produces lava.";
    }
+
+   /**
+    * Add more rock when QTE is clicked, if there is enough rock, add soil
+    */
    public void doQTE() {
       if (this.volume <= 2000) {
          planet.addBlock(new RockBlock(this.getName(), 150+random.nextInt(200)));
@@ -30,6 +34,10 @@ public class RockBlock extends Block {
          planet.addBlock(new RockBlock(this.getName(), -num));
       }
    }
+
+   /**
+    * On fail, create lava and reduce rock
+    */
    public void doFailedQTE() {
       if (this.volume > 350) {
          int num = 150+random.nextInt(100);

@@ -34,7 +34,7 @@ public class GamePanel extends JPanel implements MouseListener{
     // GUI handling
     JLabel planetLabel = new JLabel();
     int planetLabelSize = 300;
-    int tempScale = 2;
+   int tempScale = 2;
     JLabel[] blockRectLabels = new JLabel[0];
     JTextArea[] blockTextLabels = new JTextArea[0];
     JTextArea[] creatureTextLabels = new JTextArea[Planet.maxCreatures];
@@ -54,52 +54,52 @@ public class GamePanel extends JPanel implements MouseListener{
     @param w the window that's running
     */
     GamePanel(Window w) {
-        window = w;
-        planet = new Planet(this);
-        this.setLayout(null);
-        this.setBounds(0, 0, 800, 600);
-        // Reset static variables
-        timerOn = true;
-        difficulty = 0;
-        scorePerTwoSeconds = 20;
-        // Add QTEPanel, ObjectivePanel, temperature, and background
-        qtePanel = new QTEPanel(this, planet);
-        qtePanel.setBounds(0, 0, planetLabelSize+100, planetLabelSize+100);
-        objPanel = new ObjectivePanel(this, planet);
-        this.add(qtePanel);
-        this.add(objPanel);
-        Image tempImg = new ImageIcon("assets/thermometer.png").getImage().getScaledInstance(80/tempScale, 150/tempScale, Image.SCALE_DEFAULT);
-        ImageIcon tempIcon = new ImageIcon(tempImg);
-        tempLabel = new JLabel(tempIcon);
-        tempLabel.setBounds(340,40,80/tempScale,150/tempScale);
-        this.add(tempLabel);
-        tempRectLabel = new JTextArea();
-        tempRectLabel.setEditable(false);
-        tempRectLabel.setBackground(new Color(255, 81, 69));
-        this.add(tempRectLabel);
-        background = new ImageIcon("assets/space_bg.png").getImage();
-        // Add JLabels
-        this.setPlanetLabel("assets/rocky_planet.png");
-        ArrayList<JTextArea> permanentLabels = new ArrayList<JTextArea>();
-        permanentLabels.add(Utils.gameHeadingPanel("Constitution of Planet", 40, 360, 300, 20));
-        permanentLabels.add(Utils.gameHeadingPanel("Existing Creatures", 340, 360, 300, 20));
-        permanentLabels.add(Utils.gameHeadingPanel("Objectives", 500, 20, 300, 20));
-        for (JTextArea label : permanentLabels) {
-            this.add(label);
-        }
-        scoreLabel = Utils.gameHeadingPanel("", 320, 20, 150, 20);
-        humanLabel = Utils.blockTextPanel("", 340, 390, 300, 20);
-        this.add(scoreLabel);
-        this.add(tempLabel);
-        this.add(humanLabel);
-        for (int i = 0; i < creatureTextLabels.length; i++) {
-         creatureTextLabels[i] = Utils.blockTextPanel("", 340, 410 + 18*i, 300, 20);
-         this.add(creatureTextLabels[i]);
-        }
-        if (windowBuildingMode)
-            this.addMouseListener(this);
-        initTimers();
-        displayBlockLabels();
+       window = w;
+       planet = new Planet(this);
+       this.setLayout(null);
+       this.setBounds(0, 0, 800, 600);
+       // Reset static variables
+       timerOn = true;
+       difficulty = 0;
+       scorePerTwoSeconds = 20;
+       // Add QTEPanel, ObjectivePanel, temperature, and background
+       qtePanel = new QTEPanel(this, planet);
+       qtePanel.setBounds(0, 0, planetLabelSize+100, planetLabelSize+100);
+       objPanel = new ObjectivePanel(this, planet);
+       this.add(qtePanel);
+       this.add(objPanel);
+       Image tempImg = new ImageIcon("assets/thermometer.png").getImage().getScaledInstance(80/tempScale, 150/tempScale, Image.SCALE_DEFAULT);
+       ImageIcon tempIcon = new ImageIcon(tempImg);
+       tempLabel = new JLabel(tempIcon);
+       tempLabel.setBounds(340,40,80/tempScale,150/tempScale);
+       this.add(tempLabel);
+       tempRectLabel = new JTextArea();
+       tempRectLabel.setEditable(false);
+       tempRectLabel.setBackground(new Color(255, 81, 69));
+       this.add(tempRectLabel);
+       background = new ImageIcon("assets/space_bg.png").getImage();
+       // Add JLabels
+       this.setPlanetLabel("assets/rocky_planet.png");
+       ArrayList<JTextArea> permanentLabels = new ArrayList<JTextArea>();
+       permanentLabels.add(Utils.gameHeadingPanel("Constitution of Planet", 40, 360, 300, 20));
+       permanentLabels.add(Utils.gameHeadingPanel("Existing Creatures", 340, 360, 300, 20));
+       permanentLabels.add(Utils.gameHeadingPanel("Objectives", 500, 20, 300, 20));
+       for (JTextArea label : permanentLabels) {
+          this.add(label);
+       }
+       scoreLabel = Utils.gameHeadingPanel("", 320, 20, 150, 20);
+       humanLabel = Utils.blockTextPanel("", 340, 390, 300, 20);
+       this.add(scoreLabel);
+       this.add(tempLabel);
+       this.add(humanLabel);
+       for (int i = 0; i < creatureTextLabels.length; i++) {
+          creatureTextLabels[i] = Utils.blockTextPanel("", 340, 410 + 18*i, 300, 20);
+          this.add(creatureTextLabels[i]);
+       }
+       if (windowBuildingMode)
+          this.addMouseListener(this);
+       initTimers();
+       displayBlockLabels();
     }
 
     /**
@@ -165,13 +165,8 @@ public class GamePanel extends JPanel implements MouseListener{
     */
     public void updateLabels() {
       scoreLabel.setText(formatScore(planet.getScore()));
+      //tempLabel.setText(planet.getTemp() +" Celsius");
       humanLabel.setText(planet.getHumans() + " Humans");
-      // update temperature is more complicated
-      int tempHeight = 146/tempScale-10;
-      double tempLabelHeight = tempHeight/500.0*planet.getTemp();
-      double tempLabelY = 45 + tempHeight - tempLabelHeight;
-      tempRectLabel.setBounds(355, (int)tempLabelY, 70/tempScale-24, (int)tempLabelHeight);
-      
       displayCreatureLabels();
       objPanel.checkAllObjectives(); // Update objectives
       objPanel.displayObjectives();

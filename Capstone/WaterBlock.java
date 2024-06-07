@@ -20,6 +20,10 @@ public class WaterBlock extends Block {
       this.type = "water";
       this.property = "Clicking Water QTEs produces more water. Will turn into ice if volume > 1000.";
    }
+
+   /**
+    * Add more water to the planet, if too much water exists, make ice
+    */
    public void doQTE() {
       if (this.volume <= 1000) {
          planet.addBlock(new WaterBlock(this.getName(),100+random.nextInt(200)));
