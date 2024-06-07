@@ -23,7 +23,13 @@ public class LeaderboardPanel extends JPanel implements KeyListener {
      * Subclass that creates a player that has a score and a name
      */
     private static class Player{ // class player that keeps info about score and name of player
+        /**
+         * The name of the player
+         */
         private String name; //fields
+        /**
+         * The score that the player got
+         */
         private int score;
 
         /**
@@ -52,9 +58,22 @@ public class LeaderboardPanel extends JPanel implements KeyListener {
             return score;
         }
     }
+
+    /**
+     * Window leaderboard is being displayed on
+     */
     Window window; //fields
+    /**
+     * The leaderboard logo
+     */
     Image logo;
+    /**
+     * The background of the leaderboard
+     */
     Image background; // images
+    /**
+     * list of players in the scores file
+     */
     ArrayList<Player> players; // player list
 
     /**
@@ -72,7 +91,6 @@ public class LeaderboardPanel extends JPanel implements KeyListener {
         this.setLayout(null);
         players = new ArrayList<>(); // set up players list
         fillPlayers(); // fill and sort
-        sort(players);
         JTextArea message = Utils.messagePanel("Press 'B' to return to menu",50,490,700,70); // and context box
         this.add(message);
     }
@@ -93,6 +111,7 @@ public class LeaderboardPanel extends JPanel implements KeyListener {
         } catch (FileNotFoundException e){
             System.out.print(e);
         }
+        sort(players);
     }
 
     /**
