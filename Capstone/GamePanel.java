@@ -74,7 +74,6 @@ public class GamePanel extends JPanel implements MouseListener{
         tempLabel.setBounds(340,40,80/tempScale,150/tempScale);
         this.add(tempLabel);
         tempRectLabel = new JTextArea();
-        tempRectLabel.setBounds(355, 48, 70/tempScale-24, 146/tempScale-10);
         tempRectLabel.setEditable(false);
         tempRectLabel.setBackground(new Color(255, 81, 69));
         this.add(tempRectLabel);
@@ -171,7 +170,6 @@ public class GamePanel extends JPanel implements MouseListener{
       int tempHeight = 146/tempScale-10;
       double tempLabelHeight = tempHeight/500.0*planet.getTemp();
       double tempLabelY = 45 + tempHeight - tempLabelHeight;
-      System.out.println("355, "+(int)tempLabelY+", "+(70/tempScale-24)+", "+(int)tempLabelHeight);
       tempRectLabel.setBounds(355, (int)tempLabelY, 70/tempScale-24, (int)tempLabelHeight);
       
       displayCreatureLabels();
