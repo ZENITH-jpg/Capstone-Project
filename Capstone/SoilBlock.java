@@ -4,6 +4,11 @@ Van N
 Mr Guglielmi
 Soil block in the planet composition
 */
+/**
+Soil block in the planet's composition
+@author Van N
+@version 1.0
+*/
 public class SoilBlock extends Block {
    /**
     * Constructor for the class, creates block using name and volume, sets the description

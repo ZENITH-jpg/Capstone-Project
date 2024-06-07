@@ -4,6 +4,11 @@ Van N
 Mr Guglielmi
 Water block in the planet composition
 */
+/**
+Water block in the planet's composition
+@author Van N
+@version 1.0
+*/
 public class WaterBlock extends Block {
    /**
     * Constructor for the class, creates block using name and volume, sets the description

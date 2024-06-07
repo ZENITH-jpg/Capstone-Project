@@ -9,6 +9,11 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+/**
+The protest minigame initiated when smog qte is clicked on, space spammer
+@author Tristan C
+@version 1.0
+*/
 public class ProtestGame extends Minigame {
     private final Image messageBg; // assets
     private final Image bg;

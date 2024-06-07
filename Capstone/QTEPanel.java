@@ -124,7 +124,7 @@ public class QTEPanel extends JPanel implements MouseListener {
                if (qteLabels.size() > maxQTEs -1) {
                   int index = -1; // find the index of the first QTE not yet clicked
                   for (int i = 0; i < qteLabels.size(); i++) {
-                      if (!qteLabel.get(i).getName().equals("clicked"))
+                      if (!qteLabels.get(i).getName().equals("clicked"))
                         index = i;
                   }
                   if (index != -1) {
