@@ -16,17 +16,53 @@ import java.awt.event.MouseListener;
  * @version 1.0
  */
 public class LightsGame extends Minigame implements MouseListener {
+   /**
+    * The background of the loading screen
+    */
    private final Image messageBg; // assets
+   /**
+    * The background of the game
+    */
    private final Image bg;
+   /**
+    * Light icon when the light is off
+    */
    private final Image lightOff;
+   /**
+    * Light icon when the light is on
+    */
    private final Image lightOn;
+   /**
+    * Context menu telling player what to do
+    */
    private final JTextArea context;
+   /**
+    * The time passed since some point
+    */
    private long dT; // passed time
+   /**
+    * The time of the last time increment
+    */
    private long tS; // time increment from last (start pos)
+   /**
+    * The flag that choose what to draw (loading screen, game, end screen)
+    */
    private int flag; // choose what to draw
+   /**
+    * light array that states the state of each light (on/off)
+    */
    private final boolean[] lights = new boolean[7]; // if light at index i is turned on or off
+   /**
+    * The x position of each light
+    */
    final private int[] x = {70,265,470,670,170,565,490}; //x and y pos of each light
+   /**
+    * The y position of each light
+    */
    final private int[] y = {130,180,130,130,460,280,435};
+   /**
+    * The amount of lights turned off
+    */
    private int turned;
 
    /**
@@ -146,7 +182,7 @@ public class LightsGame extends Minigame implements MouseListener {
    }
 
    /**
-    *
+    * Called on a key typed
     * @param e the event to be processed
     */
    @Override
@@ -155,7 +191,7 @@ public class LightsGame extends Minigame implements MouseListener {
    }
 
    /**
-    *
+    * Called on a key pressed
     * @param e the event to be processed
     */
    @Override
@@ -164,7 +200,7 @@ public class LightsGame extends Minigame implements MouseListener {
    }
 
    /**
-    *
+    * Called on key released
     * @param e the event to be processed
     */
    @Override
@@ -173,7 +209,7 @@ public class LightsGame extends Minigame implements MouseListener {
    }
 
    /**
-    *
+    * Called on mouse click
     * @param e the event to be processed
     */
 
@@ -183,7 +219,7 @@ public class LightsGame extends Minigame implements MouseListener {
    }
 
    /**
-    *
+    * Called on mouse pressed, if the left click was pressed and the mouse was over a light, try to turn it off
     * @param e the event to be processed
     */
    @Override
@@ -200,7 +236,7 @@ public class LightsGame extends Minigame implements MouseListener {
    }
 
    /**
-    *
+    * Called on mouse released
     * @param e the event to be processed
     */
    @Override
@@ -209,7 +245,7 @@ public class LightsGame extends Minigame implements MouseListener {
    }
 
    /**
-    *
+    * Called on mouse entered
     * @param e the event to be processed
     */
    @Override
@@ -218,7 +254,7 @@ public class LightsGame extends Minigame implements MouseListener {
    }
 
    /**
-    *
+    * Called on mouse exit
     * @param e the event to be processed
     */
    @Override

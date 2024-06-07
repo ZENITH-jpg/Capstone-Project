@@ -9,22 +9,69 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+/**
+ * The maze minigame which requires you to recycle trash
+ * @author Tristan C
+ * @version 1.0
+ */
 public class MazeGame extends Minigame {
-   private int x; // location in 2d array
+   /**
+    * x location in 2d array
+    */
+   private int x;
+   /**
+    * y location in 2d array
+    */
    private int y;
-   private final Image messageBg; // assets
+   /**
+    * Background for loading screen
+    */
+   private final Image messageBg;
+   /**
+    * Background for the game
+    */
    private final Image bg;
+   /**
+    * Trash icon in game
+    */
    private final Image trash;
+   /**
+    * Player icon in game
+    */
    private final Image p;
+   /**
+    * Context box which tells player what to do
+    */
    private final JTextArea context;
-   private long dT; // passed time
-   private long tS; // time increment from last (start pos)
+   /**
+    * time passed since some point
+    */
+   private long dT;
+   /**
+    * The time the last increment was at
+    */
+   private long tS;
+   /**
+    * The flag that choose what to draw (loading screen, game, end screen)
+    */
    private int flag; // choose what to draw
+   /**
+    * How much trash is in the player's inventory
+    */
    private int inv = 0; // how much trash is being held
+   /**
+    * How much trash has been recycled by the player
+    */
    private int collected = 0; // how much trash has been recycled
-
+   /**
+    * The grid containing information about the maze (walls, trash, recycle tile)
+    */
    private final int[][] grid;
 
+   /**
+    * Constructor of the maze game, sets up assets
+    * @param w the window the game is played on
+    */
    public MazeGame(Window w) {
       super(w); // standard init
       this.setFocusable(true);
@@ -50,6 +97,10 @@ public class MazeGame extends Minigame {
             "gas emissions need to create new products!", 200, 180, 400, 200);
    }
 
+   /**
+    * Sets up the maze game to play
+    */
+   @Override
    public void setUp() {
       x = 8; // set up start pos
       y = 3;
@@ -68,11 +119,18 @@ public class MazeGame extends Minigame {
       startGame(); // start
    }
 
+   /**
+    * Check if the game was won
+    * @return if the game was won
+    */
    @Override
    protected boolean gameWon() {
       return (collected == 6);
    }
 
+   /**
+    * Stars the minigame and cleans it up when over
+    */
    public void startGame() {
       while (dT < 7000) { // show message for 7 secs
          dT += System.currentTimeMillis() - tS; //getting time passed
@@ -98,6 +156,10 @@ public class MazeGame extends Minigame {
       repaint(); // gone
    }
 
+   /**
+    * The graphics of the Maze Game and choosing what to draw when
+    * @param g the <code>Graphics</code> object to protect
+    */
    @Override
    public void paintComponent(Graphics g) {
       switch (flag) {
@@ -137,11 +199,19 @@ public class MazeGame extends Minigame {
       }
    }
 
+   /**
+    * On a key typed
+    * @param e the event to be processed
+    */
    @Override
    public void keyTyped(KeyEvent e) {
 
    }
 
+   /**
+    * On a key press, check if it is a movement key and try to move in that direction
+    * @param e the event to be processed
+    */
    @Override
    public void keyPressed(KeyEvent e) {
       if (e.getKeyCode() == KeyEvent.VK_S || e.getKeyCode() == KeyEvent.VK_DOWN) { // get movement key
@@ -175,12 +245,19 @@ public class MazeGame extends Minigame {
       trashHandler(); // handle trash pickup/recycle
    }
 
+   /**
+    * When key is released
+    * @param e the event to be processed
+    */
    @Override
    public void keyReleased(KeyEvent e) {
 
    }
 
-   public void trashHandler() {
+   /**
+    * Handler for how much trash is picked up in inv and how much trash has been recycled
+    */
+   private void trashHandler() {
       if (grid[y][x] == 2) { // if land on trash tile, collect trash into inv
          inv++;
          grid[y][x]--;

@@ -9,15 +9,45 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+/**
+ * The menu panel which shows the main menu with options and handles menu operations
+ * @author Tristan C
+ * @version 1.0
+ */
 public class MenuPanel extends JPanel implements KeyListener {
+    /**
+     * The window the game is played on
+     */
     Window window;
+    /**
+     * The background of the menu
+     */
     Image background;  // assets
+    /**
+     * Giant logo displayed at the top of menu
+     */
     Image logo;
+    /**
+     * The menu option currently hovered
+     */
     int index;
+    /**
+     * The menu options
+     */
     final String[] options = {"start", "instructions", "leaderboard"}; //menu selection
+    /**
+     * The assets for the menu options, has hovered and normal options
+     */
     Image[][] menuItems = new Image[3][2]; //image array for menu items [item choice][is item active]
+    /**
+     * Guide on how to use the menu
+     */
     final String guide = "Use arrow keys or WASD to navigate\nSPACE or ENTER to select, ESC to exit game.";
 
+    /**
+     * Constructor for the menu panel, sets up assets
+     * @param w The window the game is played on
+     */
     MenuPanel(Window w){
         window = w; // default init
         index = 0;
@@ -34,6 +64,11 @@ public class MenuPanel extends JPanel implements KeyListener {
         JTextArea message = Utils.messagePanel(guide,50,490,700,70);
         this.add(message);
     }
+
+    /**
+     * Drawing the menu panel
+     * @param g the <code>Graphics</code> object to protect
+     */
     @Override
     public void paintComponent(Graphics g){
         Graphics2D g2d = (Graphics2D)g;
@@ -49,10 +84,18 @@ public class MenuPanel extends JPanel implements KeyListener {
         }
     }
 
+    /**
+     * Called on a key typed
+     * @param e the event to be processed
+     */
     @Override
     public void keyTyped(KeyEvent e) {
     }
 
+    /**
+     * Called on key pressed, switches menu options, enters options, or exits game depending on key
+     * @param e the event to be processed
+     */
     @Override
     public void keyPressed(KeyEvent e) { // if down or s key pressed, go down in options
         if(e.getKeyCode() == 83 || e.getKeyCode() == 40){

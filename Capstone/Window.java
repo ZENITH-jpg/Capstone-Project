@@ -8,19 +8,45 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.Random;
 
+/**
+ * The window containing the game
+ * @author Tristan C
+ * @author Van N
+ */
 public class Window extends JFrame {
+	/**
+	 * Instance of random to be used around the game
+	 */
    private static Random random = new Random();
    //window components
+	/**
+	 * The JFrame everything takes place on
+	 */
 	private JFrame window;
+	/**
+	 * The icon for the window
+	 */
 	private Image icon;
+	/**
+	 * Menu panel for game
+	 */
 	private MenuPanel m; // panels that can be switched to
+	/**
+	 * The game panel
+	 */
 	private GamePanel g;
+	/**
+	 * The leaderboard for the game
+	 */
 	private LeaderboardPanel l;
+	/**
+	 * Minigames
+	 */
    private Minigame[] mg;
-	public JTextArea message;
-	public JPanel bgPanel[] = new JPanel[10];
-	public JLabel bgLabel[] = new JLabel[10];
-	
+
+	/**
+	 * Constructor for the Windows, sets up window and assets
+	 */
 	Window(){
 		m = new MenuPanel(this); //create window panels
 		g = new GamePanel(this);
@@ -42,6 +68,10 @@ public class Window extends JFrame {
 		l.setVisible(false);
 		window.setVisible(true);
 	}
+
+	/**
+	 * Start the main game and hide other components
+	 */
 	public void startGame() {
 		m.setVisible(false);
 		g.setVisible(true);
@@ -49,6 +79,10 @@ public class Window extends JFrame {
 		g.requestFocus();
       window.repaint();
 	}
+
+	/**
+	 * Start a random minigame and pause others
+	 */
    public void startRandomMinigame() {
       int i = random.nextInt(mg.length);
       GamePanel.timerOn = false;
@@ -57,12 +91,20 @@ public class Window extends JFrame {
       mg[i].setVisible(true);
 		new MinigameHandler (mg[i]).start(); // required to sync minigame to window
    }
+
+	/**
+	 * Display the leaderboard of the game
+	 */
 	public void showLeaderboard() {
 		m.setVisible(false);
 		l.setVisible(true);
 		l.requestFocus();
 		window.repaint();
 	}
+
+	/**
+	 * Return to the menu of the game
+	 */
 	public void returnMenu(){
 		l.setVisible(false);
 		g.setVisible(false);
@@ -70,17 +112,20 @@ public class Window extends JFrame {
 		m.requestFocus();
 		window.repaint();
 	}
+
+	/**
+	 * Close the window
+	 */
 	public void close(){
 		window.setVisible(false); //set visibility to false, then clean up panel
 		window.dispose();
 	}
+
+	/**
+	 * Get the game instance
+	 * @return the game panel
+	 */
    public GamePanel getGame() {
       return g;
-   }
-   public static void main (String[] args) {
-      Utils.init();
-      Window w = new Window(); // run window
-      w.startGame();
-      w.startRandomMinigame();
    }
 }
