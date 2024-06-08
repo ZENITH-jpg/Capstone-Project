@@ -139,7 +139,7 @@ public class QTEPanel extends JPanel implements MouseListener {
             // Delete a QTE when at maxQTEs
             if (qteLabels.size() > maxQTEs -1) {
                int index = -1; // find the index of the first QTE not yet clicked
-               for (int i = 0; i < qteLabels.size(); i++) {
+               for (int i = qteLabels.size()-1; i >= 0; i--) {
                   if (!qteLabels.get(i).getName().equals("clicked"))
                      index = i;
                }

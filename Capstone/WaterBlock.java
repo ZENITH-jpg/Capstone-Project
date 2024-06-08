@@ -28,11 +28,13 @@ public class WaterBlock extends Block {
       if (this.volume <= 1000) {
          planet.addBlock(new WaterBlock(this.getName(),100+random.nextInt(200)));
       }
-      if (this.volume > 1000 && (planet.findBlock("Ice") == -1 || planet.getBlockWithName("Ice").getVolume() <= 800)) {
-         // make ice if ice is < 800 volume
+      if (this.volume > 1000) {
          int num = 200+random.nextInt(200);
          planet.addBlock(new IceBlock("Ice", num));
          this.addVolume(-num);
+         // remove the chance of rock qtes when there's too much soil
+         if (planet.getBlockWithName("Ice").getVolume() > 800)
+            game.getQTEPanel().removeChance("Water");
       }
    }
    public void doFailedQTE() {

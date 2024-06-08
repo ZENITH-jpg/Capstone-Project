@@ -121,7 +121,27 @@ public class Utils { // for fonts, custom colors, and other objects that are to 
         message.setFont(GAMEHEADING_FONT);
         return message;
     }
-
+    /**
+     * Create a new game over panel
+     * @param s The message to be displayed
+     * @param x The x position of the message box
+     * @param y The y position of the message box
+     * @param w The width of the message box
+     * @param h The height of the message box
+     * @return The block message as a Swing component
+     */
+    public static JTextArea gameOverPanel(String s, int x, int y, int w, int h) {
+        JTextArea message = new JTextArea(s);
+        message.setBorder(null);
+        message.setBounds(x, y, w, h);
+        message.setOpaque(false); // makes transparent
+        message.setBackground(new Color(0,0,0,0)); // makes transparent
+        message.setEditable(false);
+        message.setLineWrap(true);
+        message.setWrapStyleWord(true);
+        message.setFont(Utils.PIXEL.deriveFont(150f));
+        return message;
+    }
     /**
      * Utility to select what color blocks are to draw
      * @param type The type the block is

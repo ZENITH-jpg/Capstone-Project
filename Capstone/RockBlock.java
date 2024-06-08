@@ -32,6 +32,9 @@ public class RockBlock extends Block {
          int num = 200+random.nextInt(200);
          planet.addBlock(new SoilBlock("Soil", num));
          planet.addBlock(new RockBlock(this.getName(), -num));
+         // remove the chance of rock qtes when there's too much soil
+         if (planet.getBlockWithName("Soil").getVolume() > 800)
+            game.getQTEPanel().removeChance("Rock");
       }
    }
 
@@ -43,6 +46,7 @@ public class RockBlock extends Block {
          int num = 150+random.nextInt(100);
          planet.addBlock(new LavaBlock("Lava", num));
          planet.addBlock(new RockBlock(this.getName(), -num));
+         planet.addTemp(random.nextInt(10));
       }
    }
 }

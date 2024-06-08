@@ -20,7 +20,7 @@ import java.awt.event.ActionListener;
  * @author Van N
  * @version 1.0
  */
-public class GamePanel extends JPanel implements MouseListener{
+public class GamePanel extends JPanel implements MouseListener {
     static boolean windowBuildingMode = false;
     static Random random = new Random();
     Window window;
@@ -78,7 +78,9 @@ public class GamePanel extends JPanel implements MouseListener{
        tempRectLabel = new JTextArea();
        tempRectLabel.setEditable(false);
        tempRectLabel.setBackground(new Color(255, 81, 69));
+       tempRectLabel.setBackground(Color.blue);
        this.add(tempRectLabel);
+       this.setComponentZOrder(tempRectLabel, 0);
        background = new ImageIcon("assets/space_bg.png").getImage();
        // Add JLabels
        this.setPlanetLabel("assets/rocky_planet.png");
@@ -175,13 +177,39 @@ public class GamePanel extends JPanel implements MouseListener{
       if(!checkGameOver()) {
          scoreLabel.setText(formatScore(planet.getScore()));
          humanLabel.setText(planet.getHumans() + " Humans");
+         
+         // update thermometer
+         int tempHeight = 146/tempScale-10;
+         double tempLabelHeight = tempHeight/500.0*planet.getTemp();
+         // make sure height isnt negative
+         if (planet.getTemp() <= 0)
+            tempLabelHeight = 0;
+         double tempLabelY = 45 + tempHeight - tempLabelHeight;
+         // System.out.println(tempLabelY+", "+tempLabelHeight);
+         tempRectLabel.setBounds(355, (int)tempLabelY, 70/tempScale-24, (int)tempLabelHeight);
+         
          displayCreatureLabels();
          objPanel.checkAllObjectives(); // Update objectives
          objPanel.displayObjectives();
+         this.revalidate();
+         //this.repaint();
       } else {
          scoreTimer.stop();
          qtePanel.stopQTETimer();
-         window.addToLeaderboard("Baboon", planet.getScore());
+         JLabel gameOverBackground;
+         JTextArea gameOverText = Utils.gameOverPanel("", 40, 165, 600, 300);
+         if (planet.getTemp() >= 300) {
+            gameOverBackground = new JLabel(new ImageIcon("temp_gameover.png"));
+            gameOverText.setText("GAME OVER\nHOT ENDING");
+            gameOverText.setForeground(new Color(255, 132, 0));
+         } else if (planet.getHumans() > 0 && planet.getCreatures().size() == 0) {
+            gameOverBackground = new JLabel(new ImageIcon("extinct_gameover.png"));
+            gameOverText.setText("GAME OVER\nEXTINCT ENDING");
+            gameOverText.setForeground(new Color(71, 40, 224));
+         }
+         JTextArea nameInputLabel = Utils.messagePanel("Input your name here so we can save it!", 40, 165, 600, 300);
+         nameInputLabel.setEditable(true);
+         //window.addToLeaderboard("Baboon", planet.getScore());
       }
     }
     
@@ -190,8 +218,8 @@ public class GamePanel extends JPanel implements MouseListener{
     @return the game over status as a boolean
     */
     public boolean checkGameOver() {
-      // if temperature is over 500 degrees
-      if (planet.getTemp() >= 500)
+      // if temperature is over 300 degrees
+      if (planet.getTemp() >= 300)
          return true;
       // if there are no creatures except humans
       if (planet.getHumans() > 0 && planet.getCreatures().size() == 0)

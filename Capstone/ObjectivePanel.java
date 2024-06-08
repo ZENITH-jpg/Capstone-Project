@@ -62,7 +62,7 @@ public class ObjectivePanel extends JPanel {
                   });
                }
             });
-            objectives.add(new Objective("Surpass easy mode","Get 3000 total volume.\nReward: QTEs appear a second sooner.") {
+            objectives.add(new Objective("Complete difficulty I","Get 3000 total volume.\nReward: QTEs appear a second sooner.") {
                public boolean isComplete() {
                   return planet.getTotalVolume() >= 3000;
                }
@@ -118,7 +118,12 @@ public class ObjectivePanel extends JPanel {
                game.getQTEPanel().addChance("Lava");
                game.getQTEPanel().addChance("Ice");
                game.getQTEPanel().addChance("Soil"); // Also increase chance of soil qtes
-               objectives.add(new Objective("Surpass medium mode","Have 10,000 humans.\nReward: No more soil QTEs. Smog appears. +1 QTE will be on screen") {
+               
+               // Also set volumes of soil and ice to 800
+               planet.getBlockWithName("Soil").setVolume(800);
+               planet.getBlockWithName("Ice").setVolume(800);
+               game.displayBlockLabels();
+               objectives.add(new Objective("Complete difficulty II","Have 10,000 humans.\nReward: No more soil QTEs. Smog appears. +1 QTE will be on screen") {
                   public boolean isComplete() {
                      return planet.getHumans() >= 10000;
                   }
@@ -127,8 +132,6 @@ public class ObjectivePanel extends JPanel {
                      planet.addBlock(new SmogBlock("Smog", 500));
                      game.getQTEPanel().addChance("Smog");
                      QTEPanel.maxQTEs++;
-                     //planet.removeBlockWithName("Soil");
-                     //planet.removeBlockWithName("Rock");
                      planet.addBlock(new AirBlock("Clean air", 300)); // also add 300 air
                      game.displayBlockLabels();
                      addMoreObjectives();
@@ -137,8 +140,6 @@ public class ObjectivePanel extends JPanel {
 
             }
          });
-      } else if (game.difficulty == 2) {
-         
       }
    }
 }
