@@ -25,6 +25,7 @@ public class GamePanel extends JPanel implements MouseListener{
     static Random random = new Random();
     Window window;
     Planet planet;
+    Timer scoreTimer;
 
     // Graphics and Panels
     Image background;
@@ -34,7 +35,7 @@ public class GamePanel extends JPanel implements MouseListener{
     // GUI handling
     JLabel planetLabel = new JLabel();
     int planetLabelSize = 300;
-   int tempScale = 2;
+    int tempScale = 2;
     JLabel[] blockRectLabels = new JLabel[0];
     JTextArea[] blockTextLabels = new JTextArea[0];
     JTextArea blockPropertyLabel;
@@ -170,12 +171,18 @@ public class GamePanel extends JPanel implements MouseListener{
     Updates the score, temperature, population label displays. Also checks if objectives are complete
     */
     public void updateLabels() {
-      scoreLabel.setText(formatScore(planet.getScore()));
-      //tempLabel.setText(planet.getTemp() +" Celsius");
-      humanLabel.setText(planet.getHumans() + " Humans");
-      displayCreatureLabels();
-      objPanel.checkAllObjectives(); // Update objectives
-      objPanel.displayObjectives();
+      // update labels unless it's game over
+      if(!checkGameOver()) {
+         scoreLabel.setText(formatScore(planet.getScore()));
+         humanLabel.setText(planet.getHumans() + " Humans");
+         displayCreatureLabels();
+         objPanel.checkAllObjectives(); // Update objectives
+         objPanel.displayObjectives();
+      } else {
+         scoreTimer.stop();
+         qtePanel.stopQTETimer();
+         window.addToLeaderboard("Baboon", planet.getScore());
+      }
     }
     
     /**
@@ -273,7 +280,7 @@ public class GamePanel extends JPanel implements MouseListener{
     */
     private void initTimers() {
         // this timer adds score every 2 sec
-        new Timer(2000, new ActionListener() {
+        scoreTimer = new Timer(2000, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (timerOn) {
@@ -281,7 +288,8 @@ public class GamePanel extends JPanel implements MouseListener{
                     updateLabels();
                 }
             }
-        }).start();
+        });
+        scoreTimer.start();
     }
 
    /**

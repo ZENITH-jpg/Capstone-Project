@@ -8,8 +8,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -95,6 +94,19 @@ public class LeaderboardPanel extends JPanel implements KeyListener {
         this.add(message);
     }
 
+    public void addPlayer(String name, int score) {
+       Player p = new Player(name, score);
+       players.add(p);
+       sort(players);
+       try {
+         PrintWriter printer = new PrintWriter (new FileWriter("leaderboard.txt ", true ));
+         printer.println(name+" "+score);
+         printer.close();
+       } catch (Exception e) {
+         System.out.println(e.getMessage());
+       }
+    }
+    
     /**
      * Fills the players array with players from the leaderboard file
      */
@@ -112,6 +124,7 @@ public class LeaderboardPanel extends JPanel implements KeyListener {
             System.out.print(e);
         }
         sort(players);
+        window.repaint();
     }
 
     /**

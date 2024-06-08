@@ -184,6 +184,10 @@ public class QTEPanel extends JPanel implements MouseListener {
        qteTimer.start();
     }
     
+    public void stopQTETimer() {
+       qteTimer.stop();
+    }
+    
     /**
     Clear QTEs to prevent the error of deleting a block with qtes on screen
     @param blockName name of QTE to clear

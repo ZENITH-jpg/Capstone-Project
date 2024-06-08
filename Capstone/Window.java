@@ -101,6 +101,10 @@ public class Window extends JFrame {
 		l.requestFocus();
 		window.repaint();
 	}
+   
+   public void addToLeaderboard(String name, int score) {
+      l.addPlayer(name, score);
+   }
 
 	/**
 	 * Return to the menu of the game
