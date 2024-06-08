@@ -37,6 +37,7 @@ public class GamePanel extends JPanel implements MouseListener{
    int tempScale = 2;
     JLabel[] blockRectLabels = new JLabel[0];
     JTextArea[] blockTextLabels = new JTextArea[0];
+    JTextArea blockPropertyLabel;
     JTextArea[] creatureTextLabels = new JTextArea[Planet.maxCreatures];
     JTextArea humanLabel;
     JTextField[][] addBlockFields;
@@ -90,8 +91,8 @@ public class GamePanel extends JPanel implements MouseListener{
        scoreLabel = Utils.gameHeadingPanel("", 320, 20, 150, 20);
        humanLabel = Utils.blockTextPanel("", 340, 390, 300, 20);
        this.add(scoreLabel);
-       this.add(tempLabel);
        this.add(humanLabel);
+       // Init specific to blocks, creatures, and timer
        for (int i = 0; i < creatureTextLabels.length; i++) {
           creatureTextLabels[i] = Utils.blockTextPanel("", 340, 410 + 18*i, 300, 20);
           this.add(creatureTextLabels[i]);
@@ -99,6 +100,11 @@ public class GamePanel extends JPanel implements MouseListener{
        if (windowBuildingMode)
           this.addMouseListener(this);
        initTimers();
+       blockPropertyLabel = Utils.blockTextPanel("", 195, 400, 140, 140);
+       blockPropertyLabel.setOpaque(true);
+       blockPropertyLabel.setBackground(Color.BLACK);
+       blockPropertyLabel.setVisible(false);
+       this.add(blockPropertyLabel);
        displayBlockLabels();
     }
 
@@ -156,7 +162,7 @@ public class GamePanel extends JPanel implements MouseListener{
          if (population != 0)
             creatureTextLabels[i].setText(population+" "+planet.getCreatures().get(i).getSpecies());
          else
-            creatureTextLabels[i].setText("EXTINCT");
+            creatureTextLabels[i].setText("EXTINCT"); 
       }
     }
     
@@ -197,11 +203,9 @@ public class GamePanel extends JPanel implements MouseListener{
              int i = Integer.parseInt(source.getName().substring(2));
              // Set a border when the mouse enters the label
              source.setBorder(new LineBorder(Color.RED, 2));
-             // APPENDS the block property to the visible text beside the rectangle
-             blockTextLabels[i]
-                     .setText(blockTextLabels[i].getText() + "\n" + planet.getBlockAtIndex(i).getProperty());
-             blockTextLabels[i].setOpaque(true);
-             blockTextLabels[i].setBackground(Color.BLACK);
+             // APPENDS the block property to the block property label
+             blockPropertyLabel.setText(blockTextLabels[i].getText() + "\n" + planet.getBlockAtIndex(i).getProperty());
+             blockPropertyLabel.setVisible(true);
         }
     }
     
@@ -216,11 +220,8 @@ public class GamePanel extends JPanel implements MouseListener{
              int i = Integer.parseInt(source.getName().substring(2));
              // Remove the border when the mouse exits the label
              source.setBorder(null);
-             // REMOVES the block property to the visible text beside the rectangle
-             int propertyLength = planet.getBlockAtIndex(i).getProperty().length();
-             blockTextLabels[i].setText(blockTextLabels[i].getText()
-                     .substring(0, blockTextLabels[i].getText().length() - propertyLength).replace("\n", ""));
-             blockTextLabels[i].setOpaque(false);
+             // Disables block property label
+             blockPropertyLabel.setVisible(false);
         }
     }
 

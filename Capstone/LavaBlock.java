@@ -16,7 +16,7 @@ public class LavaBlock extends Block {
    public LavaBlock(String n, int v) {
       super(n, v);
       this.type = "lava";
-      this.property = "Lava QTEs warms up the planet. Missing them is worse for the planet";
+      this.property = "Clicking Lava QTEs warms up the planet. Missing them is worse for the planet.";
    }
 
    /**
