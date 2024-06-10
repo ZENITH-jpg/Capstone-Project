@@ -29,6 +29,7 @@ public class GamePanel extends JPanel implements MouseListener {
 
     // Graphics and Panels
     Image background;
+    Image gameOverBackground;
     QTEPanel qtePanel;
     ObjectivePanel objPanel;
     
@@ -78,7 +79,7 @@ public class GamePanel extends JPanel implements MouseListener {
        tempRectLabel = new JTextArea();
        tempRectLabel.setEditable(false);
        tempRectLabel.setBackground(new Color(255, 81, 69));
-       tempRectLabel.setBackground(Color.blue);
+       tempRectLabel.setBackground(Color.red);
        this.add(tempRectLabel);
        this.setComponentZOrder(tempRectLabel, 0);
        background = new ImageIcon("assets/space_bg.png").getImage();
@@ -185,32 +186,60 @@ public class GamePanel extends JPanel implements MouseListener {
          if (planet.getTemp() <= 0)
             tempLabelHeight = 0;
          double tempLabelY = 45 + tempHeight - tempLabelHeight;
-         // System.out.println(tempLabelY+", "+tempLabelHeight);
          tempRectLabel.setBounds(355, (int)tempLabelY, 70/tempScale-24, (int)tempLabelHeight);
          
          displayCreatureLabels();
          objPanel.checkAllObjectives(); // Update objectives
          objPanel.displayObjectives();
          this.revalidate();
-         //this.repaint();
       } else {
+         // Pick a game over screen and ask the user for their name.
          scoreTimer.stop();
          qtePanel.stopQTETimer();
-         JLabel gameOverBackground;
-         JTextArea gameOverText = Utils.gameOverPanel("", 40, 165, 600, 300);
+         JPanel gameOverPanel = new JPanel();
+         gameOverPanel.setBounds(0,0,800,600);
+         gameOverPanel.setLayout(null);
+         JTextArea gameOverText = Utils.gameOverPanel("GAME OVER", 0, 0, 800, 200);
+         JTextArea endingText = Utils.gameOverPanel("", 0, 90, 800, 200);
          if (planet.getTemp() >= 300) {
-            gameOverBackground = new JLabel(new ImageIcon("temp_gameover.png"));
-            gameOverText.setText("GAME OVER\nHOT ENDING");
+            endingText.setText("LAVA ENDING");
             gameOverText.setForeground(new Color(255, 132, 0));
-         } else if (planet.getHumans() > 0 && planet.getCreatures().size() == 0) {
-            gameOverBackground = new JLabel(new ImageIcon("extinct_gameover.png"));
-            gameOverText.setText("GAME OVER\nEXTINCT ENDING");
+            endingText.setForeground(new Color(255, 132, 0));
+         } else {
+            endingText.setText("EXTINCT ENDING");
             gameOverText.setForeground(new Color(71, 40, 224));
+            endingText.setForeground(new Color(71, 40, 224));
          }
-         JTextArea nameInputLabel = Utils.messagePanel("Input your name here so we can save it!", 40, 165, 600, 300);
+         gameOverPanel.add(gameOverText);
+         gameOverPanel.add(endingText);
+         JTextArea nameInstructionsLabel = Utils.messagePanel("Input your name below so we can save your score! By inputting a previous name, you override the score only if it was higher than what was previously saved.", 40, 165, 500, 200);
+         JTextArea nameInputLabel = Utils.messagePanel("",40, 380, 200, 100);
          nameInputLabel.setEditable(true);
+         nameInputLabel.setForeground(Color.black);
+         nameInputLabel.setBackground(Color.white);
+         clearGamePanel();
+         gameOverPanel.add(nameInstructionsLabel);
+         gameOverPanel.add(nameInputLabel);
+         this.add(gameOverPanel);
+         this.setComponentZOrder(gameOverPanel, 0);
+         this.revalidate();
+         this.repaint();
          //window.addToLeaderboard("Baboon", planet.getScore());
       }
+    }
+    
+    private void clearGamePanel() {
+         qtePanel.setVisible(false);
+         objPanel.setVisible(false);
+         planetLabel.setVisible(false);
+         for (JLabel label : blockRectLabels) {
+            label.setVisible(false);
+            label.removeMouseListener(this);
+        }
+        for (JTextArea label : blockTextLabels) {
+            label.setVisible(false);
+        }
+        blockPropertyLabel.setVisible(false);
     }
     
     /**
@@ -286,7 +315,16 @@ public class GamePanel extends JPanel implements MouseListener {
     @Override
     public void paintComponent(Graphics g) { // screen
         Graphics2D g2d = (Graphics2D)g;
+        if (!checkGameOver()) 
         g2d.drawImage(background,0,0,null); //bg
+        else {
+         if (planet.getTemp() >= 300) {
+            gameOverBackground = new ImageIcon("temp_gameover.png").getImage();;
+         } else {
+            gameOverBackground = new ImageIcon("extinct_gameover.png").getImage();
+         }
+         g2d.drawImage(gameOverBackground,0,0,null); // game over bg
+      }
     }
     
     /**
@@ -314,6 +352,7 @@ public class GamePanel extends JPanel implements MouseListener {
                 if (timerOn) {
                     planet.addScore(scorePerTwoSeconds);
                     updateLabels();
+                    planet.addTemp(500);
                 }
             }
         });

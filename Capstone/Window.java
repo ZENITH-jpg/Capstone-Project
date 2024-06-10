@@ -50,6 +50,7 @@ public class Window extends JFrame {
 	Window(){
 		m = new MenuPanel(this); //create window panels
 		g = new GamePanel(this);
+      Utils.init(); // initialize fonts
       GamePanel.timerOn = false;
 		l = new LeaderboardPanel(this);
 		icon = new ImageIcon("assets/icon.png").getImage(); // set window data
