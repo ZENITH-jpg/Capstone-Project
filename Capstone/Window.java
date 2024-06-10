@@ -40,6 +40,10 @@ public class Window extends JFrame {
 	 */
 	private LeaderboardPanel l;
 	/**
+	 * The instructions for the game
+	 */
+	private InstructionsPanel i;
+	/**
 	 * Minigames
 	 */
    private Minigame[] mg;
@@ -53,6 +57,7 @@ public class Window extends JFrame {
       Utils.init(); // initialize fonts
       GamePanel.timerOn = false;
 		l = new LeaderboardPanel(this);
+		i = new InstructionsPanel(this);
 		icon = new ImageIcon("assets/icon.png").getImage(); // set window data
 		window = new JFrame("PlanetSim");
 		window.setIconImage(icon);
@@ -61,12 +66,14 @@ public class Window extends JFrame {
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //standard init
 		window.getContentPane().setBackground(Color.black);
 		window.setLayout(null);
+		window.add(i);
 		window.add(l);
 		window.add(m);
       window.add(g);
 		mg = new Minigame[]{new ProtestGame(this), new MazeGame(this), new LightsGame(this)};
       g.setVisible(false);
 		l.setVisible(false);
+		i.setVisible(false);
 		window.setVisible(true);
 	}
 
@@ -92,7 +99,15 @@ public class Window extends JFrame {
       mg[i].setVisible(true);
 		new MinigameHandler (mg[i]).start(); // required to sync minigame to window
    }
-
+	/**
+	 * Display the instructions of the game
+	 */
+	public void showInstructions() {
+		m.setVisible(false);
+		i.setVisible(true);
+		i.requestFocus();
+		window.repaint();
+	}
 	/**
 	 * Display the leaderboard of the game
 	 */
@@ -113,6 +128,7 @@ public class Window extends JFrame {
 	public void returnMenu(){
 		l.setVisible(false);
 		g.setVisible(false);
+		i.setVisible(false);
 		m.setVisible(true);
 		m.requestFocus();
 		window.repaint();

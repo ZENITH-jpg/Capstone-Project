@@ -61,19 +61,19 @@ public class LeaderboardPanel extends JPanel implements KeyListener {
     /**
      * Window leaderboard is being displayed on
      */
-    Window window; //fields
+    private Window window; //fields
     /**
      * The leaderboard logo
      */
-    Image logo;
+    private Image logo;
     /**
      * The background of the leaderboard
      */
-    Image background; // images
+    private Image background; // images
     /**
      * list of players in the scores file
      */
-    ArrayList<Player> players; // player list
+    private ArrayList<Player> players; // player list
 
     /**
      * Constructor for the leaderboard, sets up assets and scores list

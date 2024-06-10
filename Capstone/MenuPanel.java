@@ -109,6 +109,7 @@ public class MenuPanel extends JPanel implements KeyListener {
                     window.startGame();
                     break;
                 case 1:
+                    window.showInstructions();
                     break;
                 default:
                     window.showLeaderboard();
