@@ -15,6 +15,8 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 /**
  * This panel is visible when the game has started
  * @author Van N
@@ -46,6 +48,7 @@ public class GamePanel extends JPanel implements MouseListener {
     JTextArea scoreLabel;
     JLabel tempLabel;
     JTextArea tempRectLabel;
+    JTextArea nameInputLabel;
 
     // Static variables
     public static boolean timerOn;
@@ -79,7 +82,6 @@ public class GamePanel extends JPanel implements MouseListener {
        tempRectLabel = new JTextArea();
        tempRectLabel.setEditable(false);
        tempRectLabel.setBackground(new Color(255, 81, 69));
-       tempRectLabel.setBackground(Color.red);
        this.add(tempRectLabel);
        this.setComponentZOrder(tempRectLabel, 0);
        background = new ImageIcon("assets/space_bg.png").getImage();
@@ -193,23 +195,14 @@ public class GamePanel extends JPanel implements MouseListener {
          objPanel.displayObjectives();
          this.revalidate();
       } else {
-         // Pick a game over screen and ask the user for their name.
+         // Show game over screen for a few seconds
          scoreTimer.stop();
          qtePanel.stopQTETimer();
-         JPanel gameOverPanel = new JPanel() {
-            @Override
-            public void paintComponent(Graphics g) {
-              Graphics2D g2d = (Graphics2D)g;
-               if (planet.getTemp() >= 300) {
-                  gameOverBackground = new ImageIcon("temp_gameover.png").getImage();;
-               } else {
-                  gameOverBackground = new ImageIcon("extinct_gameover.png").getImage();
-               }
-               g2d.drawImage(gameOverBackground,0,0,null); // game over bg
-            }
-         };
+         JPanel gameOverPanel = new JPanel();
          gameOverPanel.setBounds(0,0,800,600);
          gameOverPanel.setLayout(null);
+         gameOverPanel.setOpaque(false); // transparent to see bg
+         gameOverPanel.setBackground(new Color(0,0,0,0)); // transparent to see bg
          JTextArea gameOverText = Utils.gameOverPanel("GAME OVER", 0, 0, 800, 200);
          JTextArea endingText = Utils.gameOverPanel("", 0, 90, 800, 200);
          if (planet.getTemp() >= 300) {
@@ -223,36 +216,46 @@ public class GamePanel extends JPanel implements MouseListener {
          }
          gameOverPanel.add(gameOverText);
          gameOverPanel.add(endingText);
-         JTextArea nameInstructionsLabel = Utils.messagePanel("Input your name below so we can save your score! By inputting a previous name, you override the score only if it was higher than what was previously saved.", 40, 165, 500, 100);
-         JTextArea nameInputLabel = Utils.messagePanel("",40, 280, 200, 60);
+         JTextArea nameInstructionsLabel = Utils.messagePanel("Input your name below so we can save your score!", 40, 165, 500, 100);
+         nameInputLabel = Utils.messagePanel("",40, 280, 200, 60);
          nameInputLabel.setEditable(true);
          nameInputLabel.setForeground(Color.black);
          nameInputLabel.setBackground(Color.white);
          clearGamePanel();
          gameOverPanel.add(nameInstructionsLabel);
          gameOverPanel.add(nameInputLabel);
+         nameInputLabel.addKeyListener(new KeyListener() {
+             @Override
+             public void keyTyped(KeyEvent e) {
+             }
+             @Override
+             public void keyPressed(KeyEvent e) {
+                 if (e.getKeyCode() == KeyEvent.VK_ENTER && checkGameOver()) {
+                     window.addToLeaderboard(nameInputLabel.getText(), planet.getScore());
+                 }
+             }
+             @Override
+             public void keyReleased(KeyEvent e) {
+             }
+         });
+         gameOverPanel.requestFocusInWindow();
          this.add(gameOverPanel);
          this.setComponentZOrder(gameOverPanel, 0);
-         //gameOverPanel.revalidate();
-         gameOverPanel.repaint();
-         //this.revalidate();
-         //this.repaint();
-         //window.addToLeaderboard("Baboon", planet.getScore());
       }
     }
     
     private void clearGamePanel() {
-         qtePanel.setVisible(false);
-         objPanel.setVisible(false);
-         planetLabel.setVisible(false);
-         for (JLabel label : blockRectLabels) {
-            label.setVisible(false);
-            label.removeMouseListener(this);
-        }
-        for (JTextArea label : blockTextLabels) {
-            label.setVisible(false);
-        }
-        blockPropertyLabel.setVisible(false);
+      Component[] components = getComponents();
+       for (Component component : components) {
+           if (component instanceof JLabel) {
+               remove(component); // Remove the JLabel
+           }
+           if (component instanceof JTextArea) {
+               remove(component); // Remove the JTextArea
+           }
+       }
+       this.revalidate(); // Refresh the panel layout
+       this.repaint(); // Repaint the panel to reflect the changes
     }
     
     /**
@@ -264,9 +267,14 @@ public class GamePanel extends JPanel implements MouseListener {
       if (planet.getTemp() >= 300)
          return true;
       // if there are no creatures except humans
-      // if (planet.getHumans() > 0 && planet.getCreatures().size() == 0)
-      //    return true;
-      return false;
+      if (planet.getHumans() > 0) {
+         for (Creature creature : planet.getCreatures()) {
+            if (creature.getPopulation() > 0)
+               return false;
+         }
+         return true;
+      } else
+         return false;
     }
     
     /**
@@ -329,9 +337,17 @@ public class GamePanel extends JPanel implements MouseListener {
     public void paintComponent(Graphics g) { // screen
         Graphics2D g2d = (Graphics2D)g;
         if (!checkGameOver()) 
-        g2d.drawImage(background,0,0,null); //bg
+            g2d.drawImage(background,0,0,null); //bg
+        else {
+            if (planet.getTemp() >= 300) {
+               gameOverBackground = new ImageIcon("temp_gameover.png").getImage();;
+            } else {
+               gameOverBackground = new ImageIcon("extinct_gameover.png").getImage();
+            }
+            g2d.drawImage(gameOverBackground,0,0,null); // game over bg
+        }
     }
-    
+
     /**
     Set the image of planet icon
     @param file path to image file

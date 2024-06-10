@@ -139,7 +139,7 @@ public class Utils { // for fonts, custom colors, and other objects that are to 
         message.setEditable(false);
         message.setLineWrap(true);
         message.setWrapStyleWord(true);
-        message.setFont(Utils.PIXEL.deriveFont(100f));
+        message.setFont(Utils.PIXEL.deriveFont(80f));
         return message;
     }
     /**

@@ -120,6 +120,8 @@ public class Window extends JFrame {
    
    public void addToLeaderboard(String name, int score) {
       l.addPlayer(name, score);
+      g.setVisible(false);
+      l.setVisible(true);
    }
 
 	/**

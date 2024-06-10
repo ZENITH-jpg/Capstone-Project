@@ -99,7 +99,7 @@ public class LeaderboardPanel extends JPanel implements KeyListener {
        players.add(p);
        sort(players);
        try {
-         PrintWriter printer = new PrintWriter (new FileWriter("leaderboard.txt ", true ));
+         PrintWriter printer = new PrintWriter (new FileWriter("leaderboard.txt", true ));
          printer.println(name+" "+score);
          printer.close();
        } catch (Exception e) {
