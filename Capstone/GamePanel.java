@@ -264,8 +264,8 @@ public class GamePanel extends JPanel implements MouseListener {
       if (planet.getTemp() >= 300)
          return true;
       // if there are no creatures except humans
-      if (planet.getHumans() > 0 && planet.getCreatures().size() == 0)
-         return true;
+      // if (planet.getHumans() > 0 && planet.getCreatures().size() == 0)
+      //    return true;
       return false;
     }
     
