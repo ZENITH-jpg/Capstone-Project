@@ -196,7 +196,18 @@ public class GamePanel extends JPanel implements MouseListener {
          // Pick a game over screen and ask the user for their name.
          scoreTimer.stop();
          qtePanel.stopQTETimer();
-         JPanel gameOverPanel = new JPanel();
+         JPanel gameOverPanel = new JPanel() {
+            @Override
+            public void paintComponent(Graphics g) {
+              Graphics2D g2d = (Graphics2D)g;
+               if (planet.getTemp() >= 300) {
+                  gameOverBackground = new ImageIcon("temp_gameover.png").getImage();;
+               } else {
+                  gameOverBackground = new ImageIcon("extinct_gameover.png").getImage();
+               }
+               g2d.drawImage(gameOverBackground,0,0,null); // game over bg
+            }
+         };
          gameOverPanel.setBounds(0,0,800,600);
          gameOverPanel.setLayout(null);
          JTextArea gameOverText = Utils.gameOverPanel("GAME OVER", 0, 0, 800, 200);
@@ -212,8 +223,8 @@ public class GamePanel extends JPanel implements MouseListener {
          }
          gameOverPanel.add(gameOverText);
          gameOverPanel.add(endingText);
-         JTextArea nameInstructionsLabel = Utils.messagePanel("Input your name below so we can save your score! By inputting a previous name, you override the score only if it was higher than what was previously saved.", 40, 165, 500, 200);
-         JTextArea nameInputLabel = Utils.messagePanel("",40, 380, 200, 100);
+         JTextArea nameInstructionsLabel = Utils.messagePanel("Input your name below so we can save your score! By inputting a previous name, you override the score only if it was higher than what was previously saved.", 40, 165, 500, 100);
+         JTextArea nameInputLabel = Utils.messagePanel("",40, 280, 200, 60);
          nameInputLabel.setEditable(true);
          nameInputLabel.setForeground(Color.black);
          nameInputLabel.setBackground(Color.white);
@@ -222,8 +233,10 @@ public class GamePanel extends JPanel implements MouseListener {
          gameOverPanel.add(nameInputLabel);
          this.add(gameOverPanel);
          this.setComponentZOrder(gameOverPanel, 0);
-         this.revalidate();
-         this.repaint();
+         //gameOverPanel.revalidate();
+         gameOverPanel.repaint();
+         //this.revalidate();
+         //this.repaint();
          //window.addToLeaderboard("Baboon", planet.getScore());
       }
     }
@@ -317,14 +330,6 @@ public class GamePanel extends JPanel implements MouseListener {
         Graphics2D g2d = (Graphics2D)g;
         if (!checkGameOver()) 
         g2d.drawImage(background,0,0,null); //bg
-        else {
-         if (planet.getTemp() >= 300) {
-            gameOverBackground = new ImageIcon("temp_gameover.png").getImage();;
-         } else {
-            gameOverBackground = new ImageIcon("extinct_gameover.png").getImage();
-         }
-         g2d.drawImage(gameOverBackground,0,0,null); // game over bg
-      }
     }
     
     /**
