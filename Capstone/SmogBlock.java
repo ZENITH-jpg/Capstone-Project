@@ -32,7 +32,9 @@ public class SmogBlock extends Block {
          while (num > 0) {
             int index = random.nextInt(planet.getCreatures().size());
             Creature c = planet.getCreatures().get(index);
-            c.addPopulation(-c.getPopulation()/3-random.nextInt(c.getPopulation()/2));
+            if(c.getPopulation()>0){
+               c.addPopulation(-c.getPopulation()/3-random.nextInt(c.getPopulation()/2));
+            }
             num--;
          }
       }

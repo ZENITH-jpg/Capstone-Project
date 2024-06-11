@@ -225,8 +225,8 @@ public class GamePanel extends JPanel implements MouseListener {
 
             @Override
             public void keyPressed(KeyEvent e) {
-               if (e.getKeyCode() == KeyEvent.VK_ENTER && checkGameOver() && nameInputLabel.getText().length() <= 6) {
-                  window.addToLeaderboard(nameInputLabel.getText(), planet.getScore());
+               if (e.getKeyCode() == KeyEvent.VK_ENTER && checkGameOver() && nameInputLabel.getText().length() <= 6 && nameInputLabel.getText().strip().length() > 0) {
+                  window.addToLeaderboard(nameInputLabel.getText().strip(), planet.getScore());
                }
             }
 

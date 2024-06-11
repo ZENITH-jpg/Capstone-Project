@@ -116,9 +116,11 @@ public class LeaderboardPanel extends JPanel implements KeyListener {
             while (f.hasNext()){
                 String s = f.nextLine();
                 String[] a = s.split(" ");
-                String name = a[0];
-                int score = Integer.parseInt(a[1]);
-                players.add(new Player(name,score)); // add to list
+                if(a.length == 2){
+                    String name = a[0];
+                    int score = Integer.parseInt(a[1]);
+                    players.add(new Player(name,score)); // add to list
+                }
             }
         } catch (FileNotFoundException e){
             System.out.print(e);
