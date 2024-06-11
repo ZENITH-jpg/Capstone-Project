@@ -88,7 +88,6 @@ public class LeaderboardPanel extends JPanel implements KeyListener {
         this.addKeyListener(this);
         this.setBounds(0,0,800,600);
         this.setLayout(null);
-        players = new ArrayList<>(); // set up players list
         fillPlayers(); // fill and sort
         JTextArea message = Utils.messagePanel("Press 'B' to return to menu",50,490,700,70); // and context box
         this.add(message);
@@ -111,6 +110,7 @@ public class LeaderboardPanel extends JPanel implements KeyListener {
      * Fills the players array with players from the leaderboard file
      */
     private void fillPlayers(){
+        players = new ArrayList<>(); // set up players list
         try {
             Scanner f = new Scanner(new File("leaderboard.txt")); // get players from file
             while (f.hasNext()){

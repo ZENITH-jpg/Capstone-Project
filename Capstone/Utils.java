@@ -94,6 +94,7 @@ public class Utils { // for fonts, custom colors, and other objects that are to 
         message.setBackground(new Color(0,0,0,0)); // makes transparent
         message.setForeground(Color.white);
         message.setEditable(false);
+        message.setHighlighter(null);
         message.setLineWrap(true);
         message.setWrapStyleWord(true);
         message.setFont(BLOCKTEXT_FONT);
@@ -115,6 +116,7 @@ public class Utils { // for fonts, custom colors, and other objects that are to 
         message.setOpaque(false); // makes transparent
         message.setBackground(new Color(0,0,0,0)); // makes transparent
         message.setForeground(Color.white);
+        message.setHighlighter(null);
         message.setEditable(false);
         message.setLineWrap(true);
         message.setWrapStyleWord(true);
@@ -134,6 +136,7 @@ public class Utils { // for fonts, custom colors, and other objects that are to 
         JTextArea message = new JTextArea(s);
         message.setBorder(null);
         message.setBounds(x, y, w, h);
+        message.setHighlighter(null);
         message.setOpaque(false); // makes transparent
         message.setBackground(new Color(0,0,0,0)); // makes transparent
         message.setEditable(false);
