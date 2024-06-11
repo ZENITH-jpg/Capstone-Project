@@ -72,7 +72,7 @@ public class GamePanel extends JPanel implements MouseListener {
       this.setBounds(0, 0, 800, 600);
       // Reset static variables
       timerOn = true;
-      difficulty = 0;
+      difficulty = 1;
       scorePerTwoSeconds = 20;
       // Add QTEPanel, ObjectivePanel, temperature, and background
       qtePanel = new QTEPanel(this, planet);
@@ -87,7 +87,7 @@ public class GamePanel extends JPanel implements MouseListener {
       this.add(tempLabel);
       tempRectLabel = new JTextArea();
       tempRectLabel.setEditable(false);
-      tempRectLabel.setBackground(new Color(233, 30, 99));
+      tempRectLabel.setBackground(new Color(244,67,54));
       this.add(tempRectLabel);
       this.setComponentZOrder(tempRectLabel, 0);
       background = new ImageIcon("assets/space_bg.png").getImage();
@@ -188,8 +188,8 @@ public class GamePanel extends JPanel implements MouseListener {
          humanLabel.setText(planet.getHumans() + " Humans");
 
          // update thermometer
-         int tempHeight = 146 / tempScale - 10;
-         double tempLabelHeight = tempHeight / 500.0 * planet.getTemp();
+         int tempHeight = 146 / tempScale - 30;
+         double tempLabelHeight = tempHeight / 300.0 * planet.getTemp();
          // make sure height isnt negative
          if (planet.getTemp() <= 0)
             tempLabelHeight = 0;
@@ -402,9 +402,29 @@ public class GamePanel extends JPanel implements MouseListener {
          @Override
          public void actionPerformed(ActionEvent e) {
             if (timerOn) {
-               planet.addScore(scorePerTwoSeconds); // TODO: add score multiplier by counting blocks and species
+               int inc = 0;
+               int tempinc = 0;
+               ArrayList<Block> b = planet.getBlocks();
+               for (int i = 0; i < b.size(); i++) {
+                  if(b.get(i).getName().equalsIgnoreCase("rock") || b.get(i).getName().equalsIgnoreCase("water"))
+                     inc += b.get(i).getVolume()/100;
+                  else if(b.get(i).getName().equalsIgnoreCase("ice") || b.get(i).getName().equalsIgnoreCase("soil")){
+                     inc += b.get(i).getVolume()/50;
+                  }else if(b.get(i).getName().equalsIgnoreCase("lava") || b.get(i).getName().equalsIgnoreCase("smog")) {
+                     inc -= b.get(i).getVolume() / 100;
+                     tempinc += b.get(i).getVolume()/300;
+                  }
+               }
+               ArrayList<Creature> c = planet.getCreatures();
+               for (int i = 0; i < c.size(); i++) {
+                  if(c.get(i).getPopulation()>0){
+                     inc+=10;
+                  }
+               }
+               planet.addScore(Math.max(scorePerTwoSeconds+inc,0));
                updateLabels();
-               planet.addTemp(500);
+               tempinc*=difficulty;
+               planet.addTemp(tempinc);
             }
          }
       });

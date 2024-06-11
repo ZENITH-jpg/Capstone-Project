@@ -29,7 +29,7 @@ public class RockBlock extends Block {
          planet.addBlock(new RockBlock(this.getName(), 150+random.nextInt(200)));
       }
       if (this.volume > 2000) {
-         int num = 200+random.nextInt(200);
+         int num = 300+random.nextInt(200);
          planet.addBlock(new SoilBlock("Soil", num));
          planet.addBlock(new RockBlock(this.getName(), -num));
          // remove the chance of rock qtes when there's too much soil

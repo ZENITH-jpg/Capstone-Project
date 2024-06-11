@@ -161,6 +161,7 @@ public class Planet {
    */
    public void addTemp(int t) {
       this.temp += t;
+      if(temp < 0) temp = 0;
       game.updateLabels();
    }
    
