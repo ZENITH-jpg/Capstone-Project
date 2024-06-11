@@ -36,10 +36,6 @@ public abstract class Block {
     * The type of block (rock, soil, water, air, etc)
     */
    protected String type; // rock, soil, water, air, etc
-   /**
-    * String descriptor of the properties blocks have
-    */
-   protected String property; // every block has a property or ability
 
    /**
     * Constructor for block

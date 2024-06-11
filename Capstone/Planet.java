@@ -215,16 +215,4 @@ public class Planet {
    public Block getBlockWithName(String n) {
       return this.blocks.get(this.findBlock(n));
    }
-   
-   /**
-   Removes the block with specified name, block must exist
-   @param n name
-   */
-   public void removeBlockWithName(String n) {
-      Block block = blocks.get(findBlock(n));
-      game.getQTEPanel().clearQTEs(block.getName());
-      game.getQTEPanel().removeChance(block.getName());
-      game.displayBlockLabels();
-      this.blocks.remove(block);
-   }
 }
