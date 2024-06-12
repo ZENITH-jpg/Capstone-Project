@@ -32,9 +32,9 @@ public class WaterBlock extends Block {
          int num = 200+random.nextInt(200);
          planet.addBlock(new IceBlock("Ice", num));
          this.addVolume(-num);
-         // remove the chance of rock qtes when there's too much soil
+         // remove the chance of water qtes if there's too much ice
          if (planet.getBlockWithName("Ice").getVolume() > 800)
-            game.getQTEPanel().removeChance("Water");
+            game.getQTEPanel().removeChance("Clean water");
       }
    }
    public void doFailedQTE() {
