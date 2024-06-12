@@ -35,26 +35,27 @@ public class InstructionsPanel extends JPanel implements KeyListener {
       this.setBounds(0,0,800,600);
       this.setLayout(null);
       messages = new JTextArea[5];
-      messages[0] = Utils.messagePanel("In this game, you get to simulate a planet like our Earth! \nThe game ends when the " +
-            "thermometer reaches the top, resulting in a planet too hot to live in, or when all the creatures die out. \nClicking on the " +
-            "popup QTEs do special effects depending on the block. Missing them can lead to unwanted effects. Hover over the block in 'Planet Constitution' to see effects",300,150,400,300);
-      messages[1] = Utils.messagePanel("Rock - Produces rock and soil on click. Turns into lava if you ignore it.\n" +
+      messages[0] = Utils.messagePanel("In this game, you get to simulate a planet like our Earth! \n\nThe game ends when the " +
+            "thermometer reaches the top, resulting in a planet too hot to live in, or when all the creatures die out. \n\nClicking on the " +
+            "popup QTEs do special effects depending on the block. Missing them can lead to unwanted effects. Hover over the block in 'Planet Constitution' to see effects",300,150,400,330);
+      messages[1] = Utils.messagePanel("Rock - Produces rock and soil on click. Turns into lava if you ignore it.\n\n" +
             "Water - Produces water and ice if there is enough water.\n\n" +
             "Ice - Cools down the planet if clicked, melts into water if missed\n\n" +
-            "Lava - Heats up the planet a bit if clicked, heats the planet up a lot if missed. Passively heats up planet",300,150,400,300);
+            "Lava - Heats up the planet a bit if clicked, heats the planet up a lot if missed. Passively heats up planet",300,150,400,330);
       messages[2] = Utils.messagePanel("Soil - Increases the population of a species, missing makes one of your species extinct. WARNING: Missing can end the game!\n\n" +
-            "Smog - Activates a climate related minigame on click, On minigame fail or miss, your species die and can go extinct, passively heats up planet",300,150,400,300);
+            "Smog - Activates a climate related minigame on click, On minigame fail or miss, your species die and can go extinct, passively heats up planet",300,150,400,330);
       messages[3] = Utils.messagePanel("Objectives are found on the side of the screen. Complete for rewards and new game difficulties.\n\n"+
             "Blocks also give score modifiers. Rock and water have a base modifier of 1, Ice and soil have a modifier of 2, Lava and " +
-            "smog have a modifier of -1. Each new species of creature give you an additional score modifier as well.",300,150,400,300);
+            "smog have a modifier of -1. Each new species of creature give you an additional score modifier as well.",300,150,400,330);
       messages[4] = Utils.messagePanel("Minigames have instructions on how to play them. Complete the tasks within the " +
-            "required time limit. As you complete more minigames, the time limit decreases.",300,150,400,300);
-      images = new Image[20];
+            "required time limit. As you complete more minigames, the time limit decreases.",300,150,400,330);
+      images = new Image[13];
       images[0] = new ImageIcon("assets/thermometer.png").getImage();
       images[1] = new ImageIcon("assets/QTE.png").getImage();
       images[2] = new ImageIcon("assets/rock.png").getImage().getScaledInstance(50,50,Image.SCALE_DEFAULT);
       images[3] = new ImageIcon("assets/ice.png").getImage().getScaledInstance(50,50,Image.SCALE_DEFAULT);
       images[4] = new ImageIcon("assets/lava.png").getImage().getScaledInstance(50,50,Image.SCALE_DEFAULT);
+      images[12] = new ImageIcon("assets/water.png").getImage().getScaledInstance(50,50,Image.SCALE_DEFAULT);
       images[5] = new ImageIcon("assets/smog.png").getImage().getScaledInstance(50,50,Image.SCALE_DEFAULT);
       images[6] = new ImageIcon("assets/soil.png").getImage().getScaledInstance(50,50,Image.SCALE_DEFAULT);
       images[7] = new ImageIcon("assets/objective.png").getImage();
@@ -88,9 +89,10 @@ public class InstructionsPanel extends JPanel implements KeyListener {
             g2d.drawImage(images[1],75,290,null);
             break;
          case 1:
-            g2d.drawImage(images[2],125,175,null);
-            g2d.drawImage(images[3],125,275,null);
-            g2d.drawImage(images[4],125,375,null);
+            g2d.drawImage(images[2],125,155,null);
+            g2d.drawImage(images[12],125,235,null);
+            g2d.drawImage(images[3],125,315,null);
+            g2d.drawImage(images[4],125,395,null);
             break;
          case 2:
             g2d.drawImage(images[6],125,175,null);
