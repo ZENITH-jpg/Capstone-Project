@@ -493,8 +493,4 @@ public class GamePanel extends JPanel implements MouseListener {
    public Window getWindow() {
       return window;
    }
-
-   public static void main(String[] args) {
-      new Window().startGame();
-   }
 }

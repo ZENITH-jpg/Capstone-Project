@@ -35,10 +35,10 @@ public class InstructionsPanel extends JPanel implements KeyListener {
       this.setBounds(0,0,800,600);
       this.setLayout(null);
       messages = new JTextArea[5];
-      messages[0] = Utils.messagePanel("In this game, you get to simulate a planet like out Earth! \nThe game ends when the " +
-            "thermometer reaches the top, resulting in a planet to hot for any animal to live in, or when all the creatures die out. \nClicking on the " +
+      messages[0] = Utils.messagePanel("In this game, you get to simulate a planet like our Earth! \nThe game ends when the " +
+            "thermometer reaches the top, resulting in a planet too hot to live in, or when all the creatures die out. \nClicking on the " +
             "popup QTEs grant special effects that will help you in your journey. Failing to click on them can lead to unwanted effects. Hover over the QTE block to see more properties",300,150,400,300);
-      messages[1] = Utils.messagePanel("Rock - Gives rock on click and soil if there is enough rock. Turns into lava if you ignore.\n" +
+      messages[1] = Utils.messagePanel("Rock - Gives rock on click and soil if there is enough rock. Turns into lava if you ignore it.\n" +
             "Water - Gives water and ice if there is enough water.\n\n" +
             "Ice - Cools down the planet if clicked, melts into water if missed\n\n" +
             "Lava - Heats up the planet a bit if clicked, heats the planet up a lot if missed. Passively heats up planet",300,150,400,300);
