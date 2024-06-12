@@ -114,7 +114,7 @@ public class ObjectivePanel extends JPanel {
             public void reward() {
                game.getQTEPanel().removeChance("Rock");
                game.getQTEPanel().removeChance("Clean water");
-               planet.addBlock(new LavaBlock("Lava", 200 + random.nextInt(501)));
+               planet.addBlock(new LavaBlock("Lava", 300 + random.nextInt(201)));
                game.getQTEPanel().addChance("Lava");
                game.getQTEPanel().addChance("Ice");
                game.getQTEPanel().addChance("Soil"); // Also increase chance of soil qtes
