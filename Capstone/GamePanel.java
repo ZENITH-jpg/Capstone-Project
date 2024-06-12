@@ -39,7 +39,7 @@ public class GamePanel extends JPanel implements MouseListener {
    Image gameOverBackground;
    QTEPanel qtePanel;
    ObjectivePanel objPanel;
-
+   int miniComplete;
    // GUI handling
    JLabel planetLabel = new JLabel();
    int planetLabelSize = 300;
@@ -54,6 +54,7 @@ public class GamePanel extends JPanel implements MouseListener {
    JLabel tempLabel;
    JTextArea tempRectLabel;
    JTextArea nameInputLabel;
+   GamePanel g;
 
    // Static variables
    public static boolean timerOn;
@@ -67,13 +68,22 @@ public class GamePanel extends JPanel implements MouseListener {
     */
    GamePanel(Window w) {
       window = w;
-      planet = new Planet(this);
       this.setLayout(null);
       this.setBounds(0, 0, 800, 600);
+      background = new ImageIcon("assets/space_bg.png").getImage();
+      g = this;
+   }
+   /**
+    * Constructor of GamePanel
+    * Resets the game panel to play
+    */
+   public void reset(){
+      planet = new Planet(this);
       // Reset static variables
       timerOn = true;
       difficulty = 1;
       scorePerTwoSeconds = 20;
+      miniComplete = 0;
       // Add QTEPanel, ObjectivePanel, temperature, and background
       qtePanel = new QTEPanel(this, planet);
       qtePanel.setBounds(0, 0, planetLabelSize + 100, planetLabelSize + 100);
@@ -90,7 +100,6 @@ public class GamePanel extends JPanel implements MouseListener {
       tempRectLabel.setBackground(new Color(244,67,54));
       this.add(tempRectLabel);
       this.setComponentZOrder(tempRectLabel, 0);
-      background = new ImageIcon("assets/space_bg.png").getImage();
       // Add JLabels
       this.setPlanetLabel("assets/rocky_planet.png");
       ArrayList<JTextArea> permanentLabels = new ArrayList<JTextArea>();
@@ -225,7 +234,8 @@ public class GamePanel extends JPanel implements MouseListener {
 
             @Override
             public void keyPressed(KeyEvent e) {
-               if (e.getKeyCode() == KeyEvent.VK_ENTER && checkGameOver() && nameInputLabel.getText().length() <= 6 && nameInputLabel.getText().strip().length() > 0) {
+               if (e.getKeyCode() == KeyEvent.VK_ENTER && checkGameOver() && nameInputLabel.getText().length() <= 6 && !nameInputLabel.getText().isBlank()) {
+                  g.remove(gameOverPanel);
                   window.addToLeaderboard(nameInputLabel.getText().strip(), planet.getScore());
                }
             }
@@ -265,7 +275,7 @@ public class GamePanel extends JPanel implements MouseListener {
       if (planet.getTemp() >= 300)
          return true;
       // if there are no creatures except humans
-      if (planet.getHumans() > 0) {
+      if (!planet.getCreatures().isEmpty()) {
          for (Creature creature : planet.getCreatures()) {
             if (creature.getPopulation() > 0)
                return false;

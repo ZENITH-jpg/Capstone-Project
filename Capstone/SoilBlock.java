@@ -18,7 +18,7 @@ public class SoilBlock extends Block {
    public SoilBlock(String n, int v) {
       super(n, v);
       this.type = "soil";
-      this.property = "Clicking Soil QTEs creates random creatures and humans. Up to "+Planet.maxCreatures+" creatures can be created. Can make multiple species extinct if you miss.";
+      this.property = "Clicking Soil QTEs creates random creatures and humans. Up to "+Planet.maxCreatures+" creatures can be created. Can make species extinct if you miss.";
    }
    public void doQTE() {
       // create a random creature, unless at max creatures
@@ -31,13 +31,13 @@ public class SoilBlock extends Block {
          int index = random.nextInt(planet.getCreatures().size());
          Creature c = planet.getCreatures().get(index);
          if(c.getPopulation() > 0){
-            c.addPopulation(c.getPopulation()/2 + random.nextInt(c.getPopulation()/2));
+            c.addPopulation(c.getPopulation()/3 + random.nextInt(c.getPopulation()/2));
             num--;
          }
       }
       // if humans unlocked from objective, increase human population
       if (planet.getHumans() > 0)
-         planet.addHumans(planet.getHumans()/2 + random.nextInt(planet.getHumans()));
+         planet.addHumans(1000+planet.getHumans()/3 + random.nextInt(planet.getHumans()/2));
    }
    public void doFailedQTE() {
       int num = 1;

@@ -91,6 +91,7 @@ public class LightsGame extends Minigame implements MouseListener {
     */
    @Override
    public void setUp() {
+      planet = game.getPlanet();
       tS = System.currentTimeMillis(); //time stuff
       dT = 0;
       flag = 0; // what to display
@@ -124,7 +125,7 @@ public class LightsGame extends Minigame implements MouseListener {
       dT = 0; // reset time
       flag ++; // change screen
       this.remove(context); // remove tooltip
-      while (dT < 10000 && turned<7) { // give 10 sec to turn off lights
+      while (dT < 10000-game.miniComplete* 1000L && turned<7) { // give time to turn off light, scales with minigame complete
          dT += System.currentTimeMillis() - tS; // same as prev
          tS = System.currentTimeMillis();
          repaint();
@@ -132,7 +133,7 @@ public class LightsGame extends Minigame implements MouseListener {
       flag++; // change screen
       dT = 0;
       repaint();
-      while (dT < 5000) { // display win or loss screen for 5 sec
+      while (dT < 2000) { // display win or loss screen for 5 sec
          dT += System.currentTimeMillis() - tS;
          tS = System.currentTimeMillis();
       }
@@ -165,14 +166,14 @@ public class LightsGame extends Minigame implements MouseListener {
                }
             }
             g.setColor(Color.white);
-            g.drawString("TIME:  "+(10000-dT)/1000+" sec",20,30); // draw game info
+            g.drawString("TIME:  "+(10000-dT-game.miniComplete* 1000L)/1000+" sec",20,30); // draw game info
             g.drawString("TURNED OFF:   "+ turned +"/7",100,30);
             break;
          default: // win or lose screen
+            g.setColor(Color.white);
             g.drawImage(messageBg,0,0,null);
             if(turned ==7){ // win or lose
                g.setFont(Utils.PIXEL.deriveFont(150f));
-               g.setColor(Color.white);
                g.drawString("you  win",40,190);
             }else{
                g.setFont(Utils.PIXEL.deriveFont(130f));

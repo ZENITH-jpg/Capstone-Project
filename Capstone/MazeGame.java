@@ -102,6 +102,7 @@ public class MazeGame extends Minigame {
     */
    @Override
    public void setUp() {
+      planet = game.getPlanet();
       x = 8; // set up start pos
       y = 3;
       grid[6][2] = 2; // set up trash
@@ -141,14 +142,15 @@ public class MazeGame extends Minigame {
       dT = 0; // reset time
       flag ++; // change screen
       this.remove(context); // remove tooltip
-      while (dT < 30000 && collected < 6) { // give 30 sec to solve maze
+      while (dT < 30000 -game.miniComplete* 3500L && collected < 6) { // give 30 sec to solve maze
          dT += System.currentTimeMillis() - tS; // same as prev
          tS = System.currentTimeMillis();
          repaint();
       }
       flag++; // change screen
       dT = 0;
-      while (dT < 5000) { // display win or loss screen for 5 sec
+      repaint();
+      while (dT < 2000) { // display win or loss screen for 5 sec
          dT += System.currentTimeMillis() - tS;
          tS = System.currentTimeMillis();
       }
@@ -183,7 +185,7 @@ public class MazeGame extends Minigame {
             }
             g.setColor(Color.white);
             g.setFont(Utils.MESSAGE_FONT);
-            g.drawString("TIME:  "+(30000-dT)/1000+" sec",20,40); // draw maze game info
+            g.drawString("TIME:  "+(30000-dT -game.miniComplete* 3500L)/1000+" sec",20,40); // draw maze game info
             g.drawString("COLLECTED:   "+collected+" trash",20,80);
             break;
          default: // win or lose screen
