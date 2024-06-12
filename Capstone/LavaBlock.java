@@ -16,7 +16,7 @@ public class LavaBlock extends Block {
    public LavaBlock(String n, int v) {
       super(n, v);
       this.type = "lava";
-      this.property = "Clicking Lava QTEs warms up the planet. Missing them is worse for the planet.";
+      this.property = "Clicking Lava QTEs warms up the planet. Missing them is worse for the planet and adds more lava. Passively warms planet";
    }
 
    /**
@@ -24,7 +24,7 @@ public class LavaBlock extends Block {
     */
    public void doQTE() {
       if (planet.getTemp() <= 250) {
-         planet.addTemp(10+random.nextInt(10));
+         planet.addTemp(10+random.nextInt(5));
       }
    }
 
@@ -33,5 +33,6 @@ public class LavaBlock extends Block {
     */
    public void doFailedQTE() {
       planet.addTemp(25+random.nextInt(40));
+      this.volume += 40+random.nextInt(50);
    }
 }

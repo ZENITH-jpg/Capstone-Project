@@ -37,7 +37,6 @@ public abstract class Minigame extends JPanel implements KeyListener {
    public Minigame (Window w) {
       window = w;
       game = w.getGame();
-      planet = game.getPlanet();
    }
 
    /**
@@ -62,8 +61,11 @@ public abstract class Minigame extends JPanel implements KeyListener {
                num--;
             }
          }
-         //planet.addBlock(new SmogBlock("Smog",500)); // add more smog
+         planet.addBlock(new SmogBlock("Smog",500)); // add more smog
+      }else {
+         game.miniComplete++;
       }
+
       this.setVisible(false); // set minigame to invisible
       game.setVisible(true); // set main game visible
       GamePanel.timerOn = true; // turn back on timers

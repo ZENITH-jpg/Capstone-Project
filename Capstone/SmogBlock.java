@@ -18,8 +18,8 @@ public class SmogBlock extends Block {
    public SmogBlock(String n, int v) {
       super(n, v);
       this.type = "smog";
-      this.property = "Missing QTEs reduces the population of creatures and increase smog. " +
-            "Activates a minigame when clicked. Failing minigame has same consequences";
+      this.property = "A collection of carbon emissions and natural gasses that passively warms planet. Missing QTEs reduces the population of creatures and increase smog. " +
+            "Activates a minigame when clicked. Failing minigame has same consequences.";
    }
    public void doQTE() {
       game.startRandomMinigame();
@@ -32,10 +32,12 @@ public class SmogBlock extends Block {
          while (num > 0) {
             int index = random.nextInt(planet.getCreatures().size());
             Creature c = planet.getCreatures().get(index);
-            c.addPopulation(-c.getPopulation()/3-random.nextInt(c.getPopulation()/2));
+            if(c.getPopulation()>0){
+               c.addPopulation(-c.getPopulation()/3-random.nextInt(c.getPopulation()/2));
+            }
             num--;
          }
       }
-      planet.addBlock(new SmogBlock("Smog", 100+random.nextInt(300))); // add more smog
+      planet.addBlock(new SmogBlock("Smog", 50+random.nextInt(30))); // add more smog
    }
 }

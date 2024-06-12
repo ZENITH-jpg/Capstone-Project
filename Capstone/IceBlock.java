@@ -31,8 +31,10 @@ public class IceBlock extends Block {
     * On QTE fail, melt the ice into clean water
     */
    public void doFailedQTE() {
-      int num = 50+random.nextInt(100);
-      planet.addBlock(new WaterBlock("Clean water", num));
-      planet.addBlock(new IceBlock(this.getName(), -num));
+      if(this.volume>150){
+         int num = 50+random.nextInt(100);
+         planet.addBlock(new WaterBlock("Clean water", num));
+         planet.addBlock(new IceBlock(this.getName(), -num));
+      }
    }
 }

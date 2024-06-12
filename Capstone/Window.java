@@ -76,13 +76,13 @@ public class Window extends JFrame {
 		i.setVisible(false);
 		window.setVisible(true);
 	}
-
 	/**
 	 * Start the main game and hide other components
 	 */
 	public void startGame() {
 		m.setVisible(false);
 		g.setVisible(true);
+		g.reset();
       GamePanel.timerOn = true;
 		g.requestFocus();
       window.repaint();
@@ -122,6 +122,7 @@ public class Window extends JFrame {
       l.addPlayer(name, score);
       g.setVisible(false);
       l.setVisible(true);
+		l.requestFocus();
    }
 
 	/**

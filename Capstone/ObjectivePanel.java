@@ -106,7 +106,7 @@ public class ObjectivePanel extends JPanel {
    Adds more objectives based on current difficulty
    */
    public void addMoreObjectives() {
-      if (game.difficulty == 1) {
+      if (game.difficulty == 2) {
          objectives.add(new Objective("Tectonic plates", "Have 600 ice and 600 soil.\nReward: No more Rock and Water QTEs, but you must start clicking Ice and Lava QTEs.") {
             public boolean isComplete() {
                return planet.findBlock("Soil") != -1 && planet.findBlock("Ice") != -1 && planet.getBlockWithName("Ice").getVolume() >= 600 && planet.getBlockWithName("Soil").getVolume() >= 600;
@@ -114,7 +114,7 @@ public class ObjectivePanel extends JPanel {
             public void reward() {
                game.getQTEPanel().removeChance("Rock");
                game.getQTEPanel().removeChance("Clean water");
-               planet.addBlock(new LavaBlock("Lava", 200 + random.nextInt(501)));
+               planet.addBlock(new LavaBlock("Lava", 300 + random.nextInt(201)));
                game.getQTEPanel().addChance("Lava");
                game.getQTEPanel().addChance("Ice");
                game.getQTEPanel().addChance("Soil"); // Also increase chance of soil qtes
