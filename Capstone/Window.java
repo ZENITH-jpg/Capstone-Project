@@ -152,4 +152,8 @@ public class Window extends JFrame {
    public GamePanel getGame() {
       return g;
    }
+
+	public static Random getRandom() {
+		return random;
+	}
 }

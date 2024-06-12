@@ -8,6 +8,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.Random;
 
 /**
  * The maze minigame which requires you to recycle trash
@@ -149,11 +150,19 @@ public class MazeGame extends Minigame {
       }
       flag++; // change screen
       dT = 0;
+      JTextArea end;
+      if(gameWon()){
+         end = Utils.messagePanel("Prevented climate catastrophe!\n\n" + Utils.climateTips[Window.getRandom().nextInt(4)], 200,300,400,200);
+      }else{
+         end = Utils.messagePanel("Smog grows and your creatures die out! Planet heats up faster.\n\n" + Utils.climateTips[Window.getRandom().nextInt(4)], 200,300,400,200);
+      }
+      this.add(end);
       repaint();
       while (dT < 2000) { // display win or loss screen for 5 sec
          dT += System.currentTimeMillis() - tS;
          tS = System.currentTimeMillis();
       }
+      this.remove(end);
       returnToGame();
       repaint(); // gone
    }
