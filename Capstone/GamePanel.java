@@ -218,7 +218,7 @@ public class GamePanel extends JPanel implements MouseListener {
          gameOverPanel.setLayout(null);
          gameOverPanel.setOpaque(false); // transparent to see bg
          gameOverPanel.setBackground(new Color(0, 0, 0, 0)); // transparent to see bg
-         JTextArea nameInstructionsLabel = Utils.messagePanel("Input your name below so we can save your score! Name must be 6 characters or less.", 150, 290, 500, 100);
+         JTextArea nameInstructionsLabel = Utils.messagePanel("Input your name below so we can save your score! Name must be 6 characters or less and have no whitespace characters.", 150, 290, 500, 100);
          nameInputLabel = Utils.messagePanel("", 300, 440, 200, 60);
          nameInputLabel.setEditable(true);
          nameInputLabel.setForeground(Color.black);
@@ -235,8 +235,11 @@ public class GamePanel extends JPanel implements MouseListener {
             @Override
             public void keyPressed(KeyEvent e) {
                if (e.getKeyCode() == KeyEvent.VK_ENTER && checkGameOver() && nameInputLabel.getText().length() <= 6 && !nameInputLabel.getText().isBlank()) {
+                  String s = nameInputLabel.getText().strip();
+                  s = s.replace(" ","");
+                  s = s.replace("\n","");
                   g.remove(gameOverPanel);
-                  window.addToLeaderboard(nameInputLabel.getText().strip(), planet.getScore());
+                  window.addToLeaderboard(s, planet.getScore());
                }
             }
 
