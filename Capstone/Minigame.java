@@ -43,7 +43,10 @@ public abstract class Minigame extends JPanel implements KeyListener {
     * Set up the game to play
     */
    public abstract void setUp();
-
+   /**
+    * Start the minigame
+    */
+   public abstract void startGame();
    /**
     * Minigame over, return to main game
     */

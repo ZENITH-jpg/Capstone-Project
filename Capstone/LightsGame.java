@@ -115,6 +115,7 @@ public class LightsGame extends Minigame implements MouseListener {
    /**
     * Start the minigame off
     */
+   @Override
    public void startGame() {
       while (dT < 7000) { // show message for 7 secs
          dT += System.currentTimeMillis() - tS; //getting time passed

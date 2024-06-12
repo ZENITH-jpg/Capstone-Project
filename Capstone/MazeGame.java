@@ -133,6 +133,7 @@ public class MazeGame extends Minigame {
    /**
     * Stars the minigame and cleans it up when over
     */
+   @Override
    public void startGame() {
       while (dT < 7000) { // show message for 7 secs
          dT += System.currentTimeMillis() - tS; //getting time passed

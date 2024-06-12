@@ -56,7 +56,7 @@ public class ProtestGame extends Minigame {
     protected boolean gameWon() {
         return clicks>=30;
     }
-
+    @Override
     public void startGame() {
         while (dT < 7000) { // show message for 7 secs
             dT += System.currentTimeMillis() - tS; //getting time passed
