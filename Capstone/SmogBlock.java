@@ -21,9 +21,17 @@ public class SmogBlock extends Block {
       this.property = "A collection of carbon emissions and natural gasses that passively warms planet. Missing QTEs reduces the population of creatures and increase smog. " +
             "Activates a minigame when clicked. Failing minigame has same consequences.";
    }
+
+   /**
+    * Start a minigame
+    */
    public void doQTE() {
       game.startRandomMinigame();
    }
+
+   /**
+    * Kill creatures and add more smog
+    */
    public void doFailedQTE() {
       // reduce population of a random number of creatures
       if (planet.getCreatures().size() > 0) {
@@ -38,6 +46,6 @@ public class SmogBlock extends Block {
             num--;
          }
       }
-      planet.addBlock(new SmogBlock("Smog", 50+random.nextInt(30))); // add more smog
+      planet.addBlock(new SmogBlock("Smog", 500)); // add more smog
    }
 }

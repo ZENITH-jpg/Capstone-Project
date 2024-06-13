@@ -20,6 +20,10 @@ public class SoilBlock extends Block {
       this.type = "soil";
       this.property = "Clicking Soil QTEs creates random creatures and humans. Up to "+Planet.maxCreatures+" creatures can be created. Can make species extinct if you miss.";
    }
+
+   /**
+    * Increase the population of a species, creates one if there is not yet the maximum, increases humans
+    */
    public void doQTE() {
       // create a random creature, unless at max creatures
       if (planet.getCreatures().size() < Planet.maxCreatures) {
@@ -39,6 +43,10 @@ public class SoilBlock extends Block {
       if (planet.getHumans() > 0)
          planet.addHumans(1000+planet.getHumans()/3 + random.nextInt(planet.getHumans()/2));
    }
+
+   /**
+    * Makes a species extinct
+    */
    public void doFailedQTE() {
       int num = 1;
       while (num>0 && !planet.getCreatures().isEmpty()){

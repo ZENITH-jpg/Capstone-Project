@@ -117,7 +117,12 @@ public class Window extends JFrame {
 		l.requestFocus();
 		window.repaint();
 	}
-   
+
+	/**
+	 * Adds a score to the leaderboard
+	 * @param name The name of the player
+	 * @param score The score the player got
+	 */
    public void addToLeaderboard(String name, int score) {
       l.addPlayer(name, score);
       g.setVisible(false);
@@ -153,6 +158,10 @@ public class Window extends JFrame {
       return g;
    }
 
+	/**
+	 * Returns the instance of random
+	 * @return the random instance
+	 */
 	public static Random getRandom() {
 		return random;
 	}
