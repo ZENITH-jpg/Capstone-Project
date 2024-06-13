@@ -70,7 +70,7 @@ public class ProtestGame extends Minigame {
       dT = 0; // reset time
       flag++; // change screen
       this.remove(context); // remove tooltip
-      while (dT < 10000 - game.miniComplete * 1000L && clicks < 30) { // give time to spam, scales with minigame complete
+      while (dT < 10000 - game.getMiniComplete() * 1000L && clicks < 30) { // give time to spam, scales with minigame complete
          dT += System.currentTimeMillis() - tS; // same as prev
          tS = System.currentTimeMillis();
          repaint();
@@ -111,7 +111,7 @@ public class ProtestGame extends Minigame {
             g.drawImage(crowd, 0, 0, null); // cover sign and fill the rest of the crowd
             g.setColor(Color.white);
             g.setFont(Utils.MESSAGE_FONT);
-            g.drawString("TIME:  " + (10000 - dT - game.miniComplete * 1000L) / 1000 + " sec", 20, 40); // draw game info
+            g.drawString("TIME:  " + (10000 - dT - game.getMiniComplete() * 1000L) / 1000 + " sec", 20, 40); // draw game info
             g.drawString("PRESSES:   " + clicks + "/30", 20, 80);
             break;
          default: // win or lose screen

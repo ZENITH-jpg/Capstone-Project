@@ -28,33 +28,32 @@ import java.awt.event.KeyListener;
  * @version 1.0
  */
 public class GamePanel extends JPanel implements MouseListener {
-   static boolean windowBuildingMode = false;
-   static Random random = new Random();
-   Window window;
-   Planet planet;
-   Timer scoreTimer;
+   private static boolean windowBuildingMode = false;
+   private Window window;
+   private Planet planet;
+   private Timer scoreTimer;
 
    // Graphics and Panels
-   Image background;
-   Image gameOverBackground;
-   QTEPanel qtePanel;
-   ObjectivePanel objPanel;
-   int miniComplete;
+   private Image background;
+   private Image gameOverBackground;
+   private QTEPanel qtePanel;
+   private ObjectivePanel objPanel;
+   private int miniComplete;
    // GUI handling
-   JLabel planetLabel = new JLabel();
-   int planetLabelSize = 300;
-   int tempScale = 2;
-   JLabel[] blockRectLabels = new JLabel[0];
-   JTextArea[] blockTextLabels = new JTextArea[0];
-   JTextArea blockPropertyLabel;
-   JTextArea[] creatureTextLabels = new JTextArea[Planet.maxCreatures];
-   JTextArea humanLabel;
-   JTextField[][] addBlockFields;
-   JTextArea scoreLabel;
-   JLabel tempLabel;
-   JTextArea tempRectLabel;
-   JTextArea nameInputLabel;
-   GamePanel g;
+   private JLabel planetLabel = new JLabel();
+   private int planetLabelSize = 300;
+   private int tempScale = 2;
+   private JLabel[] blockRectLabels = new JLabel[0];
+   private JTextArea[] blockTextLabels = new JTextArea[0];
+   private JTextArea blockPropertyLabel;
+   private JTextArea[] creatureTextLabels = new JTextArea[Planet.maxCreatures];
+   private JTextArea humanLabel;
+   private JTextField[][] addBlockFields;
+   private JTextArea scoreLabel;
+   private JLabel tempLabel;
+   private JTextArea tempRectLabel;
+   private JTextArea nameInputLabel;
+   private GamePanel g;
 
    // Static variables
    public static boolean timerOn;
@@ -475,6 +474,20 @@ public class GamePanel extends JPanel implements MouseListener {
       return qtePanel;
    }
 
+   /**
+    * Get the amount of minigames completed
+    *
+    * @return the amount of minigames beat
+    */
+   public int getMiniComplete() {
+      return miniComplete;
+   }
+   /**
+    * Increment the amount of minigames complete
+    */
+   public void addMiniComplete() {
+      miniComplete++;
+   }
    /**
     * Get objective panel
     *

@@ -70,7 +70,7 @@ public abstract class Minigame extends JPanel implements KeyListener {
          }
          planet.addBlock(new SmogBlock("Smog", 500)); // add more smog
       } else {
-         game.miniComplete++;
+         game.addMiniComplete();
       }
 
       this.setVisible(false); // set minigame to invisible

@@ -130,7 +130,7 @@ public class LightsGame extends Minigame implements MouseListener {
       dT = 0; // reset time
       flag++; // change screen
       this.remove(context); // remove tooltip
-      while (dT < 10000 - game.miniComplete * 1000L && turned < 7) { // give time to turn off light, scales with minigame complete
+      while (dT < 10000 - game.getMiniComplete() * 1000L && turned < 7) { // give time to turn off light, scales with minigame complete
          dT += System.currentTimeMillis() - tS; // same as prev
          tS = System.currentTimeMillis();
          repaint();
@@ -180,7 +180,7 @@ public class LightsGame extends Minigame implements MouseListener {
                }
             }
             g.setColor(Color.white);
-            g.drawString("TIME:  " + (10000 - dT - game.miniComplete * 1000L) / 1000 + " sec", 20, 30); // draw game info
+            g.drawString("TIME:  " + (10000 - dT - game.getMiniComplete() * 1000L) / 1000 + " sec", 20, 30); // draw game info
             g.drawString("TURNED OFF:   " + turned + "/7", 100, 30);
             break;
          default: // win or lose screen

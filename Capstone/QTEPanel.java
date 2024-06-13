@@ -24,16 +24,40 @@ import java.awt.event.ActionListener;
  * @version 1.0
  */
 public class QTEPanel extends JPanel implements MouseListener {
-   static Random random = new Random();
-   GamePanel game;
-   Planet planet;
-   ArrayList<String> chances; // determines the type of block the qtes are
-   Timer qteTimer;
+   /**
+    * The random instance for QTEs
+    */
+   private static Random random = new Random();
+   /**
+    * The active running game panel
+    */
+   private GamePanel game;
+   /**
+    * The planet in the game
+    */
+   private Planet planet;
+   /**
+    * The list of QTEs that can spawn
+    */
+   private ArrayList<String> chances; // determines the type of block the qtes are
+   /**
+    * The timer that controls how long QTEs stay
+    */
+   private Timer qteTimer;
+   /**
+    * The maximum amount of QTEs
+    */
    public static int maxQTEs = 2; // max qtes that can appear on screen
 
    // GUI handling
-   int qteSize = 50;
-   ArrayList<JLabel> qteLabels = new ArrayList<JLabel>();
+   /**
+    * Size of the QTEs on screen
+    */
+   private int qteSize = 50;
+   /**
+    * The QTEs as JLabels
+    */
+   private ArrayList<JLabel> qteLabels = new ArrayList<JLabel>();
 
    /**
     * Constructor
@@ -194,6 +218,9 @@ public class QTEPanel extends JPanel implements MouseListener {
       qteTimer.start();
    }
 
+   /**
+    * The stopper to the QTE timer
+    */
    public void stopQTETimer() {
       qteTimer.stop();
    }

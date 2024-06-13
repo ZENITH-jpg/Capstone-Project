@@ -148,7 +148,7 @@ public class MazeGame extends Minigame {
       dT = 0; // reset time
       flag++; // change screen
       this.remove(context); // remove tooltip
-      while (dT < 30000 - game.miniComplete * 3500L && collected < 6) { // give 30 sec to solve maze
+      while (dT < 30000 - game.getMiniComplete() * 3500L && collected < 6) { // give 30 sec to solve maze
          dT += System.currentTimeMillis() - tS; // same as prev
          tS = System.currentTimeMillis();
          repaint();
@@ -200,7 +200,7 @@ public class MazeGame extends Minigame {
             }
             g.setColor(Color.white);
             g.setFont(Utils.MESSAGE_FONT);
-            g.drawString("TIME:  " + (30000 - dT - game.miniComplete * 3500L) / 1000 + " sec", 20, 40); // draw maze game info
+            g.drawString("TIME:  " + (30000 - dT - game.getMiniComplete() * 3500L) / 1000 + " sec", 20, 40); // draw maze game info
             g.drawString("COLLECTED:   " + collected + " trash", 20, 80);
             break;
          default: // win or lose screen

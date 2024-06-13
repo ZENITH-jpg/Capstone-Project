@@ -53,7 +53,7 @@ public class Window extends JFrame {
    /**
     * Constructor for the Windows, sets up window and assets
     */
-   Window() {
+   public Window() {
       m = new MenuPanel(this); //create window panels
       g = new GamePanel(this);
       Utils.init(); // initialize fonts
