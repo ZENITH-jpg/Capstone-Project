@@ -73,11 +73,12 @@ public class GamePanel extends JPanel implements MouseListener {
       background = new ImageIcon("assets/space_bg.png").getImage();
       g = this;
    }
+
    /**
     * Constructor of GamePanel
     * Resets the game panel to play
     */
-   public void reset(){
+   public void reset() {
       planet = new Planet(this);
       // Reset static variables
       timerOn = true;
@@ -97,7 +98,7 @@ public class GamePanel extends JPanel implements MouseListener {
       this.add(tempLabel);
       tempRectLabel = new JTextArea();
       tempRectLabel.setEditable(false);
-      tempRectLabel.setBackground(new Color(244,67,54));
+      tempRectLabel.setBackground(new Color(244, 67, 54));
       this.add(tempRectLabel);
       this.setComponentZOrder(tempRectLabel, 0);
       // Add JLabels
@@ -238,8 +239,8 @@ public class GamePanel extends JPanel implements MouseListener {
                // name must be less than 6 chars and have no spaces
                if (e.getKeyCode() == KeyEvent.VK_ENTER && checkGameOver() && nameInputLabel.getText().length() <= 6 && !nameInputLabel.getText().isBlank()) {
                   String s = nameInputLabel.getText().strip();
-                  s = s.replace(" ","");
-                  s = s.replace("\n","");
+                  s = s.replace(" ", "");
+                  s = s.replace("\n", "");
                   g.remove(gameOverPanel);
                   window.addToLeaderboard(s, planet.getScore());
                }
@@ -421,24 +422,24 @@ public class GamePanel extends JPanel implements MouseListener {
                int tempinc = 0;
                ArrayList<Block> b = planet.getBlocks();
                for (int i = 0; i < b.size(); i++) {
-                  if(b.get(i).getName().equalsIgnoreCase("rock") || b.get(i).getName().equalsIgnoreCase("water"))
-                     inc += b.get(i).getVolume()/100;
-                  else if(b.get(i).getName().equalsIgnoreCase("ice") || b.get(i).getName().equalsIgnoreCase("soil")){
-                     inc += b.get(i).getVolume()/50;
-                  }else if(b.get(i).getName().equalsIgnoreCase("lava") || b.get(i).getName().equalsIgnoreCase("smog")) {
+                  if (b.get(i).getName().equalsIgnoreCase("rock") || b.get(i).getName().equalsIgnoreCase("water"))
+                     inc += b.get(i).getVolume() / 100;
+                  else if (b.get(i).getName().equalsIgnoreCase("ice") || b.get(i).getName().equalsIgnoreCase("soil")) {
+                     inc += b.get(i).getVolume() / 50;
+                  } else if (b.get(i).getName().equalsIgnoreCase("lava") || b.get(i).getName().equalsIgnoreCase("smog")) {
                      inc -= b.get(i).getVolume() / 100;
-                     tempinc += b.get(i).getVolume()/300;
+                     tempinc += b.get(i).getVolume() / 300;
                   }
                }
                ArrayList<Creature> c = planet.getCreatures();
                for (int i = 0; i < c.size(); i++) {
-                  if(c.get(i).getPopulation()>0){
-                     inc+=10;
+                  if (c.get(i).getPopulation() > 0) {
+                     inc += 10;
                   }
                }
-               planet.addScore(Math.max(scorePerTwoSeconds+inc,0));
+               planet.addScore(Math.max(scorePerTwoSeconds + inc, 0));
                updateLabels();
-               tempinc*=difficulty;
+               tempinc *= difficulty;
                planet.addTemp(tempinc);
             }
          }

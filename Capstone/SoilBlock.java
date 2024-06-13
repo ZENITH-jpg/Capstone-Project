@@ -4,21 +4,24 @@ Van N
 Mr Guglielmi
 Soil block in the planet composition
 */
+
 /**
-Soil block in the planet's composition
-@author Van N
-@version 1.0
-*/
+ * Soil block in the planet's composition
+ *
+ * @author Van N
+ * @version 1.0
+ */
 public class SoilBlock extends Block {
    /**
     * Constructor for the class, creates block using name and volume, sets the description
+    *
     * @param n the name of the block
     * @param v the volume the block holds
     */
    public SoilBlock(String n, int v) {
       super(n, v);
       this.type = "soil";
-      this.property = "Clicking Soil QTEs creates random creatures and humans. Up to "+Planet.maxCreatures+" creatures can be created. Can make species extinct if you miss.";
+      this.property = "Clicking Soil QTEs creates random creatures and humans. Up to " + Planet.maxCreatures + " creatures can be created. Can make species extinct if you miss.";
    }
 
    /**
@@ -34,14 +37,14 @@ public class SoilBlock extends Block {
       while (num > 0) {
          int index = random.nextInt(planet.getCreatures().size());
          Creature c = planet.getCreatures().get(index);
-         if(c.getPopulation() > 0){
-            c.addPopulation(c.getPopulation()/3 + random.nextInt(c.getPopulation()/2));
+         if (c.getPopulation() > 0) {
+            c.addPopulation(c.getPopulation() / 3 + random.nextInt(c.getPopulation() / 2));
             num--;
          }
       }
       // if humans unlocked from objective, increase human population
       if (planet.getHumans() > 0)
-         planet.addHumans(1000+planet.getHumans()/3 + random.nextInt(planet.getHumans()/2));
+         planet.addHumans(1000 + planet.getHumans() / 3 + random.nextInt(planet.getHumans() / 2));
    }
 
    /**
@@ -49,10 +52,10 @@ public class SoilBlock extends Block {
     */
    public void doFailedQTE() {
       int num = 1;
-      while (num>0 && !planet.getCreatures().isEmpty()){
+      while (num > 0 && !planet.getCreatures().isEmpty()) {
          int index = random.nextInt(planet.getCreatures().size());
          Creature c = planet.getCreatures().get(index);
-         if(c.getPopulation() > 0){
+         if (c.getPopulation() > 0) {
             c.addPopulation(-c.getPopulation());
             num--;
          }

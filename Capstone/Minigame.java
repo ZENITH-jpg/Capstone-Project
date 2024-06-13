@@ -13,6 +13,7 @@ import java.util.Random;
 
 /**
  * Minigame superclass that launches when smog QTEs are clicked
+ *
  * @author Van N
  * @version 1.0
  */
@@ -32,9 +33,10 @@ public abstract class Minigame extends JPanel implements KeyListener {
 
    /**
     * Constructor, sets game info for the minigame to communicate to
+    *
     * @param w The window of the game
     */
-   public Minigame (Window w) {
+   public Minigame(Window w) {
       window = w;
       game = w.getGame();
    }
@@ -43,15 +45,17 @@ public abstract class Minigame extends JPanel implements KeyListener {
     * Set up the game to play
     */
    public abstract void setUp();
+
    /**
     * Start the minigame
     */
    public abstract void startGame();
+
    /**
     * Minigame over, return to main game
     */
-   protected void returnToGame(){
-      if(!gameWon()){
+   protected void returnToGame() {
+      if (!gameWon()) {
          // reduce population of a random number of creatures
          Random random = new Random();
          if (planet.getCreatures().size() > 0) {
@@ -60,12 +64,12 @@ public abstract class Minigame extends JPanel implements KeyListener {
             while (num > 0) {
                int index = random.nextInt(planet.getCreatures().size());
                Creature c = planet.getCreatures().get(index);
-               c.addPopulation(-random.nextInt(c.getPopulation()/2));
+               c.addPopulation(-random.nextInt(c.getPopulation() / 2));
                num--;
             }
          }
-         planet.addBlock(new SmogBlock("Smog",500)); // add more smog
-      }else {
+         planet.addBlock(new SmogBlock("Smog", 500)); // add more smog
+      } else {
          game.miniComplete++;
       }
 
@@ -78,12 +82,14 @@ public abstract class Minigame extends JPanel implements KeyListener {
 
    /**
     * Check if the game was won
+    *
     * @return if the game was won or not
     */
    protected abstract boolean gameWon();
 
    /**
     * On key type
+    *
     * @param e the event to be processed
     */
    @Override
@@ -92,14 +98,16 @@ public abstract class Minigame extends JPanel implements KeyListener {
 
    /**
     * On key pressed
+    *
     * @param e the event to be processed
     */
    @Override
-   public void keyPressed(KeyEvent e) {   
+   public void keyPressed(KeyEvent e) {
    }
 
    /**
     * On key raised
+    *
     * @param e the event to be processed
     */
    @Override

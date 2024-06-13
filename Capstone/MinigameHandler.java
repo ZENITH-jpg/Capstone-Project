@@ -1,9 +1,10 @@
 /**
  * A minigame handler that starts a new thread to play the minigame
+ *
  * @author Tristan C
  * @version 1.0
  */
-public class MinigameHandler extends Thread{
+public class MinigameHandler extends Thread {
    /**
     * The minigame to be run
     */
@@ -11,9 +12,10 @@ public class MinigameHandler extends Thread{
 
    /**
     * Constructor that sets up the minigame
+    *
     * @param m The minigame selected to play
     */
-   public MinigameHandler(Minigame m){
+   public MinigameHandler(Minigame m) {
       this.m = m;
    }
 
@@ -21,8 +23,8 @@ public class MinigameHandler extends Thread{
     * Runs the thread setting up and playing the game
     */
    @Override
-   public void run(){
-      synchronized (m){
+   public void run() {
+      synchronized (m) {
          m.setUp();
       }
    }

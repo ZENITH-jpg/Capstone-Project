@@ -4,14 +4,17 @@ Van N
 Mr Guglielmi
 Smog block in the planet composition, initiates a minigame
 */
+
 /**
-Smog block in the planet's composition
-@author Van N
-@version 1.0
-*/
+ * Smog block in the planet's composition
+ *
+ * @author Van N
+ * @version 1.0
+ */
 public class SmogBlock extends Block {
    /**
     * Constructor for the class, creates block using name and volume, sets the description
+    *
     * @param n the name of the block
     * @param v the volume the block holds
     */
@@ -40,8 +43,8 @@ public class SmogBlock extends Block {
          while (num > 0) {
             int index = random.nextInt(planet.getCreatures().size());
             Creature c = planet.getCreatures().get(index);
-            if(c.getPopulation()>0){
-               c.addPopulation(-c.getPopulation()/3-random.nextInt(c.getPopulation()/2));
+            if (c.getPopulation() > 0) {
+               c.addPopulation(-c.getPopulation() / 3 - random.nextInt(c.getPopulation() / 2));
             }
             num--;
          }

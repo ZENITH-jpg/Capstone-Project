@@ -4,6 +4,7 @@ Tristan Cao
 Mr Guglielmi
 The maze minigame initiated when smog qte is clicked on
 */
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -12,6 +13,7 @@ import java.util.Random;
 
 /**
  * The maze minigame which requires you to recycle trash
+ *
  * @author Tristan C
  * @version 1.0
  */
@@ -71,6 +73,7 @@ public class MazeGame extends Minigame {
 
    /**
     * Constructor of the maze game, sets up assets
+    *
     * @param w the window the game is played on
     */
    public MazeGame(Window w) {
@@ -123,6 +126,7 @@ public class MazeGame extends Minigame {
 
    /**
     * Check if the game was won
+    *
     * @return if the game was won
     */
    @Override
@@ -142,9 +146,9 @@ public class MazeGame extends Minigame {
       }
       this.requestFocus(); // allow input
       dT = 0; // reset time
-      flag ++; // change screen
+      flag++; // change screen
       this.remove(context); // remove tooltip
-      while (dT < 30000 -game.miniComplete* 3500L && collected < 6) { // give 30 sec to solve maze
+      while (dT < 30000 - game.miniComplete * 3500L && collected < 6) { // give 30 sec to solve maze
          dT += System.currentTimeMillis() - tS; // same as prev
          tS = System.currentTimeMillis();
          repaint();
@@ -152,10 +156,10 @@ public class MazeGame extends Minigame {
       flag++; // change screen
       dT = 0;
       JTextArea end;
-      if(gameWon()){
-         end = Utils.messagePanel("Prevented climate catastrophe!\n\n" + Utils.climateTips[Window.getRandom().nextInt(4)], 200,300,400,200); // text box describing what happens based of win/loss
-      }else{
-         end = Utils.messagePanel("Smog grows and your creatures die out! Planet heats up faster.\n\n" + Utils.climateTips[Window.getRandom().nextInt(4)], 200,300,400,200);
+      if (gameWon()) {
+         end = Utils.messagePanel("Prevented climate catastrophe!\n\n" + Utils.climateTips[Window.getRandom().nextInt(4)], 200, 300, 400, 200); // text box describing what happens based of win/loss
+      } else {
+         end = Utils.messagePanel("Smog grows and your creatures die out! Planet heats up faster.\n\n" + Utils.climateTips[Window.getRandom().nextInt(4)], 200, 300, 400, 200);
       }
       this.add(end);
       repaint();
@@ -170,6 +174,7 @@ public class MazeGame extends Minigame {
 
    /**
     * The graphics of the Maze Game and choosing what to draw when
+    *
     * @param g the <code>Graphics</code> object to protect
     */
    @Override
@@ -195,24 +200,25 @@ public class MazeGame extends Minigame {
             }
             g.setColor(Color.white);
             g.setFont(Utils.MESSAGE_FONT);
-            g.drawString("TIME:  "+(30000-dT -game.miniComplete* 3500L)/1000+" sec",20,40); // draw maze game info
-            g.drawString("COLLECTED:   "+collected+" trash",20,80);
+            g.drawString("TIME:  " + (30000 - dT - game.miniComplete * 3500L) / 1000 + " sec", 20, 40); // draw maze game info
+            g.drawString("COLLECTED:   " + collected + " trash", 20, 80);
             break;
          default: // win or lose screen
             g.drawImage(messageBg, 0, 0, null); //bg
             g.setColor(Color.white);
-            if(collected == 6){ // if 6 trash collected, then it is a win, else, lose
+            if (collected == 6) { // if 6 trash collected, then it is a win, else, lose
                g.setFont(Utils.PIXEL.deriveFont(150f));
-               g.drawString("you  win",40,190);
-            }else{
+               g.drawString("you  win", 40, 190);
+            } else {
                g.setFont(Utils.PIXEL.deriveFont(130f));
-               g.drawString("you  lose",45,165);
+               g.drawString("you  lose", 45, 165);
             }
       }
    }
 
    /**
     * On a key typed
+    *
     * @param e the event to be processed
     */
    @Override
@@ -222,6 +228,7 @@ public class MazeGame extends Minigame {
 
    /**
     * On a key press, check if it is a movement key and try to move in that direction
+    *
     * @param e the event to be processed
     */
    @Override
@@ -259,6 +266,7 @@ public class MazeGame extends Minigame {
 
    /**
     * When key is released
+    *
     * @param e the event to be processed
     */
    @Override

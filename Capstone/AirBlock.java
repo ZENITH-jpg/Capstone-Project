@@ -7,12 +7,14 @@ Air block in the planet composition
 
 /**
  * Air block in the planet's composition, has information regarding the block and controls what happens on QTE events
+ *
  * @author Van N
  * @version 1.0
  */
 public class AirBlock extends Block {
    /**
     * Constructor for the class, creates block using name and volume, sets the description
+    *
     * @param n the name of the block
     * @param v the volume the block holds
     */

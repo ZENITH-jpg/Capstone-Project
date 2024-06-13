@@ -4,14 +4,17 @@ Van N
 Mr Guglielmi
 Rock block in the planet composition
 */
+
 /**
-Rock block in the planet's composition
-@author Van N
-@version 1.0
-*/
+ * Rock block in the planet's composition
+ *
+ * @author Van N
+ * @version 1.0
+ */
 public class RockBlock extends Block {
    /**
     * Constructor for the class, creates block using name and volume, sets the description
+    *
     * @param n the name of the block
     * @param v the volume the block holds
     */
@@ -26,10 +29,10 @@ public class RockBlock extends Block {
     */
    public void doQTE() {
       if (this.volume <= 2000) {
-         planet.addBlock(new RockBlock(this.getName(), 150+random.nextInt(200)));
+         planet.addBlock(new RockBlock(this.getName(), 150 + random.nextInt(200)));
       }
       if (this.volume > 2000) {
-         int num = 300+random.nextInt(200);
+         int num = 300 + random.nextInt(200);
          planet.addBlock(new SoilBlock("Soil", num));
          planet.addBlock(new RockBlock(this.getName(), -num));
          // remove the chance of rock qtes when there's too much soil
@@ -43,7 +46,7 @@ public class RockBlock extends Block {
     */
    public void doFailedQTE() {
       if (this.volume > 350) {
-         int num = 150+random.nextInt(100);
+         int num = 150 + random.nextInt(100);
          planet.addBlock(new LavaBlock("Lava", num));
          planet.addBlock(new RockBlock(this.getName(), -num));
          planet.addTemp(random.nextInt(10));

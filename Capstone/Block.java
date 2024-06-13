@@ -4,10 +4,12 @@ Van N
 Mr Guglielmi
 Block superclass for the block objects in the game
 */
+
 import java.util.Random;
 
 /**
  * The block superclass that makes the composition of the planet in the bottom left of the game
+ *
  * @author Van N
  * @version 1.0
  */
@@ -40,8 +42,10 @@ public abstract class Block {
     * String descriptor of the properties blocks have
     */
    protected String property; // every block has a property or ability
+
    /**
     * Constructor for block
+    *
     * @param n The name of the block
     * @param v The volume of the block
     */
@@ -49,10 +53,12 @@ public abstract class Block {
       this.name = n;
       this.volume = v;
    }
+
    /**
     * Chooses what happens when the QTE is clicked
     */
    public abstract void doQTE();
+
    /**
     * Chooses what happens when the QTE is ignored
     */
@@ -60,6 +66,7 @@ public abstract class Block {
 
    /**
     * Sets planet of blocks
+    *
     * @param p planet to refer to
     */
    public static void setPlanet(Planet p) { // sets static planet variable
@@ -68,6 +75,7 @@ public abstract class Block {
 
    /**
     * Sets the game panel for blocks
+    *
     * @param g the instance of the game panel
     */
    public static void setGame(GamePanel g) { // sets static game variable
@@ -76,6 +84,7 @@ public abstract class Block {
 
    /**
     * Gets the name of the block
+    *
     * @return the name of the block
     */
    public String getName() {
@@ -84,6 +93,7 @@ public abstract class Block {
 
    /**
     * Get the type of the block
+    *
     * @return the type of the block (smog, water, rock)
     */
    public String getType() {
@@ -92,6 +102,7 @@ public abstract class Block {
 
    /**
     * Get the properties of the block
+    *
     * @return the special properties of the block
     */
    public String getProperty() {
@@ -100,6 +111,7 @@ public abstract class Block {
 
    /**
     * Get the volume of the block
+    *
     * @return the volume of the block
     */
    public int getVolume() {
@@ -108,6 +120,7 @@ public abstract class Block {
 
    /**
     * Increase the amount of volume of the block
+    *
     * @param v the volume to be added to the block
     */
    public void addVolume(int v) {
@@ -116,6 +129,7 @@ public abstract class Block {
 
    /**
     * Set the volume of the block
+    *
     * @param v the volume to set the block to
     */
    public void setVolume(int v) {

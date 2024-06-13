@@ -4,12 +4,14 @@ Van N
 Mr Guglielmi
 Lava block in the planet composition
 */
+
 /**
  * The Lava block in the planet's composition. Controls what happens when QTEs are clicked or failed
  */
 public class LavaBlock extends Block {
    /**
     * Constructor for the class, creates block using name and volume, sets the description
+    *
     * @param n the name of the block
     * @param v the volume the block holds
     */
@@ -24,7 +26,7 @@ public class LavaBlock extends Block {
     */
    public void doQTE() {
       if (planet.getTemp() <= 250) {
-         planet.addTemp(10+random.nextInt(5));
+         planet.addTemp(10 + random.nextInt(5));
       }
    }
 
@@ -32,7 +34,7 @@ public class LavaBlock extends Block {
     * On QTE fail, raise the temperature of the planet a lot
     */
    public void doFailedQTE() {
-      planet.addTemp(25+random.nextInt(40));
-      this.volume += 40+random.nextInt(50);
+      planet.addTemp(25 + random.nextInt(40));
+      this.volume += 40 + random.nextInt(50);
    }
 }
