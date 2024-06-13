@@ -14,17 +14,40 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
- * Controls the data and the graphics of the leaderboard page
+ * The Instructions page, tells user what to do in the game and information about how the game works
  * @author Tristan C
  * @version 1.0
  */
 public class InstructionsPanel extends JPanel implements KeyListener {
+   /**
+    * The game window
+    */
    private Window window; //fields
+   /**
+    * Large Instructions header text
+    */
    private Image logo;
+   /**
+    * The background of the page
+    */
    private Image background; // images
-   private int page;
+   /**
+    * The page of the instructions
+    */
+   private int page; // the page of the instructions
+   /**
+    * The messages on each page
+    */
    private JTextArea[] messages;
+   /**
+    * The images on each page
+    */
    private Image[] images;
+
+   /**
+    * The setup needed for the instructions panel
+    * @param w the window of the game
+    */
    public InstructionsPanel(Window w){ //constructor
       window = w; // set up
       logo = new ImageIcon("assets/instructions.png").getImage();
@@ -34,7 +57,7 @@ public class InstructionsPanel extends JPanel implements KeyListener {
       this.addKeyListener(this);
       this.setBounds(0,0,800,600);
       this.setLayout(null);
-      messages = new JTextArea[5];
+      messages = new JTextArea[5]; // text for each page of the guide, telling user what to do
       messages[0] = Utils.messagePanel("In this game, you get to simulate a planet like our Earth! \n\nThe game ends when the " +
             "thermometer reaches the top, resulting in a planet too hot to live in, or when all the creatures die out. \n\nClicking on the " +
             "popup QTEs do special effects depending on the block. Missing them can lead to unwanted effects. Hover over the block in 'Planet Constitution' to see effects",300,150,400,330);
@@ -49,7 +72,7 @@ public class InstructionsPanel extends JPanel implements KeyListener {
             "smog have a modifier of -1. Each new species of creature give you an additional score modifier as well.",300,150,400,330);
       messages[4] = Utils.messagePanel("Minigames have instructions on how to play them. Complete the tasks within the " +
             "required time limit. As you complete more minigames, the time limit decreases.",300,150,400,330);
-      images = new Image[13];
+      images = new Image[13]; // image assets to be displayed on each page
       images[0] = new ImageIcon("assets/thermometer.png").getImage();
       images[1] = new ImageIcon("assets/QTE.png").getImage();
       images[2] = new ImageIcon("assets/rock.png").getImage().getScaledInstance(50,50,Image.SCALE_DEFAULT);
@@ -68,13 +91,17 @@ public class InstructionsPanel extends JPanel implements KeyListener {
       page = 0;
       for (int i = 0; i < messages.length; i++) {
          this.add(messages[i]);
-         messages[i].setVisible(false);
+         messages[i].setVisible(false); // hide elements for now
       }
       messages[0].setVisible(true);
       JTextArea message = Utils.messagePanel("Press 'B' to return to menu, left, right arrow and A D keys to flip through instructions",50,490,700,70); // and context box
       this.add(message);
    }
 
+   /**
+    * The graphics of the instructions page, just images and page number
+    * @param g the <code>Graphics</code> object to protect
+    */
    @Override
    public void paintComponent(Graphics g){ //screen
       Graphics2D g2d = (Graphics2D)g;
@@ -83,9 +110,9 @@ public class InstructionsPanel extends JPanel implements KeyListener {
       }
       g2d.drawImage(background,0,0,null); //bg
       g2d.drawImage(logo,108,40,null); //top text
-      switch (page){
+      switch (page){ // check the page
          case 0:
-            g2d.drawImage(images[0],110,130,null);
+            g2d.drawImage(images[0],110,130,null); // display images for page
             g2d.drawImage(images[1],75,290,null);
             break;
          case 1:
@@ -109,7 +136,7 @@ public class InstructionsPanel extends JPanel implements KeyListener {
       }
       g2d.setFont(Utils.MESSAGE_FONT);
       g2d.setColor(Color.black);
-      g2d.drawString((page+1)+"/5",720,450);
+      g2d.drawString((page+1)+"/5",720,450); // draw the page number
    }
 
    /**
@@ -122,7 +149,7 @@ public class InstructionsPanel extends JPanel implements KeyListener {
    }
 
    /**
-    * Key listener when the key is pressed
+    * Key listener when the key is pressed, controls page turning
     * @param e the event to be processed
     */
    @Override
@@ -130,20 +157,20 @@ public class InstructionsPanel extends JPanel implements KeyListener {
       if(e.getKeyCode() == KeyEvent.VK_B){
          window.returnMenu();
       }
-      else if(e.getKeyCode() == KeyEvent.VK_RIGHT|| e.getKeyCode() == KeyEvent.VK_D){
-         if(page+1<5){
-            page++;
-            messages[page-1].setVisible(false);
-            messages[page].setVisible(true);
-            repaint();
+      else if(e.getKeyCode() == KeyEvent.VK_RIGHT|| e.getKeyCode() == KeyEvent.VK_D){ // turn page
+         if(page+1<5){ // check if next page is valid
+            page++; //turn
+            messages[page-1].setVisible(false); // remove the text from last page
+            messages[page].setVisible(true); // add new page text
+            repaint(); // update
          }
       }
-      else if(e.getKeyCode() == KeyEvent.VK_LEFT|| e.getKeyCode() == KeyEvent.VK_A){
-         if(page>0){
-            page--;
-            messages[page+1].setVisible(false);
-            messages[page].setVisible(true);
-            repaint();
+      else if(e.getKeyCode() == KeyEvent.VK_LEFT|| e.getKeyCode() == KeyEvent.VK_A){ // go to previous
+         if(page>0){ // check if page valid
+            page--; //turn
+            messages[page+1].setVisible(false); // remove next page
+            messages[page].setVisible(true); // show previous
+            repaint(); // update
          }
       }
    }

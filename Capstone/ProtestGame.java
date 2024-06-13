@@ -76,7 +76,7 @@ public class ProtestGame extends Minigame {
         dT = 0;
         JTextArea end;
         if(gameWon()){
-            end = Utils.messagePanel("Prevented climate catastrophe!\n\n" + Utils.climateTips[Window.getRandom().nextInt(4)], 200,300,400,200);
+            end = Utils.messagePanel("Prevented climate catastrophe!\n\n" + Utils.climateTips[Window.getRandom().nextInt(4)], 200,300,400,200); // text box describing what happens based of win/loss
         }else{
             end = Utils.messagePanel("Smog grows and your creatures die out! Planet heats up faster.\n\n" + Utils.climateTips[Window.getRandom().nextInt(4)], 200,300,400,200);
         }
