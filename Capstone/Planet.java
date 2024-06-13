@@ -15,8 +15,8 @@ import java.util.Random;
  * @version 1.0
  */
 public class Planet {
-   static Random random = new Random();
-   static GamePanel game;
+   private static Random random = new Random();
+   private static GamePanel game;
    private ArrayList<Block> blocks;
    private ArrayList<Creature> creatures;
    public static int maxCreatures = 8;

@@ -17,11 +17,26 @@ import java.awt.*;
  * @version 1.0
  */
 public class ObjectivePanel extends JPanel {
-   static Random random = new Random();
-   ArrayList<Objective> objectives = new ArrayList<Objective>();
-   GamePanel game;
-   Planet planet;
-   JTextArea objLabel;
+   /**
+    * Random instance for rewards
+    */
+   private static Random random = new Random();
+   /**
+    * The list of objectives
+    */
+   private ArrayList<Objective> objectives = new ArrayList<Objective>();
+   /**
+    * The game instance being run
+    */
+   private GamePanel game;
+   /**
+    * The planet
+    */
+   private Planet planet;
+   /**
+    * The text of the objectives
+    */
+   private JTextArea objLabel;
 
    /**
     * Constructor, creates initial objectives

@@ -100,6 +100,11 @@ public class LeaderboardPanel extends JPanel implements KeyListener {
       this.add(message);
    }
 
+   /**
+    * Add a player to the leaderboard file
+    * @param name the name of the player
+    * @param score the score the player got
+    */
    public void addPlayer(String name, int score) {
       Player p = new Player(name, score);
       players.add(p);
